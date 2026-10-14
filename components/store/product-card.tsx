@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Plus } from "lucide-react";
+import { Heart, Plus, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import type { Product } from "@/lib/catalog";
 import { categoryById } from "@/lib/catalog";
@@ -17,6 +17,7 @@ export function ProductCard({ product }: { product: Product }) {
   const add = useCommerceStore((s) => s.addToCart);
   const saved = ready && wishlist.includes(product.id);
   const category = categoryById(product.category);
+  const requiresOptions = !!product.variants?.length;
   return <article className="group relative overflow-hidden rounded-[18px] border border-border bg-white card-lift">
     <Link href={`/product/${product.slug}`} className="relative block aspect-[1.03] overflow-hidden" style={{ background: product.accent }} aria-label={`View ${product.title}`}>
       <Image src={product.image} alt={product.title} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className="object-contain p-4 transition-transform duration-500 group-hover:scale-105" />
@@ -29,7 +30,8 @@ export function ProductCard({ product }: { product: Product }) {
       <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[.12em] text-[#8490a7]">{category?.label}</p>
       <Link href={`/product/${product.slug}`} className="line-clamp-2 min-h-[42px] text-[13px] font-bold leading-[1.6] text-ink hover:text-primary sm:text-sm">{product.title}</Link>
       <div className="mt-2"><ProductPrice product={product}/></div>
-      <button type="button" onClick={() => { add(product.id); toast.success("Added to your cart"); }} className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white"><Plus size={17}/> Add to cart</button>
+      {requiresOptions ? <Link href={`/product/${product.slug}`} className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white">Choose options <ArrowRight size={16}/></Link>
+        : <button type="button" disabled={product.stock <= 0} onClick={() => { add(product.id); toast.success("Added to your cart"); }} className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white disabled:opacity-40"><Plus size={17}/> Add to cart</button>}
     </div>
   </article>;
 }

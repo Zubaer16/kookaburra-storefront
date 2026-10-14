@@ -1,0 +1,106 @@
+{
+  "patch": "02",
+  "basedOn": "kookaburra-storefront-full-20261014-190224.zip",
+  "extractAt": "repository-root",
+  "newFiles": 9,
+  "modifiedFiles": 7,
+  "totalFiles": 16,
+  "new": [
+    "app/categories/page.tsx",
+    "components/store/category-tile.tsx",
+    "components/store/collection-tabs.tsx",
+    "docs/PATCH_02_NOTES.md",
+    "public/products/bottle.svg",
+    "public/products/loafers.svg",
+    "public/products/tshirt.svg",
+    "scripts/verify-patch02.mjs",
+    "PATCH_02_MANIFEST.json"
+  ],
+  "modified": [
+    "app/globals.css",
+    "app/page.tsx",
+    "components/layout/footer.tsx",
+    "components/layout/header.tsx",
+    "components/store/shop-client.tsx",
+    "docs/FLUTTER_PARITY.md",
+    "lib/catalog.ts"
+  ],
+  "changes": [
+    {
+      "path": "app/categories/page.tsx",
+      "status": "new",
+      "sha256": "7f8413295b2ab194f002d58ed8f125dc68a9458bdd561557e7dacc009094893a"
+    },
+    {
+      "path": "app/globals.css",
+      "status": "modified",
+      "sha256": "042355a2c52f578c10a2c9b1aef1ca57e345ec89bd8caff5d67de83ff82a9708"
+    },
+    {
+      "path": "app/page.tsx",
+      "status": "modified",
+      "sha256": "efea64d6e119540cadd5e5c225a89dff260acc31fb1ae4fd61311b383d5d7922"
+    },
+    {
+      "path": "components/layout/footer.tsx",
+      "status": "modified",
+      "sha256": "045575e221f14570090f4ab4c4e5a51787288822f8071a89e003c361b7bf8f6c"
+    },
+    {
+      "path": "components/layout/header.tsx",
+      "status": "modified",
+      "sha256": "7d1754de4004a943dd2f088f63e7c6e98b442d88ef3d4abe133a6577240b0c15"
+    },
+    {
+      "path": "components/store/category-tile.tsx",
+      "status": "new",
+      "sha256": "de8f51d5be973de37c357d2d41b0768019d340afb1ff728bfcc38fd5a65d00c1"
+    },
+    {
+      "path": "components/store/collection-tabs.tsx",
+      "status": "new",
+      "sha256": "3ac33107ecf1f950711632575c3ee3fe3bae4ad97925a5deb6475ae5d7ac8f5c"
+    },
+    {
+      "path": "components/store/shop-client.tsx",
+      "status": "modified",
+      "sha256": "6ff29bafd4225b81fdcfa24db369bd94de423bb80f473ef3e1ab7d98c81a29cf"
+    },
+    {
+      "path": "docs/FLUTTER_PARITY.md",
+      "status": "modified",
+      "sha256": "dc9d83f9eebdd7296f7498bdcafbdb31ca763e798375c80d9643c98911faf8b5"
+    },
+    {
+      "path": "docs/PATCH_02_NOTES.md",
+      "status": "new",
+      "sha256": "3318650b80bac295687a60ef3d09f288b7092da8b7ddf3e7b06ba1e544a8beef"
+    },
+    {
+      "path": "lib/catalog.ts",
+      "status": "modified",
+      "sha256": "5db2eed4fe74e95be1c13b1c571aaeb056831eb20b6e1528f5b827153b7b144c"
+    },
+    {
+      "path": "public/products/bottle.svg",
+      "status": "new",
+      "sha256": "1d6f283b33478d3fe522d1998a44135ff3825917bdb09f8e8d729af51d0caa4c"
+    },
+    {
+      "path": "public/products/loafers.svg",
+      "status": "new",
+      "sha256": "48aab6af96c7a59ca481ab427afcb85d981da8a32ba7a568462e3c988cf9e42e"
+    },
+    {
+      "path": "public/products/tshirt.svg",
+      "status": "new",
+      "sha256": "2f9cf38a5c8c5833a93e595a49d2ee57f2758b217c5c58a7aa15ca8c7296ab96"
+    },
+    {
+      "path": "scripts/verify-patch02.mjs",
+      "status": "new",
+      "sha256": "d69209a630fe3a03f0c2966dcdece2aef7ef4615e0775102d6c9866396e7f26b"
+    }
+  ],
+  "note": "No dependencies changed; no npm install required when Patch 01 + Fix 01 installed."
+}

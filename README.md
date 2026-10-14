@@ -63,3 +63,23 @@ scripts/                Offline structural verification
 ```
 
 Next patch can deepen real production-ready catalog UX, variants, category trees and API client groundwork without changing design foundations.
+
+
+## Patch 03 — Product options and variant-aware cart
+
+The storefront now has a selectable T-shirt / sneaker / loafer size-and-color matrix,
+illustrated product gallery, variant-aware persistent cart, wishlist management and
+shareable shop filters. Product data and totals remain **preview-only fixtures**;
+checkout intentionally cannot process orders. See `docs/PATCH_03_NOTES.md` and
+`docs/FLUTTER_PARITY.md` for implementation notes and mobile parity.
+
+After extracting Patch 03 at the repository root, run:
+
+```powershell
+node scripts/verify-patch03.mjs
+npm run check
+npm audit --omit=dev
+npm run dev
+```
+
+No dependency changes or `npm install` required after a working Patch 02.

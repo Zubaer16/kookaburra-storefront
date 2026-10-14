@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Illustrated t-shirt collar and cotton weave closeup">
+ <defs><linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9e7d3"/><stop offset="1" stop-color="#cca58b"/></linearGradient><pattern id="threads" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 10H20M10 0V20" stroke="#9f7d62" stroke-width=".8" opacity=".24"/></pattern></defs>
+ <rect width="640" height="640" fill="#fbf5ed"/><rect x="60" y="60" width="520" height="520" rx="28" fill="url(#cloth)"/>
+ <path d="M54 233L188 155Q263 119 323 172Q378 121 445 154L586 236L566 581H71Z" fill="#e7c5aa" stroke="#c1987e" stroke-width="9"/><path d="M54 233L188 155Q263 119 323 172Q378 121 445 154L586 236L566 581H71Z" fill="url(#threads)"/>
+ <path d="M221 146Q309 315 430 147" stroke="#a97d66" stroke-width="29" fill="none" stroke-linecap="round"/><path d="M223 145Q314 275 428 149" stroke="#fbe8d8" stroke-width="17" fill="none" stroke-linecap="round"/><path d="M133 337Q337 297 537 337" stroke="#aa866e" opacity=".25" stroke-width="6" fill="none"/>
+ <rect x="50" y="519" width="185" height="47" rx="23" fill="#fff" opacity=".94"/><text x="142" y="547" text-anchor="middle" fill="#775741" font-family="Arial,sans-serif" font-weight="700" font-size="16">FABRIC DETAIL</text>
+</svg>

@@ -1,0 +1,138 @@
+{
+  "project": "kookaburra-storefront",
+  "patch": "03",
+  "type": "root-overlay",
+  "based_on": "kookaburra-storefront-full-20261014-193351.zip",
+  "new_files": 9,
+  "modified_files": 13,
+  "total_files": 22,
+  "requires": [
+    "Patch 01",
+    "Fix 01",
+    "Patch 02"
+  ],
+  "no_dependency_changes": true,
+  "summary": [
+    "Product variant matrix",
+    "Accessible product gallery",
+    "Variant-aware cart and wishlist",
+    "Shareable shop filters",
+    "Flutter parity notes"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "status": "modified",
+      "sha256": "ffc56558933a1d3da40d1cbfff0444fdb952ea3c58703a10537a342270c8e95f"
+    },
+    {
+      "path": "app/cart/page.tsx",
+      "status": "modified",
+      "sha256": "797d21922627240e9f20a772599c1bb067b424a82f76d197422bfd6d730b25fb"
+    },
+    {
+      "path": "app/shop/page.tsx",
+      "status": "modified",
+      "sha256": "2e258f56cc5660b25da163e48ffc82e86531ddf5fcce189b3dab91d7830985f0"
+    },
+    {
+      "path": "app/wishlist/page.tsx",
+      "status": "modified",
+      "sha256": "8e183a995a273f359834eb558f2189fdbb4bba52c625ec588cd67d77a08c6074"
+    },
+    {
+      "path": "components/layout/footer.tsx",
+      "status": "modified",
+      "sha256": "3229f46c367f9129badb3566d416d8874b26539dd58b0e7bb421096746b33697"
+    },
+    {
+      "path": "components/store/cart-drawer.tsx",
+      "status": "modified",
+      "sha256": "e6dfc64eb7ba863c3e4a9801ea53de6422d4358c6f8974201b344b8e0a24a432"
+    },
+    {
+      "path": "components/store/cart-line.tsx",
+      "status": "new",
+      "sha256": "62c4b087bbc2b06a0eca3eaedc2acb4f4c1cfb2070e8b78210af453ecfb66c3e"
+    },
+    {
+      "path": "components/store/collection-tabs.tsx",
+      "status": "modified",
+      "sha256": "bb52781b088c5baf253fe2cb292676d1f9282f1f1ec5f69ecb7f8a32297400ec"
+    },
+    {
+      "path": "components/store/product-card.tsx",
+      "status": "modified",
+      "sha256": "895dc9f7d6ae81044fd5c6d115c21e85c4c554a7a213e2a8d06f08fd53369d12"
+    },
+    {
+      "path": "components/store/product-details.tsx",
+      "status": "modified",
+      "sha256": "ccde4c7d6a7e6f75219de3b86b5d782f1fdfe5974350b20b58f5bff1c629fd52"
+    },
+    {
+      "path": "components/store/product-gallery.tsx",
+      "status": "new",
+      "sha256": "fcf4ba5480ea6f2e32111b2e485a0d744c4bafbb412c92758cc92b4df20e58c3"
+    },
+    {
+      "path": "components/store/product-options.tsx",
+      "status": "new",
+      "sha256": "b4ca76fcc1ff94ef36df7ed885d8629cc417616fb055e65c1fd0a77470f91546"
+    },
+    {
+      "path": "components/store/shop-client.tsx",
+      "status": "modified",
+      "sha256": "e01654a78fb44764210af88562262ad0331bb37bf76da0930f445c46c5cd5649"
+    },
+    {
+      "path": "docs/FLUTTER_PARITY.md",
+      "status": "modified",
+      "sha256": "14bfcdcb6bc71968ff52d9202b753d38b799c151e076cb54410f02f443a15e0e"
+    },
+    {
+      "path": "docs/PATCH_03_NOTES.md",
+      "status": "new",
+      "sha256": "f3b05496f999bb52a81b6eda154d46741e91fc7af36561571227a0fa5f64a088"
+    },
+    {
+      "path": "lib/catalog.ts",
+      "status": "modified",
+      "sha256": "acd81c7432af8a0a328ce0f158cb6843e62f39029e237499f198622f0e96428a"
+    },
+    {
+      "path": "public/products/loafers-detail.svg",
+      "status": "new",
+      "sha256": "bd63a600ec31ce4f05b27aa355aa360de4bc51ec84871821267d69cf53f901a1"
+    },
+    {
+      "path": "public/products/sneaker-detail.svg",
+      "status": "new",
+      "sha256": "992229aafa93cc809c945f22e7ead693a8670fd2eaba21f48dccac11a63e96ad"
+    },
+    {
+      "path": "public/products/tshirt-detail.svg",
+      "status": "new",
+      "sha256": "55f671cdfce5928a8df6fbb8337a56484aa36e0c0404f2ee5fe8adf4e23d952d"
+    },
+    {
+      "path": "scripts/verify-patch03.mjs",
+      "status": "new",
+      "sha256": "9e7f5b60d889353562dc0639d0120205f9a9da036e4ec3d11dc6963f76dcfbef"
+    },
+    {
+      "path": "stores/commerce-store.ts",
+      "status": "modified",
+      "sha256": "c00821f2317e7d602723dcec213745aa665c9b5413b993819133dc583fd675cd"
+    },
+    {
+      "path": "PATCH_03_MANIFEST.json",
+      "status": "new",
+      "sha256": "self; excluded"
+    }
+  ],
+  "verification": {
+    "code": "Syntax, imports, fixture-data and simulated store actions checked offline",
+    "production_build": "NOT RUN: npm dependencies unavailable in build container"
+  }
+}

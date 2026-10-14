@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Illustration of a cotton crew-neck t-shirt">
+<defs><linearGradient id="fabric" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7dec9"/><stop offset=".55" stop-color="#dab695"/><stop offset="1" stop-color="#cfa080"/></linearGradient><linearGradient id="shadow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#956d5b" stop-opacity=".35"/><stop offset="1" stop-color="#956d5b" stop-opacity="0"/></linearGradient></defs>
+<ellipse cx="320" cy="527" rx="193" ry="27" fill="#85664f" opacity=".12"/>
+<path d="M222 127 154 151 77 282 179 340 205 288 211 493 429 493 435 288 461 340 563 282 486 151 418 127 365 149 321 166 273 148Z" fill="url(#fabric)" stroke="#b58f76" stroke-width="8" stroke-linejoin="round"/>
+<path d="M273 148 Q317 222 365 149" fill="none" stroke="#aa7967" stroke-width="9"/>
+<path d="M273 148 Q322 208 365 149" fill="none" stroke="#f7e4d5" stroke-width="14"/>
+<path d="M204 289 183 327 M437 289 456 328" stroke="#a97f6d" stroke-width="7" opacity=".45"/>
+<path d="M222 151 Q235 253 230 458 M411 151 Q397 248 408 460" stroke="url(#shadow)" stroke-width="19" fill="none"/>
+<path d="M216 477 Q319 485 424 477" fill="none" stroke="#b28d73" stroke-width="6" opacity=".55"/>
+<path d="M283 273 Q322 289 357 275" fill="none" stroke="#b58c77" stroke-width="3" opacity=".25"/>
+</svg>
