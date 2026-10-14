@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Illustration of headphones">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#DCE5F6"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+ <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <linearGradient id="dark" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#46516c"/><stop offset="1" stop-color="#151b2d"/></linearGradient>
+ <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#d8e0ea"/><stop offset="1" stop-color="#a6b4c7"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+ </defs>
+ <rect width="640" height="640" fill="url(#bg)"/>
+ <circle cx="499" cy="128" r="180" fill="#fff" opacity=".28"/>
+ <path d="M-50 522 Q250 460 700 550 L700 700H-50" fill="#fff" opacity=".18"/>
+ <ellipse cx="330" cy="515" rx="175" ry="28" fill="#334158" opacity=".13" filter="url(#shadow)"/>
+ <g transform="rotate(-11 320 340)">
+<path d="M208 351 V290 C208 128 432 126 432 295 V345" fill="none" stroke="#222b41" stroke-width="75" stroke-linecap="round"/>
+<path d="M208 291 C211 157 425 158 432 290" fill="none" stroke="#59657d" stroke-width="42" stroke-linecap="round"/>
+<path d="M211 299C222 153 410 169 421 296" fill="none" stroke="#b0bbc9" stroke-opacity=".55" stroke-width="11" stroke-linecap="round"/>
+<rect x="162" y="312" width="104" height="176" rx="49" fill="#2c3850"/><rect x="178" y="333" width="64" height="135" rx="32" fill="#49566d"/><rect x="194" y="348" width="34" height="107" rx="17" fill="#1a2335"/>
+<rect x="373" y="312" width="104" height="176" rx="49" fill="#1e283c"/><rect x="396" y="334" width="65" height="136" rx="33" fill="#505d73"/><rect x="417" y="348" width="28" height="105" rx="14" fill="#1b2538"/>
+<path d="M181 348Q185 320 217 321" fill="none" stroke="#9aa8c0" stroke-width="6" opacity=".55"/>
+</g>
+ </svg>

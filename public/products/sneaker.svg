@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Illustration of sneaker">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F3EDE8"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+ <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <linearGradient id="dark" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#46516c"/><stop offset="1" stop-color="#151b2d"/></linearGradient>
+ <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#d8e0ea"/><stop offset="1" stop-color="#a6b4c7"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+ </defs>
+ <rect width="640" height="640" fill="url(#bg)"/>
+ <circle cx="499" cy="128" r="180" fill="#fff" opacity=".28"/>
+ <path d="M-50 522 Q250 460 700 550 L700 700H-50" fill="#fff" opacity=".18"/>
+ <ellipse cx="330" cy="515" rx="175" ry="28" fill="#334158" opacity=".13" filter="url(#shadow)"/>
+ <g transform="rotate(-8 320 348)">
+<path d="M102 386Q155 364 177 305L234 268Q289 296 309 343Q346 365 429 358Q492 361 534 418Q556 450 523 474L153 482Q93 467 87 431Z" fill="#F7F8F9" stroke="#CFD4DB" stroke-width="10"/>
+<path d="M112 412Q160 397 196 335L233 302Q278 335 299 363Q366 394 454 388Q492 389 518 423L103 443Z" fill="#E4E8EB"/>
+<path d="M208 340L282 380M197 362L263 397M186 383L238 414" stroke="#9DA8B8" stroke-width="12" stroke-linecap="round"/>
+<path d="M92 446Q280 474 535 438V471Q319 505 138 486Q105 482 92 446Z" fill="#FFFFFF" stroke="#CBD1D8" stroke-width="7"/>
+<path d="M358 390Q409 392 459 404" stroke="#2459E8" stroke-width="14" stroke-linecap="round"/>
+</g>
+ </svg>

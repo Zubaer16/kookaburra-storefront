@@ -1,0 +1,27 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "version": "1.0.0",
+  "project": "Kookaburra v2 (Web + Flutter)",
+  "color": {
+    "primary": "#2459E8",
+    "primaryHover": "#1649D3",
+    "ink": "#152039",
+    "muted": "#68758C",
+    "surface": "#FFFFFF",
+    "canvas": "#F7F9FC",
+    "softBlue": "#EFF4FF",
+    "accent": "#FFCB6C",
+    "border": "#E5EAF2",
+    "success": "#12815B",
+    "danger": "#DC4146"
+  },
+  "radius": { "sm": 8, "md": 12, "lg": 18, "xl": 26 },
+  "spacing": { "unit": 4, "sectionDesktop": 72, "sectionMobile": 44 },
+  "layout": { "maxWidth": 1240, "desktopColumns": 12, "mobileColumns": 4 },
+  "typography": {
+    "latin": "Inter, system-ui, sans-serif",
+    "bengali": "Noto Sans Bengali, system-ui, sans-serif",
+    "scale": [12, 14, 16, 18, 22, 28, 36, 48]
+  },
+  "note": "Single source of truth for visual matching; Flutter must map these tokens to ThemeData. React component code is not portable to Flutter."
+}

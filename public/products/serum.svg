@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Illustration of serum">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F8E8ED"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+ <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <linearGradient id="dark" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#46516c"/><stop offset="1" stop-color="#151b2d"/></linearGradient>
+ <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#d8e0ea"/><stop offset="1" stop-color="#a6b4c7"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+ </defs>
+ <rect width="640" height="640" fill="url(#bg)"/>
+ <circle cx="499" cy="128" r="180" fill="#fff" opacity=".28"/>
+ <path d="M-50 522 Q250 460 700 550 L700 700H-50" fill="#fff" opacity=".18"/>
+ <ellipse cx="330" cy="515" rx="175" ry="28" fill="#334158" opacity=".13" filter="url(#shadow)"/>
+ <rect x="245" y="122" width="148" height="90" rx="14" fill="#ECE2D9"/>
+<rect x="259" y="104" width="120" height="49" rx="10" fill="#D0C4B7"/>
+<rect x="269" y="68" width="102" height="60" rx="22" fill="#F9F8F6"/><rect x="275" y="68" width="90" height="15" rx="6" fill="#EDE9E6"/>
+<rect x="200" y="193" width="237" height="326" rx="47" fill="#F0C9D0" stroke="#E2B6BE" stroke-width="10"/>
+<path d="M225 241 Q322 224 413 244V446Q314 469 225 443Z" fill="#FFF3ED" opacity=".44"/>
+<rect x="225" y="308" width="188" height="137" rx="8" fill="#FFFDFB"/>
+<text x="319" y="345" font-family="Arial,sans-serif" font-size="17" text-anchor="middle" fill="#765B63" letter-spacing="5">DEW</text>
+<text x="319" y="381" font-family="Arial,sans-serif" font-size="26" text-anchor="middle" fill="#805F66" font-weight="700">HYDRATE</text>
+<text x="319" y="406" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#B38D94" letter-spacing="3">FACE SERUM</text>
+ </svg>

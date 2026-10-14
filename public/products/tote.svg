@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Illustration of tote">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F6E8DD"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+ <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <linearGradient id="dark" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#46516c"/><stop offset="1" stop-color="#151b2d"/></linearGradient>
+ <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#d8e0ea"/><stop offset="1" stop-color="#a6b4c7"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+ </defs>
+ <rect width="640" height="640" fill="url(#bg)"/>
+ <circle cx="499" cy="128" r="180" fill="#fff" opacity=".28"/>
+ <path d="M-50 522 Q250 460 700 550 L700 700H-50" fill="#fff" opacity=".18"/>
+ <ellipse cx="330" cy="515" rx="175" ry="28" fill="#334158" opacity=".13" filter="url(#shadow)"/>
+ <path d="M215 245C212 165 250 126 319 126S423 165 420 245" fill="none" stroke="#A87751" stroke-width="24" stroke-linecap="round"/>
+<path d="M170 228L470 228L500 505Q322 551 140 505Z" fill="#BC8C66"/>
+<path d="M185 244L457 244L479 486Q328 527 161 486Z" fill="#D5AC84"/>
+<path d="M203 260L449 260L462 466Q331 486 177 467Z" fill="url(#gloss)" opacity=".15"/>
+<path d="M242 240C235 176 269 149 318 149S404 179 395 240" fill="none" stroke="#E3BF9F" stroke-width="20" stroke-linecap="round"/>
+<rect x="267" y="334" width="103" height="90" rx="8" fill="#EAD1B7" opacity=".55"/>
+<path d="M291 367H346M291 383H340" stroke="#A87751" stroke-width="5" opacity=".55"/>
+ </svg>

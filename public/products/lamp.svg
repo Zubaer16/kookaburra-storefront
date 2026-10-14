@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Illustration of lamp">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF2DE"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+ <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <linearGradient id="dark" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#46516c"/><stop offset="1" stop-color="#151b2d"/></linearGradient>
+ <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#d8e0ea"/><stop offset="1" stop-color="#a6b4c7"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+ </defs>
+ <rect width="640" height="640" fill="url(#bg)"/>
+ <circle cx="499" cy="128" r="180" fill="#fff" opacity=".28"/>
+ <path d="M-50 522 Q250 460 700 550 L700 700H-50" fill="#fff" opacity=".18"/>
+ <ellipse cx="330" cy="515" rx="175" ry="28" fill="#334158" opacity=".13" filter="url(#shadow)"/>
+ <ellipse cx="321" cy="490" rx="140" ry="24" fill="#CBAE80" opacity=".26"/>
+<path d="M299 264L320 264L331 477H287Z" fill="#C9A16C"/><path d="M248 473Q319 455 387 473L406 497Q320 512 231 497Z" fill="#B28855"/>
+<path d="M205 274Q191 186 229 151Q262 109 317 109Q388 109 418 162Q443 206 427 274Z" fill="#F6E9CB" stroke="#E5CCA1" stroke-width="11"/>
+<path d="M222 258H410L386 280H245Z" fill="#D8BE92"/>
+<path d="M255 152Q322 126 383 166" fill="none" stroke="#FFFFFF" opacity=".65" stroke-width="18"/>
+<circle cx="320" cy="284" r="9" fill="#D4B485"/>
+ </svg>
