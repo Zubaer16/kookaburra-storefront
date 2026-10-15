@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -21,28 +21,107 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-canvas: var(--canvas);
-  --font-sans: var(--font-inter), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    var(--font-inter), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: white; color: var(--ink); font-family: Inter, "Noto Sans Bengali", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
-button, input, select { font: inherit; }
-button { touch-action: manipulation; }
-::selection { background: #cbd8ff; color: #122449; }
-.container-shell { width: min(100% - 32px, 1240px); margin-inline: auto; }
-@media (min-width: 768px) { .container-shell { width: min(100% - 64px, 1240px); } }
-@media (min-width: 1280px) { .container-shell { width: min(100% - 80px, 1240px); } }
-.section-heading { font-size: clamp(1.45rem, 2vw, 2rem); line-height: 1.23; font-weight: 800; letter-spacing: -.04em; }
-.image-surface { background: linear-gradient(145deg, #f4f7fb 0%, #edf1f8 100%); }
-.card-lift { transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
-.card-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 45px rgba(36,55,100,.09); border-color: #d5def0; }
-@keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: white;
+  color: var(--ink);
+  font-family:
+    Inter,
+    'Noto Sans Bengali',
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  touch-action: manipulation;
+}
+::selection {
+  background: #cbd8ff;
+  color: #122449;
+}
+.container-shell {
+  width: min(100% - 32px, 1240px);
+  margin-inline: auto;
+}
+@media (min-width: 768px) {
+  .container-shell {
+    width: min(100% - 64px, 1240px);
+  }
+}
+@media (min-width: 1280px) {
+  .container-shell {
+    width: min(100% - 80px, 1240px);
+  }
+}
+.section-heading {
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  line-height: 1.23;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+.image-surface {
+  background: linear-gradient(145deg, #f4f7fb 0%, #edf1f8 100%);
+}
+.card-lift {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(36, 55, 100, 0.09);
+  border-color: #d5def0;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Patch 02: touch-friendly collections and category navigation */
-a, button, input, select { -webkit-tap-highlight-color: transparent; }
-a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
-[role="tablist"] { scrollbar-width: thin; }
+a,
+button,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+[role='tablist'] {
+  scrollbar-width: thin;
+}
