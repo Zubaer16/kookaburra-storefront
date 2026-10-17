@@ -9,8 +9,14 @@ import { categoryById } from '@/lib/catalog'
 import { ProductPrice } from '@/components/store/price'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { useDisplayLocale } from '@/hooks/use-display-locale'
+import { useFinishCopy } from '@/hooks/use-finish-copy'
+import { productText } from '@/lib/fixture-localization'
 
 export function ProductCard({ product }: { product: Product }) {
+  const locale = useDisplayLocale()
+  const t = useFinishCopy()
+  const display = productText(product, locale)
   const ready = useStoreReady()
   const wishlist = useCommerceStore((s) => s.wishlist)
   const toggleWishlist = useCommerceStore((s) => s.toggleWishlist)
@@ -24,11 +30,11 @@ export function ProductCard({ product }: { product: Product }) {
         href={`/product/${product.slug}`}
         className="relative block aspect-[1.03] overflow-hidden"
         style={{ background: product.accent }}
-        aria-label={`View ${product.title}`}
+        aria-label={`${t.viewProduct}: ${display.title}`}
       >
         <Image
           src={product.image}
-          alt={product.title}
+          alt={display.title}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
@@ -43,13 +49,13 @@ export function ProductCard({ product }: { product: Product }) {
         type="button"
         aria-label={
           saved
-            ? `Remove ${product.title} from wishlist`
-            : `Save ${product.title} to wishlist`
+            ? `${t.removeWish}: ${display.title}`
+            : `${t.saveWish}: ${display.title}`
         }
         aria-pressed={saved}
         onClick={() => {
           toggleWishlist(product.id)
-          toast.success(saved ? 'Removed from wishlist' : 'Saved to wishlist')
+          toast.success(saved ? t.removeWish : t.saveWish)
         }}
         className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-white/95 text-[#68758c] shadow-sm transition hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
       >
@@ -61,13 +67,13 @@ export function ProductCard({ product }: { product: Product }) {
       </button>
       <div className="px-3.5 pb-4 pt-3 sm:px-4 sm:pb-5">
         <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[.12em] text-[#8490a7]">
-          {category?.label}
+          {locale === 'bn' ? category?.bn : category?.label}
         </p>
         <Link
           href={`/product/${product.slug}`}
           className="line-clamp-2 min-h-[42px] text-[13px] font-bold leading-[1.6] text-ink hover:text-primary sm:text-sm"
         >
-          {product.title}
+          {display.title}
         </Link>
         <div className="mt-2">
           <ProductPrice product={product} />
@@ -77,7 +83,7 @@ export function ProductCard({ product }: { product: Product }) {
             href={`/product/${product.slug}`}
             className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white"
           >
-            Choose options <ArrowRight size={16} />
+            {t.chooseOptions} <ArrowRight size={16} />
           </Link>
         ) : (
           <button
@@ -85,11 +91,11 @@ export function ProductCard({ product }: { product: Product }) {
             disabled={product.stock <= 0}
             onClick={() => {
               add(product.id)
-              toast.success('Added to your cart')
+              toast.success(t.toastAdded)
             }}
             className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white disabled:opacity-40"
           >
-            <Plus size={17} /> Add to cart
+            <Plus size={17} /> {t.addCart}
           </button>
         )}
       </div>

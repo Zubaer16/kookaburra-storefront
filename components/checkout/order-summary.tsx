@@ -3,14 +3,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, ShieldAlert } from 'lucide-react'
-import {
-  formatPrice,
-  optionSummary,
-  type Locale,
-  type Market,
-} from '@/lib/catalog'
+import { formatPrice, type Locale, type Market } from '@/lib/catalog'
 import type { CheckoutPreviewLine } from '@/lib/checkout-preview'
 import { getPreviewCopy } from '@/lib/preview-copy'
+import { productText, localizeOption } from '@/lib/fixture-localization'
 
 export function OrderSummary({
   rows,
@@ -59,11 +55,11 @@ export function OrderSummary({
             </div>
             <div className="min-w-0 flex-1">
               <p className="line-clamp-2 text-xs font-bold text-ink">
-                {product.title}
+                {productText(product, locale).title}
               </p>
               {variant && (
                 <p className="mt-1 text-[11px] text-muted">
-                  {optionSummary(variant)}
+                  {localizeOption(variant.options, locale)}
                 </p>
               )}
               <p className="mt-1 text-[11px] text-muted">

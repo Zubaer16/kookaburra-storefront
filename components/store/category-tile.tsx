@@ -14,6 +14,7 @@ import {
 import type { CategoryId } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { categoryDescription } from '@/lib/fixture-localization'
 
 const icons: Record<CategoryId, LucideIcon> = {
   electronics: Headphones,
@@ -59,7 +60,11 @@ export function CategoryTile({
         </span>
         {variant === 'feature' && (
           <span className="mt-1 block text-xs text-muted">
-            {category.description}
+            {categoryDescription(
+              category.id,
+              category.description,
+              ready ? savedLocale : 'en',
+            )}
           </span>
         )}
       </span>

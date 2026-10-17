@@ -14,37 +14,39 @@ import {
 import { DemoOrderCard } from '@/components/account/order-ui'
 import { Button } from '@/components/ui/button'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { useFinishCopy } from '@/hooks/use-finish-copy'
 import { demoOrders } from '@/lib/account-preview'
 import { useCommerceStore } from '@/stores/commerce-store'
 
 const quickLinks = [
   {
     href: '/account/orders',
-    label: 'Sample orders',
-    description: 'Explore order history and details',
+    labelKey: 'quickOrders',
+    descriptionKey: 'quickOrdersDesc',
     icon: Package,
   },
   {
     href: '/track',
-    label: 'Demo tracking',
-    description: 'Preview delivery milestones',
+    labelKey: 'quickTracking',
+    descriptionKey: 'quickTrackingDesc',
     icon: Truck,
   },
   {
     href: '/account/addresses',
-    label: 'Delivery addresses',
-    description: 'See the planned address book',
+    labelKey: 'quickAddresses',
+    descriptionKey: 'quickAddressesDesc',
     icon: MapPin,
   },
   {
     href: '/account/settings',
-    label: 'Account settings',
-    description: 'Manage preferences in the future',
+    labelKey: 'quickSettings',
+    descriptionKey: 'quickSettingsDesc',
     icon: Settings2,
   },
 ]
 
 export default function AccountOverview() {
+  const t = useFinishCopy()
   const ready = useStoreReady()
   const cart = useCommerceStore((s) => s.cart)
   const wishlist = useCommerceStore((s) => s.wishlist)
@@ -57,15 +59,13 @@ export default function AccountOverview() {
         />
         <div className="relative max-w-xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold">
-            <UserRound size={14} /> Future customer dashboard
+            <UserRound size={14} /> {t.accountBadge}
           </span>
           <h2 className="mt-4 text-3xl font-black tracking-tight">
-            Everything in one place.
+            {t.accountTitle}
           </h2>
           <p className="mt-3 max-w-md text-sm leading-6 text-blue-50">
-            One familiar experience for browsing on the website and eventually
-            in the Flutter app. This screen is a visual prototype, not a
-            signed-in account.
+            {t.accountDescription}
           </p>
           <Button
             asChild
@@ -73,7 +73,7 @@ export default function AccountOverview() {
             className="mt-6 border-white bg-white text-primary hover:bg-blue-50"
           >
             <Link href="/sign-in">
-              Explore login design <ArrowRight size={17} />
+              {t.accountLogin} <ArrowRight size={17} />
             </Link>
           </Button>
         </div>
@@ -82,21 +82,21 @@ export default function AccountOverview() {
         <div className="rounded-2xl border border-border bg-white p-5">
           <Package className="text-primary" size={23} />
           <p className="mt-3 text-2xl font-black">{demoOrders.length}</p>
-          <p className="mt-1 text-xs text-muted">Fictional example orders</p>
+          <p className="mt-1 text-xs text-muted">{t.exampleOrders}</p>
         </div>
         <div className="rounded-2xl border border-border bg-white p-5">
           <Heart className="text-primary" size={23} />
           <p className="mt-3 text-2xl font-black">
             {ready ? wishlist.length : '—'}
           </p>
-          <p className="mt-1 text-xs text-muted">Items saved in this browser</p>
+          <p className="mt-1 text-xs text-muted">{t.savedItems}</p>
         </div>
         <div className="rounded-2xl border border-border bg-white p-5">
           <ShoppingCart className="text-primary" size={23} />
           <p className="mt-3 text-2xl font-black">
             {ready ? cart.reduce((sum, item) => sum + item.quantity, 0) : '—'}
           </p>
-          <p className="mt-1 text-xs text-muted">Items in local preview cart</p>
+          <p className="mt-1 text-xs text-muted">{t.cartItems}</p>
         </div>
       </div>
       <section aria-labelledby="account-quick-links">
@@ -104,10 +104,10 @@ export default function AccountOverview() {
           id="account-quick-links"
           className="mb-4 text-xl font-extrabold tracking-tight"
         >
-          Explore your account
+          {t.accountExplore}
         </h2>
         <div className="grid gap-3 sm:grid-cols-2">
-          {quickLinks.map(({ href, label, description, icon: Icon }) => (
+          {quickLinks.map(({ href, labelKey, descriptionKey, icon: Icon }) => (
             <Link
               key={href}
               href={href}
@@ -117,9 +117,11 @@ export default function AccountOverview() {
                 <Icon size={21} />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-extrabold">{label}</p>
+                <p className="text-sm font-extrabold">
+                  {t[labelKey as keyof typeof t]}
+                </p>
                 <p className="mt-1 text-xs leading-5 text-muted">
-                  {description}
+                  {t[descriptionKey as keyof typeof t]}
                 </p>
               </div>
               <ArrowRight
@@ -136,13 +138,13 @@ export default function AccountOverview() {
             id="sample-orders-title"
             className="text-xl font-extrabold tracking-tight"
           >
-            A sample order
+            {t.sampleOrder}
           </h2>
           <Link
             href="/account/orders"
             className="text-sm font-bold text-primary hover:underline"
           >
-            View sample orders <ArrowRight size={15} className="inline" />
+            {t.viewOrders} <ArrowRight size={15} className="inline" />
           </Link>
         </div>
         <DemoOrderCard order={demoOrders[0]} />

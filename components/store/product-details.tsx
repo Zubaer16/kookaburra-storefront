@@ -23,16 +23,19 @@ import { ProductOptions } from '@/components/store/product-options'
 import {
   categoryById,
   cartLineKey,
-  optionSummary,
   products,
   type Product,
 } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
 import { usePreviewCopy } from '@/hooks/use-preview-copy'
+import { useDisplayLocale } from '@/hooks/use-display-locale'
+import { productText, localizeOption } from '@/lib/fixture-localization'
 
 export function ProductDetails({ product }: { product: Product }) {
   const t = usePreviewCopy()
+  const locale = useDisplayLocale()
+  const display = productText(product, locale)
   const [quantity, setQuantity] = useState(1)
   const [color, setColor] = useState('')
   const [size, setSize] = useState('')
@@ -83,7 +86,7 @@ export function ProductDetails({ product }: { product: Product }) {
     if (!canAdd) return
     add(product.id, quantity, variant?.id)
     toast.success(
-      `${t.toastAdded}: ${quantity}${variant ? ` · ${optionSummary(variant)}` : ''}`,
+      `${t.toastAdded}: ${quantity}${variant ? ` · ${localizeOption(variant.options, locale)}` : ''}`,
     )
     setQuantity(1)
   }
@@ -111,24 +114,24 @@ export function ProductDetails({ product }: { product: Product }) {
           href={`/shop?category=${product.category}`}
           className="hover:text-primary"
         >
-          {category?.label}
+          {locale === 'bn' ? category?.bn : category?.label}
         </Link>
         <ChevronRight size={14} />
         <span className="max-w-48 truncate font-semibold text-ink">
-          {product.title}
+          {display.title}
         </span>
       </nav>
       <div className="grid gap-9 md:grid-cols-2 md:gap-10 lg:gap-16">
         <ProductGallery product={product} />
         <div className="self-start">
           <p className="mb-3 text-xs font-extrabold uppercase tracking-[.18em] text-primary">
-            {category?.label}
+            {locale === 'bn' ? category?.bn : category?.label}
           </p>
           <h1 className="text-[30px] font-extrabold leading-[1.2] tracking-[-.045em] sm:text-[39px]">
-            {product.title}
+            {display.title}
           </h1>
           <p className="mt-4 max-w-[480px] text-sm leading-7 text-[#61708b]">
-            {product.description}
+            {display.description}
           </p>
           <div className="mt-6 border-b border-border pb-6">
             <ProductPrice product={product} size="lg" />
@@ -223,14 +226,16 @@ export function ProductDetails({ product }: { product: Product }) {
             </span>
             <span className="mx-2">·</span>
             <span>{t.productCategory}:</span>
-            <span className="font-bold text-ink">{category?.label}</span>
+            <span className="font-bold text-ink">
+              {locale === 'bn' ? category?.bn : category?.label}
+            </span>
           </div>
         </div>
       </div>
       <section className="mt-16 rounded-[22px] border border-border bg-[#fbfcff] p-6 sm:p-8">
         <h2 className="text-xl font-extrabold">{t.productDetails}</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">
-          {product.description} {t.productDisclaimer}
+          {display.description} {t.productDisclaimer}
         </p>
       </section>
       <section className="mt-16 sm:mt-20">

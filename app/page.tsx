@@ -18,6 +18,7 @@ import { CategoryTile } from '@/components/store/category-tile'
 import { CollectionTabs } from '@/components/store/collection-tabs'
 import { categories } from '@/lib/catalog'
 import { dictionary } from '@/lib/i18n'
+import { finishCopy } from '@/lib/finish-copy'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
 
@@ -26,6 +27,7 @@ export default function HomePage() {
   const ready = useStoreReady()
   const locale = ready ? savedLocale : 'en'
   const t = dictionary(locale)
+  const f = finishCopy(locale)
   return (
     <>
       <section className="container-shell pt-5 sm:pt-7">
@@ -59,11 +61,11 @@ export default function HomePage() {
                   href="/categories"
                   className="inline-flex items-center gap-2 text-sm font-extrabold text-white hover:underline"
                 >
-                  Explore categories <ArrowRight size={17} />
+                  {f.homeExplore} <ArrowRight size={17} />
                 </Link>
               </div>
               <p className="mt-10 flex items-center gap-2 text-xs font-medium text-white/75">
-                <Globe2 size={15} /> Bangladesh & international shopping preview
+                <Globe2 size={15} /> {f.homeMarket}
               </p>
             </div>
             <div className="pointer-events-none absolute -bottom-8 -right-14 h-[285px] w-[320px] opacity-55 sm:bottom-2 sm:right-0 sm:h-[410px] sm:w-[43%] sm:opacity-100 lg:-right-5 lg:w-[44%] xl:w-[48%]">
@@ -91,15 +93,13 @@ export default function HomePage() {
             >
               <div className="relative z-10 max-w-[64%]">
                 <p className="text-[11px] font-extrabold uppercase tracking-[.16em] text-[#7862b5]">
-                  Fresh steps
+                  {f.shoesEyebrow}
                 </p>
                 <h2 className="mt-3 text-[25px] font-black leading-[1.15] tracking-[-.04em] text-[#42346e]">
-                  Step into
-                  <br />
-                  your style.
+                  {f.shoesTitle}
                 </h2>
                 <span className="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#69519e] group-hover:underline">
-                  Shop shoes <ArrowRight size={15} />
+                  {f.shoesLink} <ArrowRight size={15} />
                 </span>
               </div>
               <Image
@@ -116,12 +116,10 @@ export default function HomePage() {
             >
               <div className="relative z-10 max-w-[64%]">
                 <p className="text-[11px] font-extrabold uppercase tracking-[.16em] text-[#aa754e]">
-                  Everyday edit
+                  {f.fashionEyebrow}
                 </p>
                 <h2 className="mt-3 text-[25px] font-black leading-[1.15] tracking-[-.04em] text-[#75462d]">
-                  A new take
-                  <br />
-                  on basics.
+                  {f.fashionTitle}
                 </h2>
                 <span className="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#976039] group-hover:underline">
                   Shop fashion <ArrowRight size={15} />
@@ -144,18 +142,18 @@ export default function HomePage() {
           {[
             {
               icon: Box,
-              title: 'Made for discovery',
-              text: 'Explore everyday categories',
+              title: f.highlight1,
+              text: f.highlight1Desc,
             },
             {
               icon: HeartHandshake,
-              title: 'One trusted store',
-              text: 'Curated by Kookaburra',
+              title: f.highlight2,
+              text: f.highlight2Desc,
             },
             {
               icon: BadgeCheck,
-              title: 'Built for two markets',
-              text: 'BDT & USD preview pricing',
+              title: f.highlight3,
+              text: f.highlight3Desc,
             },
           ].map(({ icon: Icon, title, text }) => (
             <div key={title} className="flex items-center gap-3.5">
@@ -177,7 +175,7 @@ export default function HomePage() {
         <div className="mb-7 flex items-end justify-between gap-4">
           <div>
             <p className="mb-2 text-[11px] font-extrabold uppercase tracking-[.18em] text-primary">
-              FIND YOUR THING
+              {f.categoryEyebrow}
             </p>
             <h2 className="section-heading">{t.shopByCategory}</h2>
             <p className="mt-2 text-sm text-muted">{t.categorySubtitle}</p>
@@ -186,7 +184,7 @@ export default function HomePage() {
             href="/categories"
             className="hidden items-center gap-2 text-sm font-extrabold text-primary hover:underline sm:inline-flex"
           >
-            All categories <ArrowRight size={16} />
+            {f.categoryLink} <ArrowRight size={16} />
           </Link>
         </div>
         <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-7 sm:gap-4">
@@ -199,7 +197,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary"
             href="/categories"
           >
-            Browse all categories <ArrowRight size={15} />
+            {f.categoryMobile} <ArrowRight size={15} />
           </Link>
         </div>
       </section>
@@ -208,12 +206,10 @@ export default function HomePage() {
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="mb-2 text-[11px] font-extrabold uppercase tracking-[.18em] text-primary">
-              THE GOOD STUFF
+              {f.collectionEyebrow}
             </p>
-            <h2 className="section-heading">Products to explore</h2>
-            <p className="mt-2 text-sm text-muted">
-              Everyday favourites, fresh arrivals and limited preview deals.
-            </p>
+            <h2 className="section-heading">{f.collectionTitle}</h2>
+            <p className="mt-2 text-sm text-muted">{f.collectionDesc}</p>
           </div>
           <Link
             href="/shop"
@@ -231,14 +227,13 @@ export default function HomePage() {
             <div className="pointer-events-none absolute -left-20 -bottom-40 size-80 rounded-full border-[58px] border-white/5" />
             <div className="relative">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-[11px] font-extrabold text-[#ffdf9b]">
-                <Tag size={14} /> SOMETHING GOOD
+                <Tag size={14} /> {f.promoEyebrow}
               </div>
               <h2 className="mt-5 max-w-lg text-3xl font-black tracking-[-.04em] sm:text-4xl">
-                A little refresh for your everyday.
+                {f.promoTitle}
               </h2>
               <p className="mt-4 max-w-md text-sm leading-7 text-[#bac6dc]">
-                Explore practical finds across fashion, tech, home and more—all
-                in one thoughtfully designed store.
+                {f.promoDesc}
               </p>
               <Button
                 asChild
@@ -246,7 +241,7 @@ export default function HomePage() {
                 className="mt-7 border-white bg-white text-[#152039] hover:bg-[#e8efff]"
               >
                 <Link href="/shop?tag=sale">
-                  Discover offers <ChevronRight size={17} />
+                  {f.promoLink} <ChevronRight size={17} />
                 </Link>
               </Button>
             </div>

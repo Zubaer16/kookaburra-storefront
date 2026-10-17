@@ -5,9 +5,13 @@ import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Images } from 'lucide-react'
 import { productGallery, type Product } from '@/lib/catalog'
 import { usePreviewCopy } from '@/hooks/use-preview-copy'
+import { useDisplayLocale } from '@/hooks/use-display-locale'
+import { productText } from '@/lib/fixture-localization'
 
 export function ProductGallery({ product }: { product: Product }) {
   const t = usePreviewCopy()
+  const locale = useDisplayLocale()
+  const display = productText(product, locale)
   const images = productGallery(product)
   const [selected, setSelected] = useState(0)
   const image = images[selected] ?? images[0]
@@ -17,14 +21,18 @@ export function ProductGallery({ product }: { product: Product }) {
     )
   }
   return (
-    <section aria-label={`${product.title} image gallery`}>
+    <section aria-label={`${display.title}: ${t.imageChoose}`}>
       <div
         className="relative aspect-square overflow-hidden rounded-[26px] border border-border"
         style={{ background: product.accent }}
       >
         <Image
           src={image.src}
-          alt={image.alt}
+          alt={
+            selected === 0
+              ? display.title
+              : `${display.title} · ${selected + 1}`
+          }
           priority
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
@@ -69,7 +77,7 @@ export function ProductGallery({ product }: { product: Product }) {
             <button
               type="button"
               key={`${item.src}-${index}`}
-              aria-label={`Show image ${index + 1}: ${item.alt}`}
+              aria-label={`${t.imageChoose}: ${display.title} · ${index + 1}`}
               aria-pressed={selected === index}
               onClick={() => setSelected(index)}
               className={`relative size-20 shrink-0 overflow-hidden rounded-xl border-2 transition sm:size-24 ${selected === index ? 'border-primary' : 'border-border hover:border-[#9fb5fa]'}`}

@@ -1,5 +1,7 @@
 'use client'
 
+import { productText } from '@/lib/fixture-localization'
+
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { ChevronRight, Search, SlidersHorizontal, X } from 'lucide-react'
@@ -70,11 +72,14 @@ export function ShopClient({
     const result = products.filter((product) => {
       const categoryName =
         categories.find((c) => c.id === product.category)?.label ?? ''
+      const translated = productText(product, ready ? selectedLocale : 'en')
       const matchesText =
         !needle ||
         [
           product.title,
           product.description,
+          translated.title,
+          translated.description,
           product.category,
           categoryName,
           categories.find((c) => c.id === product.category)?.bn ?? '',
@@ -109,6 +114,8 @@ export function ShopClient({
     return result
   }, [
     text,
+    ready,
+    selectedLocale,
     selectedCategory,
     selectedTag,
     sortBy,
@@ -127,7 +134,11 @@ export function ShopClient({
   }
   const activeCategory = categories.find((c) => c.id === selectedCategory)
   const categoryLabel =
-    selectedCategory === 'style' ? t.styleShoes : (ready && selectedLocale === 'bn' ? activeCategory?.bn : activeCategory?.label)
+    selectedCategory === 'style'
+      ? t.styleShoes
+      : ready && selectedLocale === 'bn'
+        ? activeCategory?.bn
+        : activeCategory?.label
   const filterCount =
     Number(!!selectedCategory) +
     Number(!!selectedTag) +
@@ -154,9 +165,7 @@ export function ShopClient({
           <h1 className="text-3xl font-black tracking-[-.04em] sm:text-4xl">
             {categoryLabel ?? t.exploreCollection}
           </h1>
-          <p className="mt-2 text-sm text-muted">
-            {t.shopSubtitle}
-          </p>
+          <p className="mt-2 text-sm text-muted">{t.shopSubtitle}</p>
         </div>
         <span aria-live="polite" className="text-sm font-semibold text-muted">
           {visible.length} {t.productsFound}
@@ -261,7 +270,7 @@ export function ShopClient({
                     onChange={() => setSelectedTag(c.id)}
                     className="accent-[#2459e8]"
                   />
-                  {ready && selectedLocale === 'bn' ? c.bn : c.label}
+                  {c.label}
                 </label>
               ))}
             </div>
@@ -381,9 +390,7 @@ export function ShopClient({
           ) : (
             <div className="flex min-h-[350px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-[#fbfcff] p-6 text-center">
               <Search size={32} className="text-[#a1b0c8]" />
-              <h3 className="mt-4 text-lg font-extrabold">
-                {t.noMatches}
-              </h3>
+              <h3 className="mt-4 text-lg font-extrabold">{t.noMatches}</h3>
               <p className="mt-2 max-w-sm text-sm text-muted">
                 {t.noMatchesDescription}
               </p>
@@ -397,7 +404,9 @@ export function ShopClient({
             </div>
           )}
           <p className="mt-8 text-center text-xs text-muted">
-            {ready && selectedLocale === 'bn' ? `শুধু প্রিভিউ · ${visible.length} টি নমুনা পণ্য · ভবিষ্যতে সার্ভার থেকে সার্চ ও পেজিনেশন আসবে।` : `Preview only · ${visible.length} local products · Backend search and pagination will replace this later.`}
+            {ready && selectedLocale === 'bn'
+              ? `শুধু প্রিভিউ · ${visible.length} টি নমুনা পণ্য · ভবিষ্যতে সার্ভার থেকে সার্চ ও পেজিনেশন আসবে।`
+              : `Preview only · ${visible.length} local products · Backend search and pagination will replace this later.`}
           </p>
         </div>
       </div>

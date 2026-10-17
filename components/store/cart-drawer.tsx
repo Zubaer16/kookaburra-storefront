@@ -18,6 +18,7 @@ import {
 } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { finishCopy } from '@/lib/finish-copy'
 
 export function CartDrawer() {
   const ready = useStoreReady()
@@ -28,6 +29,7 @@ export function CartDrawer() {
   const setOpen = useCommerceStore((s) => s.setCartOpen)
   const market = ready ? savedMarket : 'BD'
   const locale = ready ? savedLocale : 'en'
+  const t = finishCopy(locale)
   const lines = (ready ? cart : [])
     .map((line) => ({ line, product: productById(line.productId) }))
     .filter((row) => !!row.product)
@@ -47,13 +49,13 @@ export function CartDrawer() {
       <SheetContent>
         <div className="border-b border-border px-6 py-6">
           <SheetTitle className="flex items-center gap-2 text-lg font-extrabold">
-            <ShoppingBag size={22} className="text-primary" /> Your cart{' '}
+            <ShoppingBag size={22} className="text-primary" /> {t.drawerTitle}{' '}
             <span className="rounded-lg bg-blue-50 px-2 py-0.5 text-xs text-primary">
               {count}
             </span>
           </SheetTitle>
           <SheetDescription className="mt-1.5 text-xs text-muted">
-            Saved on this browser for now.
+            {t.drawerSaved}
           </SheetDescription>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-3">
@@ -62,13 +64,13 @@ export function CartDrawer() {
               <div className="mb-4 flex size-20 items-center justify-center rounded-full bg-blue-50 text-primary">
                 <ShoppingBag size={34} />
               </div>
-              <h3 className="text-lg font-extrabold">Your cart is waiting</h3>
+              <h3 className="text-lg font-extrabold">{t.drawerEmpty}</h3>
               <p className="mt-2 max-w-[230px] text-sm leading-6 text-muted">
-                Discover something you love and add it here.
+                {t.drawerEmptyDesc}
               </p>
               <Button className="mt-6" onClick={() => setOpen(false)} asChild>
                 <Link href="/shop">
-                  Explore products <ArrowRight size={16} />
+                  {t.drawerExplore} <ArrowRight size={16} />
                 </Link>
               </Button>
             </div>
@@ -94,20 +96,18 @@ export function CartDrawer() {
         {lines.length > 0 && (
           <div className="border-t border-border bg-[#fbfcff] px-6 py-5">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted">Estimated subtotal</span>
+              <span className="text-muted">{t.drawerSubtotal}</span>
               <strong className="text-xl">
                 {formatPrice(subtotal, market, locale)}
               </strong>
             </div>
             {incompleteCount > 0 && (
               <p className="mt-2 text-xs font-semibold text-amber-700">
-                {incompleteCount} old cart line(s) need size/color selection and
-                are excluded from subtotal.
+                {incompleteCount} {t.drawerOld}
               </p>
             )}
             <p className="mt-2 text-[11px] leading-5 text-muted">
-              Demo pricing only. Real taxes, shipping and checkout require
-              backend integration.
+              {t.drawerPreview}
             </p>
             <Button
               className="mt-4 w-full"
@@ -115,7 +115,7 @@ export function CartDrawer() {
               onClick={() => setOpen(false)}
             >
               <Link href="/cart">
-                View cart <ArrowRight size={17} />
+                {t.drawerView} <ArrowRight size={17} />
               </Link>
             </Button>
           </div>

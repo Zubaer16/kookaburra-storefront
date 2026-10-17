@@ -1,6 +1,6 @@
 # Kookaburra v2 — Project Progress and Continuation Notes
 
-**Latest source baseline:** `kookaburra-storefront-full-20261017-144256.zip`, then apply Patch 07.
+**Latest source baseline:** `kookaburra-storefront-full-20261017-151126.zip`, then apply Patch 08.
 
 ## Architecture decisions
 
@@ -23,10 +23,12 @@
 
 - Patch 07: 100+ new EN/BN checkout/auth/order/tracking labels; bilingual checkout address/delivery/review, demo-order filters/status, tracking summary, sign-in/sign-up UI and gallery/options accessibility text. **Still preview only; no payments, orders, account creation or API calls.**
 
+- Patch 08: remaining bilingual Account/Address/Order Detail copy, sample product and category translations, known demo-order milestone labels and notes, Shop Bangla keyword matching, and translated Homepage/Cart/Checkout presentation. Stable identifiers and sample totals preserved. **Not connected to a backend.**
+
 ## Next development priorities
 
-1. Patch 08: finish remaining static/account overview/order-detail copy and localize sample product titles/descriptions and mock order milestone notes, Bangla remains LTR (no RTL layout needed). Add remaining accessible labels and robust loading/error/empty states; browser QA on mobile.
-2. Frontend-only completion gate: robust responsive/keyboard/accessibility/SEO/localization QA, design freeze, test coverage, and Flutter mapping. **Do not begin backend until user confirms frontend is finished.**
+1. Patch 09: accessibility/keyboard behavior, responsive layout, loading/empty/error states, automated frontend test coverage and mobile browser QA.
+2. Patch 10 + frontend-only completion gate: robust responsive/keyboard/accessibility/SEO/localization QA, design freeze, test coverage, and Flutter mapping. **Do not begin backend until user confirms frontend is finished.**
 3. Future only after frontend approval: independent backend with authoritative stock/pricing/tax/shipping/order/payment; keep Next.js checkout disabled until validated.
 4. Flutter screens using the same UX, tokens and APIs when ready.
 

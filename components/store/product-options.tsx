@@ -2,6 +2,8 @@
 
 import { useMemo } from 'react'
 import { usePreviewCopy } from '@/hooks/use-preview-copy'
+import { useDisplayLocale } from '@/hooks/use-display-locale'
+import { localizeOption } from '@/lib/fixture-localization'
 import type { Product, ProductVariant } from '@/lib/catalog'
 
 type Props = {
@@ -19,6 +21,7 @@ export function ProductOptions({
   onSizeChange,
 }: Props) {
   const t = usePreviewCopy()
+  const locale = useDisplayLocale()
   const variants = product.variants ?? []
   const colors = useMemo(
     () => [
@@ -54,7 +57,9 @@ export function ProductOptions({
           <legend className="mb-2.5 text-sm font-extrabold">
             {t.productOptionColor}{' '}
             <span className="font-normal text-muted">
-              {color || `· ${t.productSelectColor}`}
+              {color
+                ? localizeOption({ color }, locale)
+                : `· ${t.productSelectColor}`}
             </span>
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -72,7 +77,7 @@ export function ProductOptions({
                   onClick={() => onColorChange(color === value ? '' : value)}
                   className={`min-h-11 rounded-xl border px-4 py-2 text-xs font-bold transition ${color === value ? 'border-primary bg-blue-50 text-primary ring-1 ring-primary' : 'border-border bg-white text-[#566783] hover:border-primary'} disabled:cursor-not-allowed disabled:opacity-40`}
                 >
-                  {value}
+                  {localizeOption({ color: value }, locale)}
                 </button>
               )
             })}

@@ -6,7 +6,6 @@ import { Minus, Plus, Trash2 } from 'lucide-react'
 import {
   cartLineKey,
   formatPrice,
-  optionSummary,
   productVariant,
   productPrice,
   type Locale,
@@ -15,6 +14,8 @@ import {
 } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import type { CartLine } from '@/stores/commerce-store'
+import { finishCopy } from '@/lib/finish-copy'
+import { productText, localizeOption } from '@/lib/fixture-localization'
 
 export function CartLineView({
   line,
@@ -31,6 +32,8 @@ export function CartLineView({
   onNavigate?: () => void
   compact?: boolean
 }) {
+  const t = finishCopy(locale)
+  const display = productText(product, locale)
   const setQuantity = useCommerceStore((s) => s.setQuantity)
   const remove = useCommerceStore((s) => s.removeFromCart)
   const variant = productVariant(product, line.variantId)
@@ -51,7 +54,7 @@ export function CartLineView({
       >
         <Image
           src={src}
-          alt={product.title}
+          alt={display.title}
           fill
           sizes="112px"
           className="object-contain p-2"
@@ -63,33 +66,34 @@ export function CartLineView({
           href={`/product/${product.slug}`}
           className="line-clamp-2 text-sm font-extrabold text-ink hover:text-primary"
         >
-          {product.title}
+          {display.title}
         </Link>
         {variant && (
-          <p className="mt-1 text-xs text-muted">{optionSummary(variant)}</p>
+          <p className="mt-1 text-xs text-muted">
+            {localizeOption(variant.options, locale)}
+          </p>
         )}
         {needsOptions && (
           <p className="mt-1 text-xs font-semibold text-amber-700">
-            Saved before variants were added.{' '}
+            {t.cartOld}{' '}
             <Link
               onClick={onNavigate}
               href={`/product/${product.slug}`}
               className="underline underline-offset-2"
             >
-              Choose options
+              {t.chooseOptions}
             </Link>
-            , then remove this old line.
           </p>
         )}
         <p className="mt-2 text-sm font-extrabold text-primary">
           {formatPrice(productPrice(product, market), market, locale)}{' '}
-          <span className="text-xs font-normal text-muted">each</span>
+          <span className="text-xs font-normal text-muted">{t.cartEach}</span>
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <div className="inline-flex items-center overflow-hidden rounded-lg border border-border">
             <button
               type="button"
-              aria-label={`Decrease quantity of ${product.title}${variant ? ` ${optionSummary(variant)}` : ''}`}
+              aria-label={`${t.cartDecrease} ${display.title}${variant ? ` ${localizeOption(variant.options, locale)}` : ''}`}
               disabled={needsOptions}
               onClick={() =>
                 setQuantity(product.id, line.quantity - 1, line.variantId)
@@ -103,7 +107,7 @@ export function CartLineView({
             </span>
             <button
               type="button"
-              aria-label={`Increase quantity of ${product.title}${variant ? ` ${optionSummary(variant)}` : ''}`}
+              aria-label={`${t.cartIncrease} ${display.title}${variant ? ` ${localizeOption(variant.options, locale)}` : ''}`}
               disabled={needsOptions || line.quantity >= limit}
               onClick={() =>
                 setQuantity(product.id, line.quantity + 1, line.variantId)
@@ -115,11 +119,11 @@ export function CartLineView({
           </div>
           <button
             type="button"
-            aria-label={`Remove ${product.title}${variant ? ` ${optionSummary(variant)}` : ''} from cart`}
+            aria-label={`${t.cartRemoveA11y} ${display.title}${variant ? ` ${localizeOption(variant.options, locale)}` : ''}`}
             onClick={() => remove(product.id, line.variantId)}
             className="inline-flex min-h-9 items-center gap-1.5 text-xs font-semibold text-muted hover:text-red-600"
           >
-            <Trash2 size={15} /> Remove
+            <Trash2 size={15} /> {t.cartRemove}
           </button>
         </div>
       </div>

@@ -6,6 +6,8 @@ import { ArrowRight, ClipboardList, Search } from 'lucide-react'
 import { DemoOrderCard } from '@/components/account/order-ui'
 import { demoOrders, type PreviewOrderStatus } from '@/lib/account-preview'
 import { usePreviewCopy } from '@/hooks/use-preview-copy'
+import { useDisplayLocale } from '@/hooks/use-display-locale'
+import { localizeOrderItem } from '@/lib/fixture-localization'
 
 const tabs: { label: string; value: PreviewOrderStatus | 'all' }[] = [
   { label: 'All orders', value: 'all' },
@@ -16,14 +18,19 @@ const tabs: { label: string; value: PreviewOrderStatus | 'all' }[] = [
 
 export default function OrdersPage() {
   const t = usePreviewCopy()
+  const locale = useDisplayLocale()
   const [filter, setFilter] = useState<PreviewOrderStatus | 'all'>('all')
   const [query, setQuery] = useState('')
   const results = demoOrders.filter(
     (order) =>
       (filter === 'all' || order.status === filter) &&
       (order.id.toLowerCase().includes(query.toLowerCase().trim()) ||
-        order.items.some((item) =>
-          item.title.toLowerCase().includes(query.toLowerCase().trim()),
+        order.items.some(
+          (item) =>
+            item.title.toLowerCase().includes(query.toLowerCase().trim()) ||
+            localizeOrderItem(item.title, locale)
+              .toLowerCase()
+              .includes(query.toLowerCase().trim()),
         )),
   )
   return (

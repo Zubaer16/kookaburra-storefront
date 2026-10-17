@@ -94,3 +94,10 @@ The web `/checkout` UI has **Address → Delivery → Review** steps. Flutter sh
 - Core shop, category, wishlist, cart, account shell/settings and common error/404 states have translated labels. Other screens/catalog content remain partly English. Do not confuse this iteration with full bilingual content.
 - API DTO proposal in `lib/api/contracts.ts` distinguishes integer minor-unit amounts with currency (`BDT` / `USD`) from local demo display prices. Flutter should match the **eventual backend OpenAPI**, not this draft directly.
 - Loading / no results / disabled actions / no logged-in customer / retryable error are distinct states on both platforms. Never display fake success, real order confirmation or simulated payment as if processed.
+
+## Patch 08 — Shared localized fixture specification
+
+- Current 11 preview product IDs map to English/Bangla `title` and `description` in web `lib/fixture-localization.ts`. Future API DTOs should use per-locale content fields; Flutter should **not** parse the TypeScript file. Export stable keys or mirror fixture data in ARB/JSON for Flutter UI previews.
+- Category descriptions, color names, order sample items, delivery labels and milestone notes are translated **for presentation only**. Product/variant IDs, SKU, sample stock and order currency remain unchanged.
+- On Web, a persisted locale is applied after hydration. Flutter should use the same en/bn locale selection and keep state keys independent of text. Use English fallback for missing dynamic translations, and never infer a verified order or shipping status from sample fixtures.
+- Long Bangla headings must wrap without clipping at 320–360 dp widths. Maintain native semantics for cart controls, carousel labels, sample tracking timeline and variant selectors.

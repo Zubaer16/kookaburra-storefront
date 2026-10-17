@@ -2,6 +2,11 @@
 
 import Link from 'next/link'
 import { usePreviewCopy } from '@/hooks/use-preview-copy'
+import { useDisplayLocale } from '@/hooks/use-display-locale'
+import {
+  localizeMilestone,
+  localizeMilestoneNote,
+} from '@/lib/fixture-localization'
 import { ArrowRight, Check, Circle, Clock3, Package, Truck } from 'lucide-react'
 import {
   previewDate,
@@ -75,6 +80,7 @@ export function DemoOrderCard({ order }: { order: PreviewOrder }) {
 
 export function OrderTimeline({ order }: { order: PreviewOrder }) {
   const t = usePreviewCopy()
+  const locale = useDisplayLocale()
   return (
     <ol aria-label={`${t.trackingTimeline}: ${order.id}`} className="space-y-0">
       {order.events.map((event, index) => (
@@ -95,9 +101,11 @@ export function OrderTimeline({ order }: { order: PreviewOrder }) {
             <p
               className={`text-sm font-extrabold ${event.completed ? 'text-ink' : 'text-muted'}`}
             >
-              {event.label}
+              {localizeMilestone(event.label, locale)}
             </p>
-            <p className="mt-1 text-xs leading-5 text-muted">{event.note}</p>
+            <p className="mt-1 text-xs leading-5 text-muted">
+              {localizeMilestoneNote(event.note, locale)}
+            </p>
             {event.date && (
               <p className="mt-1 text-xs font-bold text-primary">
                 {previewDate(event.date)}
