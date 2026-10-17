@@ -90,6 +90,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [categoriesOpen, setCategoriesOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const categoryTriggerRef = useRef<HTMLButtonElement>(null)
   const locale = ready ? storedLocale : 'en'
   const market = ready ? storedMarket : 'BD'
   const t = dictionary(locale)
@@ -111,7 +112,10 @@ export function Header() {
         setCategoriesOpen(false)
     }
     function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') setCategoriesOpen(false)
+      if (event.key === 'Escape') {
+        setCategoriesOpen(false)
+        categoryTriggerRef.current?.focus()
+      }
     }
     document.addEventListener('pointerdown', closeOnOutside)
     document.addEventListener('keydown', closeOnEscape)
@@ -221,10 +225,23 @@ export function Header() {
           <div ref={menuRef} className="relative shrink-0">
             <button
               type="button"
-              aria-haspopup="true"
+              ref={categoryTriggerRef}
               aria-expanded={categoriesOpen}
               aria-controls="desktop-category-menu"
               onClick={() => setCategoriesOpen((open) => !open)}
+              onKeyDown={(event) => {
+                if (event.key === 'ArrowDown') {
+                  event.preventDefault()
+                  setCategoriesOpen(true)
+                  requestAnimationFrame(() =>
+                    menuRef.current
+                      ?.querySelector<HTMLAnchorElement>(
+                        '#desktop-category-menu a',
+                      )
+                      ?.focus(),
+                  )
+                }
+              }}
               className="inline-flex h-12 items-center gap-2 border-r border-border pr-6 text-[13px] font-extrabold text-primary"
             >
               <Menu size={17} />

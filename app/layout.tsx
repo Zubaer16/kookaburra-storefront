@@ -26,9 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        <a href="#main-content" className="skip-to-content">
+          Skip to content / মূল বিষয়বস্তুতে যান
+        </a>
         <Providers>
           <Header />
-          <main id="main-content" className="min-h-[55vh]">
+          <main id="main-content" tabIndex={-1} className="min-h-[55vh]">
             {children}
           </main>
           <Footer />

@@ -47,3 +47,19 @@ Run `npm install`, `npm run verify`, `npm run typecheck`, `npm run lint`, and `n
 - [ ] At 320px, 375px and desktop widths, order IDs do not overflow; tabs scroll horizontally when needed.
 - [ ] Keyboard navigation and focus indicator work for nav, order filters, search, selector and links.
 - [ ] `node scripts/verify-patch05.mjs` and `npm run check` pass locally before any deployment.
+
+
+## Patch 09 — Accessibility and UX acceptance (manual browser QA still required)
+
+- [ ] `npm run test:ux`, `npm run check`, `npm audit --omit=dev` pass on Node 24.
+- [ ] Use Tab on `/` from page top: **Skip to content** appears; Enter moves to `#main-content` without jumping under the sticky header.
+- [ ] On `/`, focus collection tab group. Arrow Left/Right moves selection with wraparound, Home/End go first/last, Tab exits the group into the panel.
+- [ ] At 320px, 375px, 390px and 768px widths, Shop shows a Filters button. Open it: focus moves into the panel; Escape closes and returns focus to Filters button. Filter controls remain keyboard operable.
+- [ ] Category chips announce active state to screen readers (`aria-pressed`). Filter results count changes when criteria change; no-result screen can reset filters.
+- [ ] Open/close desktop category menu via keyboard; ArrowDown on menu trigger opens first link, Escape closes and returns focus to trigger. Mobile navigation stays Radix focus-trapped.
+- [ ] Visit `/shop`, `/product/motion-everyday-sneaker`, `/account`, `/checkout` during route transitions; route-specific skeletons are available (very fast local fixture pages may not show them).
+- [ ] With screen reader, loading placeholders announce status once; decorative shapes are hidden.
+- [ ] At 320px/375px/390px/428px, verify zero horizontal page overflow and usable minimum touch targets for all shopping/checkout/account screens.
+- [ ] Test reduced-motion OS setting (no distracting movement), 200% zoom, keyboard-only journey, high contrast / focus visibility.
+- [ ] Verify cart quantities and variant combinations remain the same after reload; checkout payment and auth inputs remain disabled.
+- [ ] Report any browser issues before treating Patch 09 as approved; static checks do **not** prove WCAG compliance.

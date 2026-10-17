@@ -2,7 +2,7 @@
 
 import { productText } from '@/lib/fixture-localization'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import Link from 'next/link'
 import { ChevronRight, Search, SlidersHorizontal, X } from 'lucide-react'
 import { ProductCard } from '@/components/store/product-card'
@@ -10,6 +10,7 @@ import { categories, products, productPrice, type Market } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
 import { useUiCopy } from '@/hooks/use-ui-copy'
+import { buildShopQuery } from '@/lib/shop-query'
 
 type ShopProps = {
   query: string
@@ -37,6 +38,27 @@ export function ShopClient({
   )
   const [stockOnly, setStockOnly] = useState(stock === '1')
   const [showFilters, setShowFilters] = useState(false)
+  const filterToggleRef = useRef<HTMLButtonElement>(null)
+  const filterPanelRef = useRef<HTMLElement>(null)
+
+  function toggleMobileFilters() {
+    const next = !showFilters
+    setShowFilters(next)
+    if (next)
+      requestAnimationFrame(() =>
+        filterPanelRef.current
+          ?.querySelector<HTMLButtonElement>('button')
+          ?.focus(),
+      )
+    else filterToggleRef.current?.focus()
+  }
+
+  function onFilterEscape(event: KeyboardEvent<HTMLElement>) {
+    if (event.key !== 'Escape' || !showFilters) return
+    event.stopPropagation()
+    setShowFilters(false)
+    filterToggleRef.current?.focus()
+  }
   const ready = useStoreReady()
   const t = useUiCopy()
   const savedMarket = useCommerceStore((s) => s.market)
@@ -50,21 +72,16 @@ export function ShopClient({
   // Replace the current URL without remounting Shop or stealing focus from
   // its search input. Native history changes are supported in Next App Router.
   useEffect(() => {
-    const params = new URLSearchParams()
-    if (text.trim()) params.set('q', text.trim())
-    if (selectedCategory) params.set('category', selectedCategory)
-    if (selectedTag) params.set('tag', selectedTag)
-    if (sortBy !== 'featured') params.set('sort', sortBy)
-    if (priceTier !== 'all') params.set('price', priceTier)
-    if (stockOnly) params.set('stock', '1')
-    const next = params.toString()
-    const current = window.location.search.replace(/^\?/, '')
-    if (next !== current)
-      window.history.replaceState(
-        window.history.state,
-        '',
-        `/shop${next ? `?${next}` : ''}`,
-      )
+    const next = buildShopQuery({
+      text,
+      category: selectedCategory,
+      tag: selectedTag,
+      sort: sortBy,
+      price: priceTier,
+      stockOnly,
+    })
+    if (`/shop${window.location.search}` !== next)
+      window.history.replaceState(window.history.state, '', next)
   }, [text, selectedCategory, selectedTag, sortBy, priceTier, stockOnly])
 
   const visible = useMemo(() => {
@@ -172,12 +189,14 @@ export function ShopClient({
         </span>
       </div>
       <div
+        role="group"
         aria-label={t.categories}
         className="mt-7 flex gap-2 overflow-x-auto pb-2"
       >
         <button
           type="button"
           onClick={() => setSelectedCategory('')}
+          aria-pressed={!selectedCategory}
           className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-bold transition ${!selectedCategory ? 'border-primary bg-primary text-white' : 'border-border bg-white text-[#596a84] hover:border-primary'}`}
         >
           {t.allProducts}
@@ -185,6 +204,7 @@ export function ShopClient({
         <button
           type="button"
           onClick={() => setSelectedCategory('style')}
+          aria-pressed={selectedCategory === 'style'}
           className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-bold transition ${selectedCategory === 'style' ? 'border-primary bg-primary text-white' : 'border-border bg-white text-[#596a84] hover:border-primary'}`}
         >
           {t.styleShoes}
@@ -194,6 +214,7 @@ export function ShopClient({
             type="button"
             key={c.id}
             onClick={() => setSelectedCategory(c.id)}
+            aria-pressed={selectedCategory === c.id}
             className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-bold transition ${selectedCategory === c.id ? 'border-primary bg-primary text-white' : 'border-border bg-white text-[#596a84] hover:border-primary'}`}
           >
             {ready && selectedLocale === 'bn' ? c.bn : c.label}
@@ -202,6 +223,9 @@ export function ShopClient({
       </div>
       <div className="mt-6 flex flex-col gap-7 lg:flex-row lg:gap-8">
         <aside
+          ref={filterPanelRef}
+          onKeyDown={onFilterEscape}
+          aria-label={t.filterProducts}
           id="shop-filter-panel"
           className={`${showFilters ? 'block' : 'hidden'} w-full shrink-0 self-start rounded-[20px] border border-border bg-white p-5 lg:block lg:w-[235px]`}
         >
@@ -323,9 +347,10 @@ export function ShopClient({
             </div>
             <button
               type="button"
+              ref={filterToggleRef}
               aria-controls="shop-filter-panel"
               aria-expanded={showFilters}
-              onClick={() => setShowFilters((open) => !open)}
+              onClick={toggleMobileFilters}
               className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-white px-3 text-xs font-bold lg:hidden"
             >
               <SlidersHorizontal size={16} /> {t.filters}
@@ -382,13 +407,19 @@ export function ShopClient({
             </div>
           )}
           {visible.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3">
+            <div
+              className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3"
+              aria-label={t.productsFound}
+            >
               {visible.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (
-            <div className="flex min-h-[350px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-[#fbfcff] p-6 text-center">
+            <div
+              role="status"
+              className="flex min-h-[350px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-[#fbfcff] p-6 text-center"
+            >
               <Search size={32} className="text-[#a1b0c8]" />
               <h3 className="mt-4 text-lg font-extrabold">{t.noMatches}</h3>
               <p className="mt-2 max-w-sm text-sm text-muted">

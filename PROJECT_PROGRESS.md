@@ -1,6 +1,6 @@
 # Kookaburra v2 — Project Progress and Continuation Notes
 
-**Latest source baseline:** `kookaburra-storefront-full-20261017-151126.zip`, then apply Patch 08.
+**Latest source baseline:** `kookaburra-storefront-full-20261017-163025.zip` (Patch 08 applied), then Patch 09 overlay.
 
 ## Architecture decisions
 
@@ -25,9 +25,11 @@
 
 - Patch 08: remaining bilingual Account/Address/Order Detail copy, sample product and category translations, known demo-order milestone labels and notes, Shop Bangla keyword matching, and translated Homepage/Cart/Checkout presentation. Stable identifiers and sample totals preserved. **Not connected to a backend.**
 
+- Patch 09: skip-to-content keyboard link and visible focus, accessible keyboard-operated collection tabs, improved mobile Shop filter focus/Escape handling and stateful category chip labels, route-level skeletons for Shop/Product/Checkout/Account, plus dependency-free UI behavior tests in `npm run test:ux`. **Actual accessibility/performance browser audit still pending.**
+
 ## Next development priorities
 
-1. Patch 09: accessibility/keyboard behavior, responsive layout, loading/empty/error states, automated frontend test coverage and mobile browser QA.
+1. Patch 09 delivered for verification; run `npm run check` and execute manual browser/mobile accessibility tests before considering it completed.
 2. Patch 10 + frontend-only completion gate: robust responsive/keyboard/accessibility/SEO/localization QA, design freeze, test coverage, and Flutter mapping. **Do not begin backend until user confirms frontend is finished.**
 3. Future only after frontend approval: independent backend with authoritative stock/pricing/tax/shipping/order/payment; keep Next.js checkout disabled until validated.
 4. Flutter screens using the same UX, tokens and APIs when ready.

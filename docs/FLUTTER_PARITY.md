@@ -101,3 +101,13 @@ The web `/checkout` UI has **Address → Delivery → Review** steps. Flutter sh
 - Category descriptions, color names, order sample items, delivery labels and milestone notes are translated **for presentation only**. Product/variant IDs, SKU, sample stock and order currency remain unchanged.
 - On Web, a persisted locale is applied after hydration. Flutter should use the same en/bn locale selection and keep state keys independent of text. Use English fallback for missing dynamic translations, and never infer a verified order or shipping status from sample fixtures.
 - Long Bangla headings must wrap without clipping at 320–360 dp widths. Maintain native semantics for cart controls, carousel labels, sample tracking timeline and variant selectors.
+
+
+## Patch 09 — Interaction and Accessibility Parity
+
+- Follow the same primary shopping flows and design tokens; do **not** import React source into Dart.
+- Flutter collection chips/tabs must announce selected state; on hardware keyboards provide Left/Right and Home/End navigation with wrapping, corresponding to `lib/ux-navigation.ts`.
+- Flutter filter sheet must move focus to its first actionable control when opened and restore focus on dismiss, including keyboard Escape/back navigation.
+- All empty/loading/error states should have accessible labels, and decorative placeholder shapes should not be read as content.
+- Respect text scaling, reduced motion and 320px equivalent narrow screens. App-native navigation and sheet gestures can differ while preserving meaning and design hierarchy.
+- Flutter code is **not** part of Patch 09; the web frontend remains the visual source of truth.
