@@ -26,7 +26,7 @@ export default function WishlistPage() {
   if (sort === 'price-high')
     items.sort((a, b) => productPrice(b, market) - productPrice(a, market))
   return (
-    <main className="container-shell pb-20 pt-9">
+    <div className="container-shell pb-20 pt-9">
       <nav
         aria-label="Breadcrumb"
         className="flex items-center gap-1.5 text-xs text-muted"
@@ -121,6 +121,6 @@ export default function WishlistPage() {
       {items.length > 0 && (
         <p className="mt-8 text-center text-xs text-muted">{t.wishNote}</p>
       )}
-    </main>
+    </div>
   )
 }

@@ -139,8 +139,39 @@ input:focus-visible {
   padding: 12px 16px;
   font-weight: 700;
 }
-.skip-to-content:focus-visible { transform: translateY(0); }
-textarea:focus-visible, [role='tab']:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+.skip-to-content:focus-visible {
+  transform: translateY(0);
+}
+textarea:focus-visible,
+[role='tab']:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
 @media (max-width: 360px) {
-  .container-shell { width: min(100% - 24px, 1240px); }
+  .container-shell {
+    width: min(100% - 24px, 1240px);
+  }
+}
+
+/* Patch 10 — final preview accessibility refinements. */
+@media (prefers-reduced-motion: reduce) {
+  .card-lift:hover {
+    transform: none;
+  }
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+/* Keep the main focus target visible when reached from the skip link. */
+#main-content {
+  scroll-margin-top: 115px;
+}
+#main-content:focus {
+  outline: none;
+}
+/* Form error summaries are also visible with keyboard-only navigation. */
+[role='alert']:focus-visible,
+[role='status']:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
 }

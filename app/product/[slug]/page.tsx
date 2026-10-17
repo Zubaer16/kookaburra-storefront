@@ -15,7 +15,10 @@ export async function generateMetadata({
   const product = findProduct(slug)
   return {
     title: product?.title ?? 'Product not found',
-    description: product?.description,
+    description: product
+      ? `${product.description} Storefront preview only; no live orders.`
+      : 'Product unavailable.',
+    robots: { index: false, follow: false },
   }
 }
 export default async function ProductPage({

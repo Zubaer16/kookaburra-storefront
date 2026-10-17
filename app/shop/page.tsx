@@ -1,7 +1,12 @@
 import type { Metadata } from 'next'
 import { ShopClient } from '@/components/store/shop-client'
 
-export const metadata: Metadata = { title: 'Shop All Products' }
+export const metadata: Metadata = {
+  title: 'Explore Products',
+  description:
+    'Browse Kookaburra sample electronics, fashion, footwear and home collections. This is a storefront preview.',
+  robots: { index: false, follow: false },
+}
 
 type Params = {
   q?: string

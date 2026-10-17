@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   description:
     'Discover thoughtfully picked everyday essentials, tech, fashion, home goods and more. Kookaburra v2 storefront preview.',
   applicationName: 'Kookaburra',
+  openGraph: {
+    title: 'Kookaburra | Storefront Preview',
+    description:
+      'Explore a multi-category shopping experience. Preview only; payments and customer accounts are disabled.',
+    type: 'website',
+  },
   robots: { index: false, follow: false }, // Preview only: enable indexing after live catalog and SEO are ready.
 }
 export const viewport: Viewport = {

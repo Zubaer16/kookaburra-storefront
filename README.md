@@ -64,7 +64,6 @@ scripts/                Offline structural verification
 
 Next patch can deepen real production-ready catalog UX, variants, category trees and API client groundwork without changing design foundations.
 
-
 ## Patch 03 — Product options and variant-aware cart
 
 The storefront now has a selectable T-shirt / sneaker / loafer size-and-color matrix,
@@ -90,6 +89,10 @@ New `/checkout` includes sample address, Bangladesh/international region switch,
 
 ## Patch 05 — Customer account & tracking preview
 
-A responsive `/account` area now links to *fictional* order history, demo order details, sample shipment tracking, read-only address planning and local display preferences. Sign-in/sign-up designs exist at `/sign-in` and `/sign-up`, but **all credential inputs and submission are disabled**. No real customer exists and no orders, emails, address details or passwords are stored or transmitted by these pages.
+A responsive `/account` area now links to _fictional_ order history, demo order details, sample shipment tracking, read-only address planning and local display preferences. Sign-in/sign-up designs exist at `/sign-in` and `/sign-up`, but **all credential inputs and submission are disabled**. No real customer exists and no orders, emails, address details or passwords are stored or transmitted by these pages.
 
 Use `node scripts/verify-patch05.mjs` then `npm run check` after the Patch 05 root overlay. See `docs/PATCH_05_NOTES.md`, `PROJECT_PROGRESS.md` and `docs/FLUTTER_PARITY.md` for intended future backend and Flutter parity. No dependency changes.
+
+## Patch 10 — Frontend QA candidate
+
+Patch 10 improves accessible landmarks, touch targets, preview SEO safety and browser metadata. Run `node scripts/verify-patch10.mjs` and `npm run check`; follow `docs/FRONTEND_RELEASE_GATE.md`. **Not production ready**; no backend/payment/auth implementation.

@@ -53,7 +53,7 @@ export function ProductGallery({ product }: { product: Product }) {
               type="button"
               aria-label={t.imagePrevious}
               onClick={() => navigate(-1)}
-              className="flex size-10 items-center justify-center rounded-full bg-white text-ink shadow-sm transition hover:text-primary"
+              className="flex size-11 items-center justify-center rounded-full bg-white text-ink shadow-sm transition hover:text-primary"
             >
               <ChevronLeft size={19} />
             </button>
@@ -61,7 +61,7 @@ export function ProductGallery({ product }: { product: Product }) {
               type="button"
               aria-label={t.imageNext}
               onClick={() => navigate(1)}
-              className="flex size-10 items-center justify-center rounded-full bg-white text-ink shadow-sm transition hover:text-primary"
+              className="flex size-11 items-center justify-center rounded-full bg-white text-ink shadow-sm transition hover:text-primary"
             >
               <ChevronRight size={19} />
             </button>

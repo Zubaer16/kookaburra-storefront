@@ -57,7 +57,7 @@ export function ProductCard({ product }: { product: Product }) {
           toggleWishlist(product.id)
           toast.success(saved ? t.removeWish : t.saveWish)
         }}
-        className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-white/95 text-[#68758c] shadow-sm transition hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
+        className="absolute right-3 top-3 flex size-11 items-center justify-center rounded-full bg-white/95 text-[#68758c] shadow-sm transition hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
       >
         <Heart
           size={18}
@@ -81,7 +81,7 @@ export function ProductCard({ product }: { product: Product }) {
         {requiresOptions ? (
           <Link
             href={`/product/${product.slug}`}
-            className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white"
+            className="mt-3 flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white"
           >
             {t.chooseOptions} <ArrowRight size={16} />
           </Link>
@@ -93,7 +93,7 @@ export function ProductCard({ product }: { product: Product }) {
               add(product.id)
               toast.success(t.toastAdded)
             }}
-            className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white disabled:opacity-40"
+            className="mt-3 flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-[#dce5fa] bg-[#f2f6ff] text-xs font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white disabled:opacity-40"
           >
             <Plus size={17} /> {t.addCart}
           </button>

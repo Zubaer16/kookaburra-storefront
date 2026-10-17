@@ -39,7 +39,7 @@ export default function CartPage() {
   const count = lines.reduce((sum, row) => sum + row.line.quantity, 0)
   const preview = assessPreviewCart(ready ? cart : [], market)
   return (
-    <main className="container-shell pb-20 pt-9">
+    <div className="container-shell pb-20 pt-9">
       <nav
         aria-label="Breadcrumb"
         className="flex items-center gap-1.5 text-xs text-muted"
@@ -139,6 +139,6 @@ export default function CartPage() {
           </aside>
         </div>
       )}
-    </main>
+    </div>
   )
 }

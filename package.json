@@ -10,8 +10,9 @@
     "typecheck": "tsc --noEmit",
     "verify": "node scripts/verify-overlay.mjs",
     "audit:prod": "npm audit --omit=dev",
-    "check": "npm run verify && npm run test:ux && npm run typecheck && npm run lint && npm run build",
-    "test:ux": "node scripts/verify-patch09.mjs"
+    "check": "npm run verify && npm run test:ux && npm run test:release && npm run typecheck && npm run lint && npm run build",
+    "test:ux": "node scripts/verify-patch09.mjs",
+    "test:release": "node scripts/verify-patch10.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",

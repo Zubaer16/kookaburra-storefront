@@ -41,3 +41,9 @@ All catalog items, example orders, delivery options, stock, shipping prices and 
 ## Future chat workflow
 
 Upload the **latest full repository ZIP**, say "continue from this source" and request the next patch. Inspect existing files and manifests before modifying. Do not require old patch archives if the latest ZIP contains all prior changes. After applying any patch, verify/build, commit source and lockfile safely, then create a new full ZIP backup. Never include `node_modules`, `.next`, `.git` or `.env` secrets in a shared ZIP.
+
+- Patch 10 **candidate applied only after user extraction**: nested main landmark fix; >=44px key shopping touch targets; preview SEO/manifest/route metadata; reduced motion refinements; frontend acceptance gate and scripted safety QA. Real production build/browser testing are pending. No backend work.
+
+## Frontend completion gate — current
+
+Status: **NOT SIGNED OFF**. After Patch 10 extract, run `npm run check`, `npm audit --omit=dev`, and Patch 10 verifier, then manual browser/mobile screen matrix in `docs/FRONTEND_RELEASE_GATE.md`. Fix findings before frontend design freeze. Do not begin backend before explicit user approval.
