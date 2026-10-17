@@ -73,3 +73,16 @@ The web `/checkout` UI has **Address → Delivery → Review** steps. Flutter sh
 4. Delivery choices are demonstration-only. No shipping availability, ETA, fees, customs or taxes are real until quote API integration.
 5. Review shows product/variant quantities, contact and destination, chosen method, indicative subtotal/fees. Payment and order placement remain disabled until secure API integration.
 6. Small-phone widths should stack summary below the form; Flutter uses matching design tokens and native touch controls.
+
+## Patch 05 — Account, authentication UI and tracking parity
+
+- Web `/account` → Flutter Account tab. Show an explicit signed-out/preview state until authentication exists. Do not fabricate a logged-in customer.
+- Web `/sign-in` and `/sign-up` → Flutter authentication screens with native fields and validation **after** secure backend auth; the web preview deliberately disables all credential inputs and submission.
+- Web `/account/orders` → Flutter Orders list with status chips, server pagination/search in production, explicit empty/loading/error states and a user-scoped API.
+- Web `/account/orders/[orderId]` → Flutter Order Detail. Server must enforce user authorization for every order ID; hiding a button is not access control.
+- Web `/track` → Flutter sample tracking design. Current demo selector uses made-up order IDs and no customer input or external shipment lookup.
+- Web `/account/addresses` → Flutter address book after authenticated backend storage. Do not persist PII in preview state; country-specific fields and eligible destinations must be server-defined.
+- Web `/account/settings` → Flutter Settings for market/locale. These currently use only browser-local display preferences; do not infer they are server-synced.
+- Shared states needed before real integration: anonymous, authenticating, authenticated, expired session, permission denied, empty history, loading, retryable error, delivered, in transit, canceled, returns.
+- Future endpoints: `POST /v1/auth/login`, `POST /v1/auth/register`, `GET /v1/me`, `GET /v1/me/orders`, `GET /v1/me/orders/{id}`, `GET /v1/me/addresses`, `GET /v1/me/preferences`, with backend-managed tokens/sessions and authz. Endpoints are **proposals**, not implementations.
+- UI parity concerns: touch-friendly tabs, clear delivery milestone labels, screen reader timeline order, translated labels, currency based on each order's recorded currency rather than current storefront selector.

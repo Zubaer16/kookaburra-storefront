@@ -98,6 +98,12 @@ export function Footer() {
               <Link className="hover:text-white" href="/wishlist">
                 Wishlist
               </Link>
+              <Link className="hover:text-white" href="/account">
+                Account preview
+              </Link>
+              <Link className="hover:text-white" href="/track">
+                Demo tracking
+              </Link>
             </div>
           </div>
           <div>
@@ -137,7 +143,7 @@ export function Footer() {
             <span>
               © {new Date().getFullYear()} Kookaburra. All rights reserved.
             </span>
-            <span>Patch 02 preview · Sample catalog · No live payments</span>
+            <span>Patch 05 UI preview · No live accounts, orders or payments</span>
           </div>
         </div>
       </footer>

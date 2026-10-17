@@ -27,7 +27,7 @@ npm run lint
 npm run build
 ```
 
-`npm install` creates a `package-lock.json` locally; **commit that lockfile** so later builds use `npm ci`. Requires Node.js 20.9+ (22 LTS recommended). The environment that generated this patch could not reach the npm registry, so an actual dependency install and Next.js build were **not** performed here; please run the commands above.
+`npm install` creates a `package-lock.json` locally; **commit that lockfile** so later builds use `npm ci`. This project pins Node.js 24.x via `.nvmrc` and `package.json` engines; use `nvm use 24` on Windows. The environment that generated this patch could not reach the npm registry, so an actual dependency install and Next.js build were **not** performed here; please run the commands above.
 
 ## What's included
 
@@ -87,3 +87,9 @@ No dependency changes or `npm install` required after a working Patch 02.
 ## Patch 04 — Checkout interface preview
 
 New `/checkout` includes sample address, Bangladesh/international region switch, delivery method selection, review step and indicative total. The cart links to it only for valid product/variant quantities. **There is no real order or payment, and address entries are not persisted or transmitted.** Run `node scripts/verify-patch04.mjs` and `npm run check` after extracting. See `docs/PATCH_04_NOTES.md` and `PROJECT_PROGRESS.md` for details and continuation guidance.
+
+## Patch 05 — Customer account & tracking preview
+
+A responsive `/account` area now links to *fictional* order history, demo order details, sample shipment tracking, read-only address planning and local display preferences. Sign-in/sign-up designs exist at `/sign-in` and `/sign-up`, but **all credential inputs and submission are disabled**. No real customer exists and no orders, emails, address details or passwords are stored or transmitted by these pages.
+
+Use `node scripts/verify-patch05.mjs` then `npm run check` after the Patch 05 root overlay. See `docs/PATCH_05_NOTES.md`, `PROJECT_PROGRESS.md` and `docs/FLUTTER_PARITY.md` for intended future backend and Flutter parity. No dependency changes.

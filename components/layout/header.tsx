@@ -14,7 +14,6 @@ import {
   UserRound,
   X,
 } from 'lucide-react'
-import { toast } from 'sonner'
 import { Logo } from '@/components/layout/logo'
 import {
   Sheet,
@@ -177,21 +176,14 @@ export function Header() {
               <option value="bn">BN</option>
             </select>
           </div>
-          <button
-            type="button"
-            title="Accounts coming in a later patch"
-            onClick={() =>
-              toast.info(
-                'Customer accounts will be connected in a later patch.',
-              )
-            }
+          <Link
+            href="/account"
+            aria-label="Account preview"
             className="hidden items-center gap-2 rounded-lg p-2 text-ink hover:bg-slate-100 md:flex"
           >
             <UserRound size={21} />
-            <span className="hidden text-xs font-bold xl:block">
-              {t.account}
-            </span>
-          </button>
+            <span className="hidden text-xs font-bold xl:block">{t.account}</span>
+          </Link>
           <Link
             href="/wishlist"
             aria-label={t.wishlist}
@@ -333,6 +325,14 @@ export function Header() {
               </Link>
             ))}
           </div>
+          <Link
+            href="/account"
+            onClick={() => setMobileOpen(false)}
+            className="mt-3 flex items-center justify-between rounded-xl bg-blue-50 px-3 py-3 text-sm font-extrabold text-primary"
+          >
+            <span className="flex items-center gap-2"><UserRound size={17} /> {t.account} preview</span>
+            <ArrowRight size={16} />
+          </Link>
           <div className="my-6 h-px bg-border" />
           <p className="mb-2 px-3 text-xs font-extrabold uppercase tracking-[.15em] text-muted">
             Shop by category

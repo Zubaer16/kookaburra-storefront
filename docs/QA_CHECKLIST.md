@@ -32,3 +32,18 @@ Run `npm install`, `npm run verify`, `npm run typecheck`, `npm run lint`, and `n
 - Checkout, production payments, order creation, email and support forms
 - Full translation coverage beyond the initial navigation/home labels
 - Flutter app project (shared tokens and screen mapping are included, not the Dart implementation)
+
+## Patch 05 · Account preview smoke tests
+
+- [ ] Desktop header Account opens `/account`, mobile menu Account preview link closes drawer and navigates correctly.
+- [ ] `/account` displays an **explicit preview** banner, local wishlist/cart counts after hydration, and fictional order sample.
+- [ ] `/sign-in` and `/sign-up` have visibly disabled inputs/buttons; no credential is requested or submitted.
+- [ ] `/account/orders` filters by Processing / On the way / Delivered and searches by sample ID and product text.
+- [ ] Clearing the filters restores all three sample orders; an impossible search shows empty-state guidance.
+- [ ] `/account/orders/DEMO-BD-1042` displays BDT and milestone timeline; `/account/orders/DEMO-INT-0831` displays USD.
+- [ ] `/track` selector switches between sample shipments; a `/track?sample=DEMO-INT-0831` link selects the correct demo order.
+- [ ] `/account/addresses` collects no details; `/account/settings` changes existing browser-local region and language preferences.
+- [ ] No order/receipt, authentication, user profile or tracking data is transmitted to an API by these new pages.
+- [ ] At 320px, 375px and desktop widths, order IDs do not overflow; tabs scroll horizontally when needed.
+- [ ] Keyboard navigation and focus indicator work for nav, order filters, search, selector and links.
+- [ ] `node scripts/verify-patch05.mjs` and `npm run check` pass locally before any deployment.

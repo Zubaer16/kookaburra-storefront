@@ -1,6 +1,6 @@
 # Kookaburra v2 — Project Progress and Continuation Notes
 
-**Latest source baseline:** `kookaburra-storefront-full-20261017-133315.zip`, then apply Patch 04.
+**Latest source baseline:** `kookaburra-storefront-full-20261017-140321.zip`, then apply Patch 05.
 
 ## Architecture decisions
 
@@ -17,17 +17,18 @@
 - Patch 02: better homepage, category routes, Fashion/Shoes, advanced catalog filters.
 - Patch 03: gallery, color/size variants, variant-aware cart, wishlist and URL filters.
 - Patch 04: checkout **UI preview** (address/delivery/review), cart eligibility checks, Flutter parity contract, Patch 02/03 verifier false-positive fixes. **No live orders, payment or personal data saving.**
+- Patch 05: account overview, sign-in/sign-up disabled UI, example order history with search/status filters, demo order details and tracking selector/timeline, saved addresses placeholder, browser-local shopping preferences. **Fictional fixtures, no login, real customer data, requests or orders.**
 
 ## Next development priorities
 
-1. Patch 05: customer account/auth *UI shell* plus orders/tracking UI using non-sensitive fixtures; optionally full English/Bangla i18n plan.
+1. Patch 06: expand the customer experience and localization (full EN/BN content, empty/loading/error states and accessibility), then prepare API integration contracts.
 2. API contract and independently managed backend, authoritative stock/pricing/tax/shipping/order/payment. Start with ERD and documented endpoints, not embedded Next.js server-actions as core business logic.
 3. Connect web/cart/checkout securely to backend; enable real checkout only after tested inventory reservation, server-authoritative quote, payment/webhook/idempotency and country support.
 4. Flutter screens using the same UX, tokens and APIs when ready.
 
 ## Important limitations
 
-All catalog items, delivery options, stock, shipping prices and totals are previews, not usable for production orders. Full Bangla localization and international legal/tax/shipping support remain future work. Browser-local cart/wishlist are not shared across devices. Do not deploy live payments or take real orders from preview state.
+All catalog items, example orders, delivery options, stock, shipping prices and totals are previews, not usable for production orders. Full Bangla localization and international legal/tax/shipping support remain future work. Browser-local cart/wishlist are not shared across devices. Do not deploy live payments or take real orders from preview state.
 
 ## Future chat workflow
 
