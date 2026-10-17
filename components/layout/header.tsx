@@ -26,9 +26,11 @@ import { useStoreReady } from '@/hooks/use-store-ready'
 import { dictionary } from '@/lib/i18n'
 import { categories } from '@/lib/catalog'
 import { cn } from '@/lib/utils'
+import { useUiCopy } from '@/hooks/use-ui-copy'
 
 function SearchBox({ compact = false }: { compact?: boolean }) {
   const router = useRouter()
+  const t = useUiCopy()
   const [query, setQuery] = useState('')
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -47,21 +49,21 @@ function SearchBox({ compact = false }: { compact?: boolean }) {
     >
       <Search className="ml-3.5 shrink-0 text-[#8a96aa]" size={19} />
       <input
-        aria-label="Search the catalog"
+        aria-label={t.searchCatalog}
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        placeholder="Search products, categories & more..."
+        placeholder={t.searchPlaceholder}
         className="h-full w-full min-w-0 bg-transparent px-3 text-sm text-ink outline-none placeholder:text-[#8a96aa]"
       />
       <button
-        aria-label="Submit search"
+        aria-label={t.submitSearch}
         className={cn(
           'mr-1 hidden shrink-0 rounded-lg bg-primary px-5 text-sm font-bold text-white hover:bg-primary-hover sm:block',
           compact ? 'h-9' : 'h-10',
         )}
         type="submit"
       >
-        Search
+        {t.search}
       </button>
     </form>
   )
@@ -128,14 +130,14 @@ export function Header() {
             {t.global}
           </span>
           <span className="hidden font-bold sm:block">
-            One store · Many discoveries{' '}
+            {locale === 'bn' ? 'এক স্টোরে অনেক পছন্দ' : 'One store · Many discoveries'}{' '}
             <span className="ml-2 text-primary">✦</span>
           </span>
         </div>
       </div>
       <div className="container-shell flex h-[72px] items-center gap-4 lg:gap-7">
         <button
-          aria-label="Open navigation"
+          aria-label={locale === 'bn' ? 'মেনু খুলুন' : 'Open navigation'}
           type="button"
           className="flex size-10 items-center justify-center rounded-xl border border-border lg:hidden"
           onClick={() => setMobileOpen(true)}
@@ -178,7 +180,7 @@ export function Header() {
           </div>
           <Link
             href="/account"
-            aria-label="Account preview"
+            aria-label={t.account}
             className="hidden items-center gap-2 rounded-lg p-2 text-ink hover:bg-slate-100 md:flex"
           >
             <UserRound size={21} />
@@ -236,13 +238,13 @@ export function Header() {
                 className="absolute left-0 top-[48px] z-30 w-[660px] rounded-b-2xl border border-border bg-white p-6 shadow-[0_22px_54px_rgba(20,32,58,.16)]"
               >
                 <div className="mb-4 flex items-center justify-between">
-                  <p className="text-sm font-extrabold">Explore categories</p>
+                  <p className="text-sm font-extrabold">{t.categories}</p>
                   <Link
                     href="/categories"
                     onClick={() => setCategoriesOpen(false)}
                     className="inline-flex items-center gap-1 text-xs font-bold text-primary"
                   >
-                    View all <ArrowRight size={14} />
+                    {locale === 'bn' ? 'সব দেখুন' : 'View all'} <ArrowRight size={14} />
                   </Link>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -283,13 +285,13 @@ export function Header() {
             href="/shop?category=footwear"
             className="text-[13px] font-semibold text-[#4c5872] hover:text-primary"
           >
-            Shoes
+            {locale === 'bn' ? 'জুতা' : 'Shoes'}
           </Link>
           <Link
             href="/shop?category=fashion"
             className="text-[13px] font-semibold text-[#4c5872] hover:text-primary"
           >
-            Fashion
+            {locale === 'bn' ? 'ফ্যাশন' : 'Fashion'}
           </Link>
           <span className="ml-auto text-[12px] font-semibold text-[#52708f]">
             ✦ {t.freeShipping}
@@ -330,12 +332,12 @@ export function Header() {
             onClick={() => setMobileOpen(false)}
             className="mt-3 flex items-center justify-between rounded-xl bg-blue-50 px-3 py-3 text-sm font-extrabold text-primary"
           >
-            <span className="flex items-center gap-2"><UserRound size={17} /> {t.account} preview</span>
+            <span className="flex items-center gap-2"><UserRound size={17} /> {locale === 'bn' ? 'অ্যাকাউন্ট প্রিভিউ' : 'Account preview'}</span>
             <ArrowRight size={16} />
           </Link>
           <div className="my-6 h-px bg-border" />
           <p className="mb-2 px-3 text-xs font-extrabold uppercase tracking-[.15em] text-muted">
-            Shop by category
+            {t.shopByCategory}
           </p>
           <div className="space-y-1">
             {categories.map((category) => (

@@ -16,26 +16,29 @@ import { dictionary } from '@/lib/i18n'
 import { categories } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { useUiCopy } from '@/hooks/use-ui-copy'
 
 export function Footer() {
   const ready = useStoreReady()
   const locale = useCommerceStore((s) => s.locale)
   const t = dictionary(ready ? locale : 'en')
+  const u = useUiCopy()
+  const bn = ready && locale === 'bn'
   const benefits = [
     {
       icon: Truck,
       title: t.freeShipping,
-      detail: 'Availability varies by country & order',
+      detail: bn ? 'দেশ ও অর্ডার অনুযায়ী প্রযোজ্য' : 'Availability varies by country & order',
     },
     {
       icon: PackageCheck,
       title: t.easyReturns,
-      detail: 'Clear order support policies',
+      detail: bn ? 'রিটার্ন ও সহায়তার নির্দেশনা' : 'Clear order support policies',
     },
     {
       icon: ShieldCheck,
       title: t.secureCheckout,
-      detail: 'Production payment integration pending',
+      detail: bn ? 'বাস্তব পেমেন্ট সংযোগ এখনো হয়নি' : 'Production payment integration pending',
     },
   ]
   return (
@@ -84,31 +87,31 @@ export function Footer() {
             </p>
             <div className="grid gap-3 text-sm text-[#b8c3d9]">
               <Link className="hover:text-white" href="/shop">
-                Shop all
+                {u.shopAll}
               </Link>
               <Link className="hover:text-white" href="/categories">
-                All categories
+                {u.allCategories}
               </Link>
               <Link className="hover:text-white" href="/shop?tag=sale">
-                Special offers
+                {u.specialOffers}
               </Link>
               <Link className="hover:text-white" href="/shop?tag=new">
-                New arrivals
+                {u.newArrivals}
               </Link>
               <Link className="hover:text-white" href="/wishlist">
-                Wishlist
+                {u.wishlist}
               </Link>
               <Link className="hover:text-white" href="/account">
-                Account preview
+                {u.account}
               </Link>
               <Link className="hover:text-white" href="/track">
-                Demo tracking
+                {u.trackSample}
               </Link>
             </div>
           </div>
           <div>
             <p className="mb-5 text-xs font-extrabold uppercase tracking-[.15em] text-white">
-              Categories
+              {u.categories}
             </p>
             <div className="grid gap-3 text-sm text-[#b8c3d9]">
               {categories.map((category) => (
@@ -117,7 +120,7 @@ export function Footer() {
                   className="hover:text-white"
                   href={`/shop?category=${category.id}`}
                 >
-                  {category.label}
+                  {bn ? category.bn : category.label}
                 </Link>
               ))}
             </div>
@@ -130,7 +133,7 @@ export function Footer() {
               {t.subscribeText}
             </p>
             <div className="mt-4 flex items-center gap-2 rounded-xl border border-white/15 px-4 py-3 text-sm text-white/70">
-              <Mail size={17} /> Newsletter coming soon{' '}
+              <Mail size={17} /> {bn ? 'নিউজলেটার শীঘ্রই আসছে' : 'Newsletter coming soon'}{' '}
               <ArrowUpRight size={16} className="ml-auto" />
             </div>
             <p className="mt-5 flex items-center gap-2 text-xs text-[#b8c3d9]">
@@ -143,7 +146,7 @@ export function Footer() {
             <span>
               © {new Date().getFullYear()} Kookaburra. All rights reserved.
             </span>
-            <span>Patch 05 UI preview · No live accounts, orders or payments</span>
+            <span>{u.footerPreview}</span>
           </div>
         </div>
       </footer>

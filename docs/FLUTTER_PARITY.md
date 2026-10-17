@@ -86,3 +86,11 @@ The web `/checkout` UI has **Address → Delivery → Review** steps. Flutter sh
 - Shared states needed before real integration: anonymous, authenticating, authenticated, expired session, permission denied, empty history, loading, retryable error, delivered, in transit, canceled, returns.
 - Future endpoints: `POST /v1/auth/login`, `POST /v1/auth/register`, `GET /v1/me`, `GET /v1/me/orders`, `GET /v1/me/orders/{id}`, `GET /v1/me/addresses`, `GET /v1/me/preferences`, with backend-managed tokens/sessions and authz. Endpoints are **proposals**, not implementations.
 - UI parity concerns: touch-friendly tabs, clear delivery milestone labels, screen reader timeline order, translated labels, currency based on each order's recorded currency rather than current storefront selector.
+
+## Patch 06 — EN/BN and error/empty states parity
+
+- New web static UI copy: `lib/ui-copy.ts` (locale keys `en`/`bn`); Flutter should mirror these concepts in `arb`/generated localization messages, not import TypeScript.
+- Web uses browser `html lang` and local preference after hydration; Flutter should use the same user preference and `Locale('bn')` / `Locale('en')` at `MaterialApp` level, including screen-reader semantics. Keep navigation and visual hierarchy similar, but native UI where appropriate.
+- Core shop, category, wishlist, cart, account shell/settings and common error/404 states have translated labels. Other screens/catalog content remain partly English. Do not confuse this iteration with full bilingual content.
+- API DTO proposal in `lib/api/contracts.ts` distinguishes integer minor-unit amounts with currency (`BDT` / `USD`) from local demo display prices. Flutter should match the **eventual backend OpenAPI**, not this draft directly.
+- Loading / no results / disabled actions / no logged-in customer / retryable error are distinct states on both platforms. Never display fake success, real order confirmation or simulated payment as if processed.

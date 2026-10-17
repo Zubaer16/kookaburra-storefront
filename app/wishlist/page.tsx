@@ -8,9 +8,11 @@ import { ProductCard } from '@/components/store/product-card'
 import { productById, productPrice, type Product } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { useUiCopy } from '@/hooks/use-ui-copy'
 
 export default function WishlistPage() {
   const ready = useStoreReady()
+  const t = useUiCopy()
   const wishlist = useCommerceStore((s) => s.wishlist)
   const clear = useCommerceStore((s) => s.clearWishlist)
   const market = useCommerceStore((s) => s.market)
@@ -29,23 +31,23 @@ export default function WishlistPage() {
         aria-label="Breadcrumb"
         className="flex items-center gap-1.5 text-xs text-muted"
       >
-        <Link href="/">Home</Link>
+        <Link href="/">{t.home}</Link>
         <ChevronRight size={14} />
-        <span className="font-bold text-ink">Wishlist</span>
+        <span className="font-bold text-ink">{t.wishlist}</span>
       </nav>
       <div className="mt-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Your wishlist
+            {t.wishTitle}
           </h1>
           <p className="mt-2 text-sm text-muted">
-            {items.length} saved finds, kept on this browser for now.
+            {items.length} {t.savedFinds}
           </p>
         </div>
         {items.length > 0 && (
           <div className="flex flex-wrap items-center gap-2">
             <label htmlFor="wishlist-sort" className="sr-only">
-              Sort your wishlist
+              {t.wishSort}
             </label>
             <select
               id="wishlist-sort"
@@ -53,16 +55,16 @@ export default function WishlistPage() {
               onChange={(e) => setSort(e.target.value)}
               className="h-11 rounded-xl border border-border bg-white px-3 text-sm"
             >
-              <option value="saved">Saved order</option>
-              <option value="price-low">Price: Low to high</option>
-              <option value="price-high">Price: High to low</option>
+              <option value="saved">{t.savedOrder}</option>
+              <option value="price-low">{t.priceLow}</option>
+              <option value="price-high">{t.priceHigh}</option>
             </select>
             <button
               type="button"
               onClick={() => setConfirmClear(true)}
               className="inline-flex h-11 items-center gap-1.5 rounded-xl border border-border px-3 text-xs font-bold text-muted hover:border-red-200 hover:text-red-600"
             >
-              <Trash2 size={15} /> Clear all
+              <Trash2 size={15} /> {t.clearAll}
             </button>
           </div>
         )}
@@ -74,7 +76,7 @@ export default function WishlistPage() {
           className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4"
         >
           <p className="text-sm font-semibold text-amber-900">
-            Remove all {items.length} saved product(s)?
+            {t.removeSaved}
           </p>
           <div className="flex gap-2">
             <Button
@@ -82,7 +84,7 @@ export default function WishlistPage() {
               variant="outline"
               onClick={() => setConfirmClear(false)}
             >
-              Cancel
+              {t.cancel}
             </Button>
             <Button
               size="sm"
@@ -91,7 +93,7 @@ export default function WishlistPage() {
                 setConfirmClear(false)
               }}
             >
-              Clear wishlist
+              {t.clearWishlist}
             </Button>
           </div>
         </div>
@@ -105,21 +107,20 @@ export default function WishlistPage() {
       ) : (
         <div className="mt-9 flex min-h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-[#fbfcff] p-6 text-center">
           <Heart size={46} className="text-primary" />
-          <h2 className="mt-5 text-xl font-bold">Your wishlist is ready</h2>
+          <h2 className="mt-5 text-xl font-bold">{t.wishEmpty}</h2>
           <p className="mt-2 max-w-sm text-sm leading-6 text-muted">
-            Tap the heart on any product you love to save it here.
+            {t.wishEmptyDescription}
           </p>
           <Button asChild className="mt-6">
             <Link href="/shop">
-              Find favorites <ArrowRight size={16} />
+              {t.findFavorites} <ArrowRight size={16} />
             </Link>
           </Button>
         </div>
       )}
       {items.length > 0 && (
         <p className="mt-8 text-center text-xs text-muted">
-          Saving a product does not reserve stock. Choose size and color from
-          its product page before adding variable items to cart.
+          {t.wishNote}
         </p>
       )}
     </main>

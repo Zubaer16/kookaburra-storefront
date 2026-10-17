@@ -7,6 +7,7 @@ import { ProductCard } from '@/components/store/product-card'
 import { categories, products, productPrice, type Market } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { useUiCopy } from '@/hooks/use-ui-copy'
 
 type ShopProps = {
   query: string
@@ -35,7 +36,9 @@ export function ShopClient({
   const [stockOnly, setStockOnly] = useState(stock === '1')
   const [showFilters, setShowFilters] = useState(false)
   const ready = useStoreReady()
+  const t = useUiCopy()
   const savedMarket = useCommerceStore((s) => s.market)
+  const selectedLocale = useCommerceStore((s) => s.locale)
   const market: Market = ready ? savedMarket : 'BD'
   const priceLevels = market === 'BD' ? [2000, 5000, 10000] : [25, 60, 120]
   const priceLimit =
@@ -74,6 +77,7 @@ export function ShopClient({
           product.description,
           product.category,
           categoryName,
+          categories.find((c) => c.id === product.category)?.bn ?? '',
         ].some((item) => item.toLocaleLowerCase().includes(needle))
       const matchesCategory =
         !selectedCategory ||
@@ -123,7 +127,7 @@ export function ShopClient({
   }
   const activeCategory = categories.find((c) => c.id === selectedCategory)
   const categoryLabel =
-    selectedCategory === 'style' ? 'Style & shoes' : activeCategory?.label
+    selectedCategory === 'style' ? t.styleShoes : (ready && selectedLocale === 'bn' ? activeCategory?.bn : activeCategory?.label)
   const filterCount =
     Number(!!selectedCategory) +
     Number(!!selectedTag) +
@@ -137,29 +141,29 @@ export function ShopClient({
         className="flex items-center gap-1.5 text-xs text-muted"
       >
         <Link href="/" className="hover:text-primary">
-          Home
+          {t.home}
         </Link>
         <ChevronRight size={14} />
-        <span className="font-bold text-ink">Shop</span>
+        <span className="font-bold text-ink">{t.shop}</span>
       </nav>
       <div className="mt-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <p className="mb-2 text-[11px] font-extrabold uppercase tracking-[.17em] text-primary">
-            YOUR DISCOVERY STARTS HERE
+            {t.shopIntro}
           </p>
           <h1 className="text-3xl font-black tracking-[-.04em] sm:text-4xl">
-            {categoryLabel ?? 'Explore the collection'}
+            {categoryLabel ?? t.exploreCollection}
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Find something that feels just right for your everyday.
+            {t.shopSubtitle}
           </p>
         </div>
         <span aria-live="polite" className="text-sm font-semibold text-muted">
-          {visible.length} products found
+          {visible.length} {t.productsFound}
         </span>
       </div>
       <div
-        aria-label="Quick category filters"
+        aria-label={t.categories}
         className="mt-7 flex gap-2 overflow-x-auto pb-2"
       >
         <button
@@ -167,14 +171,14 @@ export function ShopClient({
           onClick={() => setSelectedCategory('')}
           className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-bold transition ${!selectedCategory ? 'border-primary bg-primary text-white' : 'border-border bg-white text-[#596a84] hover:border-primary'}`}
         >
-          All products
+          {t.allProducts}
         </button>
         <button
           type="button"
           onClick={() => setSelectedCategory('style')}
           className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-bold transition ${selectedCategory === 'style' ? 'border-primary bg-primary text-white' : 'border-border bg-white text-[#596a84] hover:border-primary'}`}
         >
-          Style & shoes
+          {t.styleShoes}
         </button>
         {categories.map((c) => (
           <button
@@ -183,7 +187,7 @@ export function ShopClient({
             onClick={() => setSelectedCategory(c.id)}
             className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-bold transition ${selectedCategory === c.id ? 'border-primary bg-primary text-white' : 'border-border bg-white text-[#596a84] hover:border-primary'}`}
           >
-            {c.label}
+            {ready && selectedLocale === 'bn' ? c.bn : c.label}
           </button>
         ))}
       </div>
@@ -193,18 +197,18 @@ export function ShopClient({
           className={`${showFilters ? 'block' : 'hidden'} w-full shrink-0 self-start rounded-[20px] border border-border bg-white p-5 lg:block lg:w-[235px]`}
         >
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-sm font-extrabold">Filter products</h2>
+            <h2 className="text-sm font-extrabold">{t.filterProducts}</h2>
             <button
               type="button"
               onClick={reset}
               className="text-xs font-bold text-primary hover:underline"
             >
-              Reset
+              {t.reset}
             </button>
           </div>
           <fieldset>
             <legend className="mb-3 text-xs font-extrabold uppercase tracking-[.1em] text-muted">
-              Category
+              {t.category}
             </legend>
             <div className="space-y-1">
               <button
@@ -212,14 +216,14 @@ export function ShopClient({
                 onClick={() => setSelectedCategory('')}
                 className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${!selectedCategory ? 'bg-blue-50 font-extrabold text-primary' : 'text-[#61708b] hover:bg-slate-50'}`}
               >
-                All categories
+                {t.allCategories}
               </button>
               <button
                 type="button"
                 onClick={() => setSelectedCategory('style')}
                 className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${selectedCategory === 'style' ? 'bg-blue-50 font-extrabold text-primary' : 'text-[#61708b] hover:bg-slate-50'}`}
               >
-                Style & shoes
+                {t.styleShoes}
               </button>
               {categories.map((c) => (
                 <button
@@ -228,7 +232,7 @@ export function ShopClient({
                   onClick={() => setSelectedCategory(c.id)}
                   className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${selectedCategory === c.id ? 'bg-blue-50 font-extrabold text-primary' : 'text-[#61708b] hover:bg-slate-50'}`}
                 >
-                  {c.label}
+                  {ready && selectedLocale === 'bn' ? c.bn : c.label}
                 </button>
               ))}
             </div>
@@ -236,14 +240,14 @@ export function ShopClient({
           <div className="my-6 h-px bg-border" />
           <fieldset>
             <legend className="mb-3 text-xs font-extrabold uppercase tracking-[.1em] text-muted">
-              Collection
+              {t.collection}
             </legend>
             <div className="space-y-3">
               {[
-                { id: '', label: 'All products' },
-                { id: 'sale', label: 'Special offers' },
-                { id: 'new', label: 'New arrivals' },
-                { id: 'popular', label: 'Popular picks' },
+                { id: '', label: t.allProducts },
+                { id: 'sale', label: t.specialOffers },
+                { id: 'new', label: t.newArrivals },
+                { id: 'popular', label: t.popularPicks },
               ].map((c) => (
                 <label
                   key={c.id}
@@ -257,7 +261,7 @@ export function ShopClient({
                     onChange={() => setSelectedTag(c.id)}
                     className="accent-[#2459e8]"
                   />
-                  {c.label}
+                  {ready && selectedLocale === 'bn' ? c.bn : c.label}
                 </label>
               ))}
             </div>
@@ -267,7 +271,7 @@ export function ShopClient({
             htmlFor="price-range"
             className="mb-3 block text-xs font-extrabold uppercase tracking-[.1em] text-muted"
           >
-            Price range
+            {t.priceRange}
           </label>
           <select
             id="price-range"
@@ -275,10 +279,10 @@ export function ShopClient({
             onChange={(event) => setPriceTier(event.target.value)}
             className="h-11 w-full rounded-xl border border-border bg-white px-3 text-sm text-ink focus:border-primary focus:outline-none"
           >
-            <option value="all">Any price</option>
+            <option value="all">{t.anyPrice}</option>
             {priceLevels.map((level, i) => (
               <option key={`${market}-${level}`} value={i}>
-                Under {currencyLabel}
+                {t.under} {currencyLabel}
                 {level.toLocaleString('en-US')}
               </option>
             ))}
@@ -290,7 +294,7 @@ export function ShopClient({
               onChange={(event) => setStockOnly(event.target.checked)}
               className="size-4 accent-[#2459e8]"
             />{' '}
-            In stock only
+            {t.inStockOnly}
           </label>
         </aside>
         <div className="min-w-0 flex-1">
@@ -303,8 +307,8 @@ export function ShopClient({
               <input
                 value={text}
                 onChange={(event) => setText(event.target.value)}
-                aria-label="Filter products by keyword"
-                placeholder="Search within products"
+                aria-label={t.keywordFilter}
+                placeholder={t.searchWithin}
                 className="h-10 w-full rounded-lg border border-border bg-white pl-10 pr-3 text-sm outline-none focus:border-primary"
               />
             </div>
@@ -315,11 +319,11 @@ export function ShopClient({
               onClick={() => setShowFilters((open) => !open)}
               className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-white px-3 text-xs font-bold lg:hidden"
             >
-              <SlidersHorizontal size={16} /> Filters
+              <SlidersHorizontal size={16} /> {t.filters}
               {filterCount > 0 ? ` (${filterCount})` : ''}
             </button>
             <label htmlFor="sort-products" className="sr-only">
-              Sort products
+              {t.sortProducts}
             </label>
             <select
               id="sort-products"
@@ -327,10 +331,10 @@ export function ShopClient({
               onChange={(event) => setSortBy(event.target.value)}
               className="h-10 rounded-lg border border-border bg-white px-3 text-xs font-semibold text-[#495873] outline-none"
             >
-              <option value="featured">Featured</option>
-              <option value="newest">New arrivals</option>
-              <option value="price-asc">Price: Low to high</option>
-              <option value="price-desc">Price: High to low</option>
+              <option value="featured">{t.featured}</option>
+              <option value="newest">{t.newArrivals}</option>
+              <option value="price-asc">{t.priceLow}</option>
+              <option value="price-desc">{t.priceHigh}</option>
             </select>
           </div>
           {(selectedCategory ||
@@ -342,10 +346,10 @@ export function ShopClient({
               {[
                 categoryLabel,
                 selectedTag &&
-                  (selectedTag === 'sale' ? 'Offers' : selectedTag),
-                text && `Search: ${text}`,
+                  (selectedTag === 'sale' ? t.offers : selectedTag),
+                text && `${t.search}: ${text}`,
                 priceTier !== 'all' && `Under ${currencyLabel}${priceLimit}`,
-                stockOnly && 'In stock',
+                stockOnly && t.inStock,
               ]
                 .filter(
                   (item): item is string =>
@@ -364,7 +368,7 @@ export function ShopClient({
                 onClick={reset}
                 className="inline-flex items-center gap-1 text-xs font-bold text-muted hover:text-primary"
               >
-                <X size={13} /> Clear all
+                <X size={13} /> {t.clearAll}
               </button>
             </div>
           )}
@@ -378,23 +382,22 @@ export function ShopClient({
             <div className="flex min-h-[350px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-[#fbfcff] p-6 text-center">
               <Search size={32} className="text-[#a1b0c8]" />
               <h3 className="mt-4 text-lg font-extrabold">
-                Nothing matched this time
+                {t.noMatches}
               </h3>
               <p className="mt-2 max-w-sm text-sm text-muted">
-                Try another category, price range or search keyword.
+                {t.noMatchesDescription}
               </p>
               <button
                 type="button"
                 className="mt-5 font-bold text-primary hover:underline"
                 onClick={reset}
               >
-                Show all products
+                {t.resetFilters}
               </button>
             </div>
           )}
           <p className="mt-8 text-center text-xs text-muted">
-            Preview only · {visible.length} locally defined products · Backend
-            search and pagination will replace this in a future patch.
+            {ready && selectedLocale === 'bn' ? `শুধু প্রিভিউ · ${visible.length} টি নমুনা পণ্য · ভবিষ্যতে সার্ভার থেকে সার্চ ও পেজিনেশন আসবে।` : `Preview only · ${visible.length} local products · Backend search and pagination will replace this later.`}
           </p>
         </div>
       </div>

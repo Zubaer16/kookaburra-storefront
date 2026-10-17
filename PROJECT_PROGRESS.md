@@ -1,6 +1,6 @@
 # Kookaburra v2 — Project Progress and Continuation Notes
 
-**Latest source baseline:** `kookaburra-storefront-full-20261017-140321.zip`, then apply Patch 05.
+**Latest source baseline:** `kookaburra-storefront-full-20261017-141657.zip`, then apply Patch 06.
 
 ## Architecture decisions
 
@@ -19,9 +19,11 @@
 - Patch 04: checkout **UI preview** (address/delivery/review), cart eligibility checks, Flutter parity contract, Patch 02/03 verifier false-positive fixes. **No live orders, payment or personal data saving.**
 - Patch 05: account overview, sign-in/sign-up disabled UI, example order history with search/status filters, demo order details and tracking selector/timeline, saved addresses placeholder, browser-local shopping preferences. **Fictional fixtures, no login, real customer data, requests or orders.**
 
+- Patch 06: bilingual EN/BN static labels on primary shopping screens and account settings/shell, translated empty/error states, browser `html lang` sync, and a **non-connected** typed API client/DTO draft. Some checkout, tracking and catalog copy is still English. No real API requests or Flutter code.
+
 ## Next development priorities
 
-1. Patch 06: expand the customer experience and localization (full EN/BN content, empty/loading/error states and accessibility), then prepare API integration contracts.
+1. Patch 07: complete remaining localized checkout/order/product copy, review accessibility and add UI state QA; decide server-side locale routing before claiming full bilingual SEO.
 2. API contract and independently managed backend, authoritative stock/pricing/tax/shipping/order/payment. Start with ERD and documented endpoints, not embedded Next.js server-actions as core business logic.
 3. Connect web/cart/checkout securely to backend; enable real checkout only after tested inventory reservation, server-authoritative quote, payment/webhook/idempotency and country support.
 4. Flutter screens using the same UX, tokens and APIs when ready.

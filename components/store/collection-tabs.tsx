@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { ProductCard } from '@/components/store/product-card'
 import { products } from '@/lib/catalog'
+import { useUiCopy } from '@/hooks/use-ui-copy'
 
 const collections = [
   { id: 'featured', label: 'For you' },
@@ -15,6 +16,7 @@ const collections = [
 type Collection = (typeof collections)[number]['id']
 
 export function CollectionTabs() {
+  const t = useUiCopy()
   const [active, setActive] = useState<Collection>('featured')
   const items =
     active === 'new'
@@ -44,7 +46,7 @@ export function CollectionTabs() {
             onClick={() => setActive(collection.id)}
             className={`shrink-0 rounded-full px-4 py-2.5 text-xs font-extrabold transition sm:text-sm ${active === collection.id ? 'bg-[#16233e] text-white' : 'border border-border bg-white text-[#61708b] hover:border-primary hover:text-primary'}`}
           >
-            {collection.label}
+            {({ featured: t.forYou, new: t.newArrivals, sale: t.greatDeals, style: t.styleShoes } as const)[collection.id]}
           </button>
         ))}
       </div>
@@ -71,7 +73,7 @@ export function CollectionTabs() {
           }
           className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3 text-sm font-extrabold text-ink transition hover:border-primary hover:text-primary"
         >
-          Explore more <ArrowRight size={17} />
+          {t.exploreMore} <ArrowRight size={17} />
         </Link>
       </div>
     </div>
