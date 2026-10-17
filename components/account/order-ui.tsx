@@ -1,7 +1,9 @@
+'use client'
+
 import Link from 'next/link'
+import { usePreviewCopy } from '@/hooks/use-preview-copy'
 import { ArrowRight, Check, Circle, Clock3, Package, Truck } from 'lucide-react'
 import {
-  orderStatusLabels,
   previewDate,
   previewMoney,
   type PreviewOrder,
@@ -16,28 +18,37 @@ const statusStyle: Record<PreviewOrderStatus, string> = {
 }
 
 export function StatusPill({ status }: { status: PreviewOrderStatus }) {
+  const t = usePreviewCopy()
+  const labels = {
+    processing: t.statusProcessing,
+    shipped: t.statusShipped,
+    delivered: t.statusDelivered,
+    cancelled: t.statusCancelled,
+  }
   return (
     <span
       className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-bold ${statusStyle[status]}`}
     >
-      {orderStatusLabels[status]}
+      {labels[status]}
     </span>
   )
 }
 
 export function DemoOrderCard({ order }: { order: PreviewOrder }) {
+  const t = usePreviewCopy()
   return (
     <article className="rounded-[20px] border border-border bg-white p-5 shadow-[0_10px_28px_rgba(25,45,87,.04)] sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border pb-4">
         <div>
           <p className="text-[11px] font-extrabold uppercase tracking-wider text-muted">
-            Sample order
+            {t.sampleOrder}
           </p>
           <h3 className="mt-1 break-all text-base font-extrabold">
             {order.id}
           </h3>
           <p className="mt-1 text-xs text-muted">
-            Placed {previewDate(order.placedOn)} · {order.itemCount} item(s)
+            {t.placed} {previewDate(order.placedOn)} · {order.itemCount}{' '}
+            {t.itemCount}
           </p>
         </div>
         <StatusPill status={order.status} />
@@ -45,7 +56,7 @@ export function DemoOrderCard({ order }: { order: PreviewOrder }) {
       <div className="flex flex-wrap items-center justify-between gap-4 pt-5">
         <div>
           <p className="text-xs text-muted">
-            Illustrative total · {order.currency}
+            {t.illustrative} · {order.currency}
           </p>
           <p className="mt-1 text-xl font-black">
             {previewMoney(order.total, order.currency)}
@@ -55,7 +66,7 @@ export function DemoOrderCard({ order }: { order: PreviewOrder }) {
           href={`/account/orders/${order.id}`}
           className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white hover:bg-primary-hover"
         >
-          View details <ArrowRight size={16} />
+          {t.viewDetails} <ArrowRight size={16} />
         </Link>
       </div>
     </article>
@@ -63,11 +74,9 @@ export function DemoOrderCard({ order }: { order: PreviewOrder }) {
 }
 
 export function OrderTimeline({ order }: { order: PreviewOrder }) {
+  const t = usePreviewCopy()
   return (
-    <ol
-      aria-label={`Demo tracking timeline for ${order.id}`}
-      className="space-y-0"
-    >
+    <ol aria-label={`${t.trackingTimeline}: ${order.id}`} className="space-y-0">
       {order.events.map((event, index) => (
         <li key={event.label} className="relative flex gap-4 pb-8 last:pb-0">
           {index < order.events.length - 1 && (
@@ -102,6 +111,13 @@ export function OrderTimeline({ order }: { order: PreviewOrder }) {
 }
 
 export function TrackingSummary({ order }: { order: PreviewOrder }) {
+  const t = usePreviewCopy()
+  const labels = {
+    processing: t.statusProcessing,
+    shipped: t.statusShipped,
+    delivered: t.statusDelivered,
+    cancelled: t.statusCancelled,
+  }
   const Icon =
     order.status === 'delivered'
       ? Package
@@ -115,11 +131,9 @@ export function TrackingSummary({ order }: { order: PreviewOrder }) {
       </span>
       <div className="flex-1">
         <p className="text-xs font-bold uppercase tracking-wider text-muted">
-          Tracking status · Fictional example
+          {t.trackingStatus}
         </p>
-        <p className="mt-1 text-base font-extrabold">
-          {orderStatusLabels[order.status]}
-        </p>
+        <p className="mt-1 text-base font-extrabold">{labels[order.status]}</p>
       </div>
       <StatusPill status={order.status} />
     </div>

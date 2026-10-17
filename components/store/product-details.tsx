@@ -24,14 +24,15 @@ import {
   categoryById,
   cartLineKey,
   optionSummary,
-  productAvailableStock,
   products,
   type Product,
 } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { usePreviewCopy } from '@/hooks/use-preview-copy'
 
 export function ProductDetails({ product }: { product: Product }) {
+  const t = usePreviewCopy()
   const [quantity, setQuantity] = useState(1)
   const [color, setColor] = useState('')
   const [size, setSize] = useState('')
@@ -82,15 +83,15 @@ export function ProductDetails({ product }: { product: Product }) {
     if (!canAdd) return
     add(product.id, quantity, variant?.id)
     toast.success(
-      `Added ${quantity} to cart${variant ? ` · ${optionSummary(variant)}` : ''}`,
+      `${t.toastAdded}: ${quantity}${variant ? ` · ${optionSummary(variant)}` : ''}`,
     )
     setQuantity(1)
   }
   const status = !selected
-    ? 'Choose options to see availability'
+    ? t.chooseOptions
     : available > 0
-      ? `${available} available in this option (preview)`
-      : 'No more units available in this option'
+      ? `${available} ${t.availableUnits}`
+      : t.notAvailable
 
   return (
     <div className="container-shell pb-16 pt-8 sm:pb-20">
@@ -99,11 +100,11 @@ export function ProductDetails({ product }: { product: Product }) {
         className="mb-7 flex flex-wrap items-center gap-1.5 text-xs text-muted"
       >
         <Link href="/" className="hover:text-primary">
-          Home
+          {t.productHome}
         </Link>
         <ChevronRight size={14} />
         <Link href="/shop" className="hover:text-primary">
-          Shop
+          {t.productShop}
         </Link>
         <ChevronRight size={14} />
         <Link
@@ -131,10 +132,7 @@ export function ProductDetails({ product }: { product: Product }) {
           </p>
           <div className="mt-6 border-b border-border pb-6">
             <ProductPrice product={product} size="lg" />
-            <p className="mt-2 text-xs text-muted">
-              Illustrative price · Select region at the top to preview BDT or
-              USD
-            </p>
+            <p className="mt-2 text-xs text-muted">{t.priceNote}</p>
           </div>
           <ProductOptions
             product={product}
@@ -154,7 +152,7 @@ export function ProductDetails({ product }: { product: Product }) {
             <div className="inline-flex h-12 items-center rounded-xl border border-border">
               <button
                 type="button"
-                aria-label="Decrease quantity"
+                aria-label={t.minusQty}
                 disabled={quantity <= 1}
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 className="px-4 disabled:opacity-35"
@@ -162,14 +160,14 @@ export function ProductDetails({ product }: { product: Product }) {
                 <Minus size={17} />
               </button>
               <output
-                aria-label="Selected quantity"
+                aria-label={t.qtySelected}
                 className="min-w-8 text-center text-sm font-bold"
               >
                 {quantity}
               </output>
               <button
                 type="button"
-                aria-label="Increase quantity"
+                aria-label={t.plusQty}
                 disabled={!selected || quantity >= available}
                 onClick={() => setQuantity((q) => Math.min(available, q + 1))}
                 className="px-4 disabled:opacity-35"
@@ -183,20 +181,18 @@ export function ProductDetails({ product }: { product: Product }) {
               onClick={addSelected}
             >
               <ShoppingBag size={18} />
-              {!selected ? 'Select options' : 'Add to cart'}
+              {!selected ? t.selectOptions : t.addCart}
               <ArrowRight size={16} />
             </Button>
             <Button
               variant="outline"
               size="icon"
-              aria-label={saved ? 'Remove from wishlist' : 'Save to wishlist'}
+              aria-label={saved ? t.removeWish : t.saveWish}
               aria-pressed={saved}
               className="size-12"
               onClick={() => {
                 toggle(product.id)
-                toast.success(
-                  saved ? 'Removed from wishlist' : 'Saved to wishlist',
-                )
+                toast.success(saved ? t.toastRemoved : t.toastSaved)
               }}
             >
               <Heart size={19} fill={saved ? '#2459e8' : 'none'} />
@@ -205,21 +201,16 @@ export function ProductDetails({ product }: { product: Product }) {
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
             <div className="rounded-xl border border-border bg-[#fbfcff] p-4">
               <Truck size={19} className="text-primary" />
-              <p className="mt-2 text-sm font-extrabold">
-                Worldwide-ready design
-              </p>
+              <p className="mt-2 text-sm font-extrabold">{t.worldwideTitle}</p>
               <p className="mt-1 text-xs leading-5 text-muted">
-                Delivery eligibility and fees will be checked by the future
-                backend.
+                {t.worldwideDescription}
               </p>
             </div>
             <div className="rounded-xl border border-border bg-[#fbfcff] p-4">
               <ShieldCheck size={19} className="text-primary" />
-              <p className="mt-2 text-sm font-extrabold">
-                Secure checkout planned
-              </p>
+              <p className="mt-2 text-sm font-extrabold">{t.secureTitle}</p>
               <p className="mt-1 text-xs leading-5 text-muted">
-                No live orders or payments are accepted in this preview.
+                {t.secureDescription}
               </p>
             </div>
           </div>
@@ -228,37 +219,33 @@ export function ProductDetails({ product }: { product: Product }) {
             <span>SKU:</span>
             <span className="font-bold text-ink">
               {variant?.sku ??
-                (product.variants
-                  ? 'Choose an option'
-                  : product.id.toUpperCase())}
+                (product.variants ? t.skuOption : product.id.toUpperCase())}
             </span>
             <span className="mx-2">·</span>
-            <span>Category:</span>
+            <span>{t.productCategory}:</span>
             <span className="font-bold text-ink">{category?.label}</span>
           </div>
         </div>
       </div>
       <section className="mt-16 rounded-[22px] border border-border bg-[#fbfcff] p-6 sm:p-8">
-        <h2 className="text-xl font-extrabold">Product details</h2>
+        <h2 className="text-xl font-extrabold">{t.productDetails}</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">
-          {product.description} This is a demonstration catalog; materials,
-          measurements, care instructions, returns and stock must be validated
-          and maintained by your business before launch.
+          {product.description} {t.productDisclaimer}
         </p>
       </section>
       <section className="mt-16 sm:mt-20">
         <div className="mb-7 flex items-center justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[.16em] text-primary">
-              YOU MIGHT LIKE
+              {t.youMightLike}
             </p>
-            <h2 className="section-heading mt-2">More to discover</h2>
+            <h2 className="section-heading mt-2">{t.moreDiscover}</h2>
           </div>
           <Link
             href="/shop"
             className="inline-flex items-center gap-1.5 text-sm font-bold text-primary"
           >
-            View all <ArrowRight size={17} />
+            {t.viewAllProducts} <ArrowRight size={17} />
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-4">

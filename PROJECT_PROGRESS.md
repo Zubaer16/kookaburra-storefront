@@ -1,6 +1,6 @@
 # Kookaburra v2 — Project Progress and Continuation Notes
 
-**Latest source baseline:** `kookaburra-storefront-full-20261017-141657.zip`, then apply Patch 06.
+**Latest source baseline:** `kookaburra-storefront-full-20261017-144256.zip`, then apply Patch 07.
 
 ## Architecture decisions
 
@@ -21,11 +21,13 @@
 
 - Patch 06: bilingual EN/BN static labels on primary shopping screens and account settings/shell, translated empty/error states, browser `html lang` sync, and a **non-connected** typed API client/DTO draft. Some checkout, tracking and catalog copy is still English. No real API requests or Flutter code.
 
+- Patch 07: 100+ new EN/BN checkout/auth/order/tracking labels; bilingual checkout address/delivery/review, demo-order filters/status, tracking summary, sign-in/sign-up UI and gallery/options accessibility text. **Still preview only; no payments, orders, account creation or API calls.**
+
 ## Next development priorities
 
-1. Patch 07: complete remaining localized checkout/order/product copy, review accessibility and add UI state QA; decide server-side locale routing before claiming full bilingual SEO.
-2. API contract and independently managed backend, authoritative stock/pricing/tax/shipping/order/payment. Start with ERD and documented endpoints, not embedded Next.js server-actions as core business logic.
-3. Connect web/cart/checkout securely to backend; enable real checkout only after tested inventory reservation, server-authoritative quote, payment/webhook/idempotency and country support.
+1. Patch 08: finish remaining static/account overview/order-detail copy and localize sample product titles/descriptions and mock order milestone notes, Bangla remains LTR (no RTL layout needed). Add remaining accessible labels and robust loading/error/empty states; browser QA on mobile.
+2. Frontend-only completion gate: robust responsive/keyboard/accessibility/SEO/localization QA, design freeze, test coverage, and Flutter mapping. **Do not begin backend until user confirms frontend is finished.**
+3. Future only after frontend approval: independent backend with authoritative stock/pricing/tax/shipping/order/payment; keep Next.js checkout disabled until validated.
 4. Flutter screens using the same UX, tokens and APIs when ready.
 
 ## Important limitations

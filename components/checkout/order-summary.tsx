@@ -10,6 +10,7 @@ import {
   type Market,
 } from '@/lib/catalog'
 import type { CheckoutPreviewLine } from '@/lib/checkout-preview'
+import { getPreviewCopy } from '@/lib/preview-copy'
 
 export function OrderSummary({
   rows,
@@ -26,15 +27,16 @@ export function OrderSummary({
   market: Market
   showFee: boolean
 }) {
+  const t = getPreviewCopy(locale)
   return (
     <aside className="h-fit rounded-2xl border border-border bg-[#fbfcff] p-5 lg:sticky lg:top-28 lg:p-6">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-lg font-extrabold">Order summary</h2>
+        <h2 className="text-lg font-extrabold">{t.summary}</h2>
         <Link
           href="/cart"
           className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline"
         >
-          Edit cart <ArrowUpRight size={14} />
+          {t.editCart} <ArrowUpRight size={14} />
         </Link>
       </div>
       <ul className="my-5 divide-y divide-border border-y border-border">
@@ -64,7 +66,9 @@ export function OrderSummary({
                   {optionSummary(variant)}
                 </p>
               )}
-              <p className="mt-1 text-[11px] text-muted">Qty {item.quantity}</p>
+              <p className="mt-1 text-[11px] text-muted">
+                {t.quantity} {item.quantity}
+              </p>
             </div>
             <strong className="shrink-0 text-xs">
               {formatPrice(lineTotal, market, locale)}
@@ -74,29 +78,28 @@ export function OrderSummary({
       </ul>
       <dl className="space-y-3 text-sm">
         <div className="flex items-center justify-between gap-2">
-          <dt className="text-muted">Products</dt>
+          <dt className="text-muted">{t.products}</dt>
           <dd className="font-bold">{formatPrice(subtotal, market, locale)}</dd>
         </div>
         <div className="flex items-center justify-between gap-2">
-          <dt className="text-muted">Sample delivery</dt>
+          <dt className="text-muted">{t.sampleDelivery}</dt>
           <dd className="font-bold">
-            {showFee ? formatPrice(fee, market, locale) : 'Choose a method'}
+            {showFee ? formatPrice(fee, market, locale) : t.chooseMethod}
           </dd>
         </div>
         <div className="flex items-center justify-between gap-2">
-          <dt className="text-muted">Taxes & customs</dt>
-          <dd className="text-right text-xs">Not calculated</dd>
+          <dt className="text-muted">{t.taxes}</dt>
+          <dd className="text-right text-xs">{t.notCalculated}</dd>
         </div>
       </dl>
       <div className="mt-5 flex justify-between border-t border-border pt-5">
-        <span className="font-extrabold">Illustrative total</span>
+        <span className="font-extrabold">{t.illustrativeTotal}</span>
         <strong className="text-xl text-primary">
           {formatPrice(subtotal + (showFee ? fee : 0), market, locale)}
         </strong>
       </div>
       <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-muted">
-        <ShieldAlert size={16} className="mt-0.5 shrink-0" /> Not a payable
-        total or real offer. All figures are frontend sample data.
+        <ShieldAlert size={16} className="mt-0.5 shrink-0" /> {t.summaryNotice}
       </p>
     </aside>
   )

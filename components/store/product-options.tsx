@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import { usePreviewCopy } from '@/hooks/use-preview-copy'
 import type { Product, ProductVariant } from '@/lib/catalog'
 
 type Props = {
@@ -17,6 +18,7 @@ export function ProductOptions({
   onColorChange,
   onSizeChange,
 }: Props) {
+  const t = usePreviewCopy()
   const variants = product.variants ?? []
   const colors = useMemo(
     () => [
@@ -50,9 +52,9 @@ export function ProductOptions({
       {!!colors.length && (
         <fieldset>
           <legend className="mb-2.5 text-sm font-extrabold">
-            Color{' '}
+            {t.productOptionColor}{' '}
             <span className="font-normal text-muted">
-              {color || '· Select a color'}
+              {color || `· ${t.productSelectColor}`}
             </span>
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -80,9 +82,9 @@ export function ProductOptions({
       {!!sizes.length && (
         <fieldset>
           <legend className="mb-2.5 text-sm font-extrabold">
-            Size{' '}
+            {t.productOptionSize}{' '}
             <span className="font-normal text-muted">
-              {size || '· Select a size'}
+              {size || `· ${t.productSelectSize}`}
             </span>
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -105,10 +107,7 @@ export function ProductOptions({
               )
             })}
           </div>
-          <p className="mt-2 text-xs text-muted">
-            Sizes are sample labels; refer to a real size chart once merchant
-            data is connected.
-          </p>
+          <p className="mt-2 text-xs text-muted">{t.productSizeNotice}</p>
         </fieldset>
       )}
     </div>

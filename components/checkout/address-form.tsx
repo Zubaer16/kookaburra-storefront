@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import type { CheckoutAddress } from '@/lib/checkout-preview'
 import { previewCountries } from '@/lib/checkout-preview'
 import type { Market } from '@/lib/catalog'
+import { usePreviewCopy } from '@/hooks/use-preview-copy'
 
 type Props = {
   market: Market
@@ -18,6 +19,7 @@ type Props = {
 const fieldLabel = 'mb-1.5 block text-xs font-bold text-ink'
 
 export function AddressForm({ market, address, onChange, onContinue }: Props) {
+  const t = usePreviewCopy()
   function update(field: keyof CheckoutAddress, value: string) {
     onChange({ ...address, [field]: value })
   }
@@ -47,11 +49,9 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
         </div>
         <div>
           <h2 className="text-xl font-extrabold tracking-tight">
-            Delivery address
+            {t.addressTitle}
           </h2>
-          <p className="mt-1 text-sm text-muted">
-            Enter sample details to preview the next step.
-          </p>
+          <p className="mt-1 text-sm text-muted">{t.addressIntro}</p>
         </div>
       </div>
       <div
@@ -59,16 +59,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
         role="note"
       >
         <Info size={16} className="mt-0.5 shrink-0" />
-        <span>
-          This is a local UI demonstration. Use placeholder information, not
-          your real address or phone. Nothing is sent to a server or saved after
-          leaving this page.
-        </span>
+        <span>{t.addressPrivacy}</span>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={fieldLabel} htmlFor="checkout-name">
-            Full name <span aria-hidden="true">*</span>
+            {t.fullName} <span aria-hidden="true">*</span>
           </label>
           <Input
             id="checkout-name"
@@ -77,12 +73,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.fullName}
             onChange={(e) => update('fullName', e.target.value)}
-            placeholder="Example Customer"
+            placeholder={t.demoName}
           />
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-email">
-            Email address *
+            {t.email} *
           </label>
           <Input
             id="checkout-email"
@@ -97,7 +93,7 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-phone">
-            Phone number *
+            {t.phone} *
           </label>
           <Input
             id="checkout-phone"
@@ -117,7 +113,7 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-country">
-            Country *
+            {t.country} *
           </label>
           {market === 'BD' ? (
             <Input
@@ -135,7 +131,7 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
               className="h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm outline-none focus-visible:ring-4 focus-visible:ring-primary/10"
             >
               <option value="" disabled>
-                Select a sample destination
+                {t.countryPick}
               </option>
               {previewCountries.map((country) => (
                 <option key={country} value={country}>
@@ -147,7 +143,7 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
         </div>
         <div className="sm:col-span-2">
           <label className={fieldLabel} htmlFor="checkout-line1">
-            Street / house / area *
+            {t.street} *
           </label>
           <Input
             id="checkout-line1"
@@ -156,12 +152,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.address1}
             onChange={(e) => update('address1', e.target.value)}
-            placeholder="Example street and house"
+            placeholder={t.demoStreet}
           />
         </div>
         <div className="sm:col-span-2">
           <label className={fieldLabel} htmlFor="checkout-line2">
-            Apartment / building (optional)
+            {t.apartment}
           </label>
           <Input
             id="checkout-line2"
@@ -169,12 +165,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             maxLength={120}
             value={address.address2}
             onChange={(e) => update('address2', e.target.value)}
-            placeholder="Flat, floor, landmark"
+            placeholder={t.demoFlat}
           />
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-city">
-            {market === 'BD' ? 'City / district' : 'City'} *
+            {market === 'BD' ? t.cityBD : t.city} *
           </label>
           <Input
             id="checkout-city"
@@ -183,12 +179,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.city}
             onChange={(e) => update('city', e.target.value)}
-            placeholder={market === 'BD' ? 'Dhaka' : 'Sample city'}
+            placeholder={market === 'BD' ? 'Dhaka' : t.demoCity}
           />
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-region">
-            {market === 'BD' ? 'Division' : 'State / province / region'} *
+            {market === 'BD' ? t.division : t.state} *
           </label>
           <Input
             id="checkout-region"
@@ -197,12 +193,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.region}
             onChange={(e) => update('region', e.target.value)}
-            placeholder={market === 'BD' ? 'Dhaka Division' : 'Sample region'}
+            placeholder={market === 'BD' ? 'Dhaka Division' : t.demoRegion}
           />
         </div>
         <div className="sm:col-span-2">
           <label className={fieldLabel} htmlFor="checkout-postcode">
-            Postal / ZIP code *
+            {t.postal} *
           </label>
           <Input
             id="checkout-postcode"
@@ -211,12 +207,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.postalCode}
             onChange={(e) => update('postalCode', e.target.value)}
-            placeholder={market === 'BD' ? '1200' : 'Example postal code'}
+            placeholder={market === 'BD' ? '1200' : t.demoPostal}
           />
         </div>
       </div>
       <Button className="mt-7 w-full sm:w-auto" type="submit">
-        Continue to delivery <ArrowRight size={17} />
+        {t.nextDelivery} <ArrowRight size={17} />
       </Button>
     </form>
   )

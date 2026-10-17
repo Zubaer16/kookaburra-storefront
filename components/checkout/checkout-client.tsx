@@ -26,6 +26,8 @@ import {
   type CheckoutStage,
 } from '@/lib/checkout-preview'
 import { type Market } from '@/lib/catalog'
+import { getPreviewCopy } from '@/lib/preview-copy'
+import { getDeliveryLabel } from '@/lib/preview-delivery-label'
 import { useStoreReady } from '@/hooks/use-store-ready'
 import { useCommerceStore } from '@/stores/commerce-store'
 
@@ -44,6 +46,7 @@ export function CheckoutClient() {
   const setCartOpen = useCommerceStore((s) => s.setCartOpen)
   const market = ready ? storedMarket : 'BD'
   const locale = ready ? storedLocale : 'en'
+  const t = getPreviewCopy(locale)
   const [stage, setStage] = useState<CheckoutStage>('address')
   const [address, setAddress] = useState<CheckoutAddress>(() =>
     emptyCheckoutAddress(),
@@ -80,33 +83,30 @@ export function CheckoutClient() {
         className="mb-6 flex items-center gap-1.5 text-xs text-muted"
       >
         <Link className="hover:text-primary" href="/">
-          Home
+          {locale === 'bn' ? 'হোম' : 'Home'}
         </Link>
         <ChevronRight size={14} />
         <Link className="hover:text-primary" href="/cart">
-          Cart
+          {locale === 'bn' ? 'কার্ট' : 'Cart'}
         </Link>
         <ChevronRight size={14} />
-        <span className="font-bold text-ink">Checkout preview</span>
+        <span className="font-bold text-ink">{t.previewCheckout}</span>
       </nav>
       <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-primary">
-            <ShieldCheck size={14} /> Frontend-only preview
+            <ShieldCheck size={14} /> {t.frontendPreview}
           </div>
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Checkout
+            {t.checkoutTitle}
           </h1>
-          <p className="mt-2 text-sm text-muted">
-            Preview the delivery and review flow before the secure backend is
-            connected.
-          </p>
+          <p className="mt-2 text-sm text-muted">{t.checkoutIntro}</p>
         </div>
         <Link
           className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
           href="/cart"
         >
-          <ArrowLeft size={17} /> Back to cart
+          <ArrowLeft size={17} /> {t.backCart}
         </Link>
       </div>
       {!ready ? (
@@ -114,7 +114,7 @@ export function CheckoutClient() {
           className="rounded-2xl border border-border bg-canvas p-8 text-sm text-muted"
           role="status"
         >
-          Loading your local cart…
+          {locale === 'bn' ? 'কার্ট লোড হচ্ছে…' : 'Loading your local cart…'}
         </p>
       ) : !cart.readyForPreview ? (
         <div
@@ -122,12 +122,9 @@ export function CheckoutClient() {
           role="alert"
         >
           <ShoppingBag size={28} className="text-amber-700" />
-          <h2 className="mt-3 text-xl font-extrabold">
-            Review your cart first
-          </h2>
+          <h2 className="mt-3 text-xl font-extrabold">{t.reviewCart}</h2>
           <p className="mt-2 text-sm leading-6 text-amber-900">
-            The following sample-cart issues must be resolved before you can
-            preview checkout:
+            {t.cartIssues}
           </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-amber-900">
             {cart.issues.map((issue) => (
@@ -136,7 +133,7 @@ export function CheckoutClient() {
           </ul>
           <Button asChild className="mt-6">
             <Link href="/cart">
-              Return to cart <ChevronRight size={16} />
+              {t.returnCart} <ChevronRight size={16} />
             </Link>
           </Button>
         </div>
@@ -144,11 +141,11 @@ export function CheckoutClient() {
         <>
           <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-[#fbfcff] p-4 sm:justify-between sm:px-5">
             <span className="flex items-center gap-2 text-xs font-bold text-ink">
-              <Globe2 size={17} className="text-primary" /> Shopping region
+              <Globe2 size={17} className="text-primary" /> {t.region}
             </span>
             <div
               role="group"
-              aria-label="Checkout region"
+              aria-label={t.region}
               className="flex rounded-xl border border-border bg-white p-1"
             >
               <button
@@ -157,7 +154,7 @@ export function CheckoutClient() {
                 onClick={() => selectMarket('BD')}
                 className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'BD' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}
               >
-                🇧🇩 Bangladesh · BDT
+                🇧🇩 {t.bd}
               </button>
               <button
                 type="button"
@@ -165,14 +162,11 @@ export function CheckoutClient() {
                 onClick={() => selectMarket('INTL')}
                 className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'INTL' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}
               >
-                🌐 International · USD
+                🌐 {t.intl}
               </button>
             </div>
           </div>
-          <ol
-            aria-label="Checkout progress"
-            className="mb-7 grid grid-cols-3 gap-2"
-          >
+          <ol aria-label={t.progress} className="mb-7 grid grid-cols-3 gap-2">
             {stages.map((entry, index) => (
               <li
                 key={entry.id}
@@ -182,7 +176,7 @@ export function CheckoutClient() {
                 <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-current text-[11px]">
                   {index < currentStageIndex ? <Check size={14} /> : index + 1}
                 </span>
-                {entry.name}
+                {t[entry.id]}
               </li>
             ))}
           </ol>
@@ -214,23 +208,25 @@ export function CheckoutClient() {
                     </div>
                     <div>
                       <h2 className="text-xl font-extrabold tracking-tight">
-                        Review your order
+                        {t.reviewOrder}
                       </h2>
                       <p className="mt-1 text-sm text-muted">
-                        No order will be submitted or charged in this preview.
+                        {t.reviewNoCharge}
                       </p>
                     </div>
                   </div>
                   <div className="mt-6 space-y-4">
                     <div className="rounded-xl border border-border p-4">
                       <div className="flex justify-between gap-2">
-                        <h3 className="text-sm font-extrabold">Delivery to</h3>
+                        <h3 className="text-sm font-extrabold">
+                          {t.deliveryTo}
+                        </h3>
                         <button
                           type="button"
                           onClick={() => setStage('address')}
                           className="flex items-center gap-1 text-xs font-bold text-primary hover:underline"
                         >
-                          <Pencil size={13} /> Edit
+                          <Pencil size={13} /> {t.edit}
                         </button>
                       </div>
                       <p className="mt-2 text-sm font-semibold">
@@ -251,21 +247,21 @@ export function CheckoutClient() {
                     <div className="rounded-xl border border-border p-4">
                       <div className="flex justify-between gap-2">
                         <h3 className="text-sm font-extrabold">
-                          Delivery choice
+                          {t.deliveryChoice}
                         </h3>
                         <button
                           type="button"
                           onClick={() => setStage('delivery')}
                           className="flex items-center gap-1 text-xs font-bold text-primary hover:underline"
                         >
-                          <Pencil size={13} /> Edit
+                          <Pencil size={13} /> {t.edit}
                         </button>
                       </div>
                       <p className="mt-2 text-sm font-semibold">
-                        {delivery.name}
+                        {getDeliveryLabel(delivery.id, market, t)}
                       </p>
                       <p className="mt-1 text-xs leading-5 text-muted">
-                        {delivery.eta} · Example fee only
+                        {t.methodEta} · {t.sampleFee}
                       </p>
                     </div>
                   </div>
@@ -273,17 +269,11 @@ export function CheckoutClient() {
                     className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950"
                     role="note"
                   >
-                    <p className="font-extrabold">
-                      Payment and placing orders are not active.
-                    </p>
-                    <p className="mt-1">
-                      The future NestJS backend must verify current prices,
-                      stock, delivery eligibility, taxes and payment
-                      authorization. Do not enter any payment information here.
-                    </p>
+                    <p className="font-extrabold">{t.paymentDisabled}</p>
+                    <p className="mt-1">{t.paymentDetails}</p>
                   </div>
                   <Button type="button" className="mt-6 w-full" disabled>
-                    <LockKeyhole size={17} /> Secure payment coming later
+                    <LockKeyhole size={17} /> {t.paymentLater}
                   </Button>
                   <Button
                     type="button"
@@ -291,7 +281,7 @@ export function CheckoutClient() {
                     className="mt-3 w-full"
                     onClick={() => setStage('delivery')}
                   >
-                    <ArrowLeft size={17} /> Back to delivery
+                    <ArrowLeft size={17} /> {t.backDelivery}
                   </Button>
                 </section>
               )}
@@ -306,9 +296,7 @@ export function CheckoutClient() {
             />
           </div>
           <p className="mt-7 text-center text-xs leading-6 text-muted">
-            This checkout interface is for design/testing only. No addresses,
-            orders, payment information or delivery bookings are sent to a
-            server.
+            {t.checkoutPrivacy}
           </p>
         </>
       )}

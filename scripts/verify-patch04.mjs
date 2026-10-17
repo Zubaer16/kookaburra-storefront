@@ -60,7 +60,7 @@ assert.equal(checkout.assessPreviewCart([{ productId: 'p-headphones', quantity: 
 assert.equal(checkout.checkoutDeliveryOptions('BD')[0].sampleFee, 100)
 assert.equal(checkout.checkoutDeliveryOptions('INTL')[0].sampleFee, 18)
 const checkoutComponent = fs.readFileSync('components/checkout/checkout-client.tsx', 'utf8')
-assert(checkoutComponent.includes('Secure payment coming later'), 'Real payments must remain disabled')
+assert(/<Button\s+type="button"\s+className="mt-6 w-full"\s+disabled>/.test(checkoutComponent), 'Real payments must remain disabled')
 assert(!checkoutComponent.includes('fetch(') && !checkoutComponent.includes('localStorage'), 'Checkout UI must not transmit/persist private address data')
 console.log(`Patch 04 verification passed (${files.length} TypeScript files, cart guard and sample shipping scenarios).`)
 console.log('Offline checks are NOT a Next.js production build, npm audit or browser test.')

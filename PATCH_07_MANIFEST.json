@@ -1,0 +1,48 @@
+{
+  "patch": "07",
+  "base": "kookaburra-storefront-full-20261017-144256.zip",
+  "base_sha256": "32ff265096b887d9d4f96b40ea853d8886aaa2062dd2ecfd160edcc94ed40368",
+  "new": [
+    "docs/PATCH_07_NOTES.md",
+    "hooks/use-preview-copy.ts",
+    "lib/preview-copy.ts",
+    "lib/preview-delivery-label.ts",
+    "scripts/verify-patch07.mjs",
+    "PATCH_07_MANIFEST.json"
+  ],
+  "modified": [
+    "PROJECT_PROGRESS.md",
+    "app/account/orders/page.tsx",
+    "components/account/auth-preview.tsx",
+    "components/account/order-ui.tsx",
+    "components/account/tracking-client.tsx",
+    "components/checkout/address-form.tsx",
+    "components/checkout/checkout-client.tsx",
+    "components/checkout/delivery-options.tsx",
+    "components/checkout/order-summary.tsx",
+    "components/store/product-details.tsx",
+    "components/store/product-gallery.tsx",
+    "components/store/product-options.tsx",
+    "scripts/verify-patch04.mjs"
+  ],
+  "files": {
+    "docs/PATCH_07_NOTES.md": "9b875834f90b1229b4b352184171a4253c8720ab63bd6203a99762b4715502f0",
+    "hooks/use-preview-copy.ts": "4e34110f0abacf5f823cc43db2cfbaafca95ba6ba72c98eadfe95d48d27fefcc",
+    "lib/preview-copy.ts": "4c0fd3579bb641dd18ec1d0e1e608ad66175335172b8274c105cc22a5f5610d8",
+    "lib/preview-delivery-label.ts": "e1cdc2502b6d576c352887d2b93eb9c4bfc40f05a87bc6860e876e594c6c8d97",
+    "scripts/verify-patch07.mjs": "d819e8d06c5b6d8189cafef9e3e9b5d63f875a2d00206e1dace8bc5cee63512a",
+    "PROJECT_PROGRESS.md": "d4ca253b2c0ffe7919dcb7937a7c50aea9e197e405a61b48427c326cd9608586",
+    "app/account/orders/page.tsx": "fc27f29a833f7573fab2adc17e272ff46785c05c13ae2a88dc40e8f79ac957ab",
+    "components/account/auth-preview.tsx": "f3995d73ee75f31910442f2b03d4da69162f38eb0f9a66bae608d42c4d1b7702",
+    "components/account/order-ui.tsx": "20b213d33256d8cfca54b8b856277704703c37886046de2903521bb4db0bdcd6",
+    "components/account/tracking-client.tsx": "aa51b1b5c50eebd74d83f8dd77ba9e94675409776d603e68dda864d6bd57a2e6",
+    "components/checkout/address-form.tsx": "53040447b26eecd87f60d95879c051d1f086ece07edfb3258a02dcf27d7e5e17",
+    "components/checkout/checkout-client.tsx": "a0c8230ce9449426e0bcc070a7ea534145f063ad7c0cfd647c323d74fd123111",
+    "components/checkout/delivery-options.tsx": "0383eca2b965fafa6865c254849e3622c7ebf29967086bbe333a7088ee888549",
+    "components/checkout/order-summary.tsx": "c40f523ee8bae877f136467f7076bdbc2060fba4bf8a6762b98ad9c5a0950e64",
+    "components/store/product-details.tsx": "6734a8b04028091ec08502fcf0b8d72414490d36a5bffcfeb75a328e24b0b902",
+    "components/store/product-gallery.tsx": "bde01fea07cb9da705488dbd5e8021091668f0a6aa583acdfb779ce9828ab470",
+    "components/store/product-options.tsx": "84d3635c4d5f8d7cca6a6fa1d6d5df546b62b3e1be7c49e52563541e6d35f199",
+    "scripts/verify-patch04.mjs": "2034a5fc5630ccf863aa719911e9ca9a1c1debdc7283c46b5516bda81889e873"
+  }
+}

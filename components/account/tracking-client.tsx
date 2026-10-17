@@ -5,8 +5,10 @@ import Link from 'next/link'
 import { ArrowRight, Search, ShieldAlert, Truck } from 'lucide-react'
 import { OrderTimeline, TrackingSummary } from '@/components/account/order-ui'
 import { demoOrders, previewOrderById } from '@/lib/account-preview'
+import { usePreviewCopy } from '@/hooks/use-preview-copy'
 
 export function TrackingClient({ initialSample }: { initialSample?: string }) {
+  const t = usePreviewCopy()
   const [selected, setSelected] = useState(
     initialSample && previewOrderById(initialSample)
       ? initialSample
@@ -19,18 +21,17 @@ export function TrackingClient({ initialSample }: { initialSample?: string }) {
         href="/account/orders"
         className="text-sm font-bold text-primary hover:underline"
       >
-        ← Back to sample orders
+        ← {t.trackingBack}
       </Link>
       <div className="mt-5">
         <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[.15em] text-primary">
-          <Truck size={16} /> Shipment experience
+          <Truck size={16} /> {t.trackingSection}
         </p>
         <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-          Track an example order
+          {t.trackingTitle}
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
-          Choose from the fictional example orders to see how future delivery
-          updates will look. This is not a real parcel-tracking service.
+          {t.trackingIntro}
         </p>
       </div>
       <div
@@ -39,8 +40,7 @@ export function TrackingClient({ initialSample }: { initialSample?: string }) {
       >
         <ShieldAlert className="mt-0.5 shrink-0" size={18} />
         <span>
-          Only built-in DEMO order IDs work. Do not enter real order numbers,
-          phone numbers or personal details.
+          {t.trackingWarning}
         </span>
       </div>
       <div className="mt-7 grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_300px]">
@@ -50,7 +50,7 @@ export function TrackingClient({ initialSample }: { initialSample?: string }) {
               htmlFor="tracking-sample"
               className="mb-2 block text-sm font-extrabold"
             >
-              Choose sample order
+              {t.trackingChoose}
             </label>
             <div className="relative">
               <Search
@@ -76,11 +76,11 @@ export function TrackingClient({ initialSample }: { initialSample?: string }) {
             href={`/account/orders/${order.id}`}
             className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
           >
-            View example order details <ArrowRight size={16} />
+            {t.trackingView} <ArrowRight size={16} />
           </Link>
         </div>
         <div className="rounded-2xl border border-border bg-white p-5 sm:p-6">
-          <h2 className="mb-6 text-lg font-extrabold">Delivery timeline</h2>
+          <h2 className="mb-6 text-lg font-extrabold">{t.trackingTimelineTitle}</h2>
           <OrderTimeline order={order} />
         </div>
       </div>

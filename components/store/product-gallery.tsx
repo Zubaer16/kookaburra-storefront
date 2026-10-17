@@ -4,8 +4,10 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Images } from 'lucide-react'
 import { productGallery, type Product } from '@/lib/catalog'
+import { usePreviewCopy } from '@/hooks/use-preview-copy'
 
 export function ProductGallery({ product }: { product: Product }) {
+  const t = usePreviewCopy()
   const images = productGallery(product)
   const [selected, setSelected] = useState(0)
   const image = images[selected] ?? images[0]
@@ -41,7 +43,7 @@ export function ProductGallery({ product }: { product: Product }) {
           <div className="absolute bottom-4 right-4 flex gap-2">
             <button
               type="button"
-              aria-label="Previous product image"
+              aria-label={t.imagePrevious}
               onClick={() => navigate(-1)}
               className="flex size-10 items-center justify-center rounded-full bg-white text-ink shadow-sm transition hover:text-primary"
             >
@@ -49,7 +51,7 @@ export function ProductGallery({ product }: { product: Product }) {
             </button>
             <button
               type="button"
-              aria-label="Next product image"
+              aria-label={t.imageNext}
               onClick={() => navigate(1)}
               className="flex size-10 items-center justify-center rounded-full bg-white text-ink shadow-sm transition hover:text-primary"
             >
@@ -60,7 +62,7 @@ export function ProductGallery({ product }: { product: Product }) {
       </div>
       {images.length > 1 && (
         <div
-          aria-label="Choose product image"
+          aria-label={t.imageChoose}
           className="mt-4 flex gap-3 overflow-x-auto pb-1"
         >
           {images.map((item, index) => (
@@ -84,9 +86,7 @@ export function ProductGallery({ product }: { product: Product }) {
           ))}
         </div>
       )}
-      <p className="mt-3 text-xs text-muted">
-        Illustrative product imagery · Colors and details are for preview only.
-      </p>
+      <p className="mt-3 text-xs text-muted">{t.imageNotice}</p>
     </section>
   )
 }
