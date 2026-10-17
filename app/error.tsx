@@ -19,9 +19,7 @@ export default function ErrorPage({
   return (
     <div className="container-shell flex min-h-[50vh] flex-col items-center justify-center py-16 text-center">
       <AlertCircle size={44} className="text-[#d94f5b]" />
-      <h1 className="mt-5 text-2xl font-extrabold">
-        {t.errorTitle}
-      </h1>
+      <h1 className="mt-5 text-2xl font-extrabold">{t.errorTitle}</h1>
       <p className="mt-2 max-w-md text-sm leading-6 text-muted">
         {t.errorDescription}
       </p>

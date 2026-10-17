@@ -130,7 +130,9 @@ export function Header() {
             {t.global}
           </span>
           <span className="hidden font-bold sm:block">
-            {locale === 'bn' ? 'এক স্টোরে অনেক পছন্দ' : 'One store · Many discoveries'}{' '}
+            {locale === 'bn'
+              ? 'এক স্টোরে অনেক পছন্দ'
+              : 'One store · Many discoveries'}{' '}
             <span className="ml-2 text-primary">✦</span>
           </span>
         </div>
@@ -184,7 +186,9 @@ export function Header() {
             className="hidden items-center gap-2 rounded-lg p-2 text-ink hover:bg-slate-100 md:flex"
           >
             <UserRound size={21} />
-            <span className="hidden text-xs font-bold xl:block">{t.account}</span>
+            <span className="hidden text-xs font-bold xl:block">
+              {t.account}
+            </span>
           </Link>
           <Link
             href="/wishlist"
@@ -244,7 +248,8 @@ export function Header() {
                     onClick={() => setCategoriesOpen(false)}
                     className="inline-flex items-center gap-1 text-xs font-bold text-primary"
                   >
-                    {locale === 'bn' ? 'সব দেখুন' : 'View all'} <ArrowRight size={14} />
+                    {locale === 'bn' ? 'সব দেখুন' : 'View all'}{' '}
+                    <ArrowRight size={14} />
                   </Link>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -332,7 +337,10 @@ export function Header() {
             onClick={() => setMobileOpen(false)}
             className="mt-3 flex items-center justify-between rounded-xl bg-blue-50 px-3 py-3 text-sm font-extrabold text-primary"
           >
-            <span className="flex items-center gap-2"><UserRound size={17} /> {locale === 'bn' ? 'অ্যাকাউন্ট প্রিভিউ' : 'Account preview'}</span>
+            <span className="flex items-center gap-2">
+              <UserRound size={17} />{' '}
+              {locale === 'bn' ? 'অ্যাকাউন্ট প্রিভিউ' : 'Account preview'}
+            </span>
             <ArrowRight size={16} />
           </Link>
           <div className="my-6 h-px bg-border" />

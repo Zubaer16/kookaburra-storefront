@@ -15,9 +15,7 @@ export default function NotFound() {
       <p className="mt-7 text-xs font-bold uppercase tracking-[.2em] text-primary">
         404 · {t.notFound}
       </p>
-      <h1 className="mt-3 text-3xl font-extrabold">
-        {t.missingTitle}
-      </h1>
+      <h1 className="mt-3 text-3xl font-extrabold">{t.missingTitle}</h1>
       <p className="mt-4 max-w-md text-sm leading-7 text-muted">
         {t.missingDescription}
       </p>

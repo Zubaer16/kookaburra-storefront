@@ -2,7 +2,10 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { AccountShell } from '@/components/account/account-shell'
 
-export const metadata: Metadata = { title: 'Account Preview', robots: { index: false, follow: false } }
+export const metadata: Metadata = {
+  title: 'Account Preview',
+  robots: { index: false, follow: false },
+}
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
   return <AccountShell>{children}</AccountShell>

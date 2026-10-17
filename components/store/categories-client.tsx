@@ -38,7 +38,8 @@ export function CategoriesClient() {
         <div>
           <h2 className="section-heading">{t.collections}</h2>
           <p className="mt-1 text-sm text-muted">
-            {categories.length} {t.categories} · {products.length} {t.previewProducts}
+            {categories.length} {t.categories} · {products.length}{' '}
+            {t.previewProducts}
           </p>
         </div>
         <Link

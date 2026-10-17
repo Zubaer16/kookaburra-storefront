@@ -28,17 +28,23 @@ export function Footer() {
     {
       icon: Truck,
       title: t.freeShipping,
-      detail: bn ? 'দেশ ও অর্ডার অনুযায়ী প্রযোজ্য' : 'Availability varies by country & order',
+      detail: bn
+        ? 'দেশ ও অর্ডার অনুযায়ী প্রযোজ্য'
+        : 'Availability varies by country & order',
     },
     {
       icon: PackageCheck,
       title: t.easyReturns,
-      detail: bn ? 'রিটার্ন ও সহায়তার নির্দেশনা' : 'Clear order support policies',
+      detail: bn
+        ? 'রিটার্ন ও সহায়তার নির্দেশনা'
+        : 'Clear order support policies',
     },
     {
       icon: ShieldCheck,
       title: t.secureCheckout,
-      detail: bn ? 'বাস্তব পেমেন্ট সংযোগ এখনো হয়নি' : 'Production payment integration pending',
+      detail: bn
+        ? 'বাস্তব পেমেন্ট সংযোগ এখনো হয়নি'
+        : 'Production payment integration pending',
     },
   ]
   return (
@@ -133,7 +139,8 @@ export function Footer() {
               {t.subscribeText}
             </p>
             <div className="mt-4 flex items-center gap-2 rounded-xl border border-white/15 px-4 py-3 text-sm text-white/70">
-              <Mail size={17} /> {bn ? 'নিউজলেটার শীঘ্রই আসছে' : 'Newsletter coming soon'}{' '}
+              <Mail size={17} />{' '}
+              {bn ? 'নিউজলেটার শীঘ্রই আসছে' : 'Newsletter coming soon'}{' '}
               <ArrowUpRight size={16} className="ml-auto" />
             </div>
             <p className="mt-5 flex items-center gap-2 text-xs text-[#b8c3d9]">

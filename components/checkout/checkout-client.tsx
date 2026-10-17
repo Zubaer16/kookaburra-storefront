@@ -3,16 +3,27 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import {
-  ArrowLeft, Check, ChevronRight, CreditCard, Globe2, LockKeyhole,
-  Pencil, ShieldCheck, ShoppingBag,
+  ArrowLeft,
+  Check,
+  ChevronRight,
+  CreditCard,
+  Globe2,
+  LockKeyhole,
+  Pencil,
+  ShieldCheck,
+  ShoppingBag,
 } from 'lucide-react'
 import { AddressForm } from '@/components/checkout/address-form'
 import { DeliveryOptions } from '@/components/checkout/delivery-options'
 import { OrderSummary } from '@/components/checkout/order-summary'
 import { Button } from '@/components/ui/button'
 import {
-  assessPreviewCart, checkoutDeliveryOptions, emptyCheckoutAddress,
-  type CheckoutAddress, type CheckoutDeliveryId, type CheckoutStage,
+  assessPreviewCart,
+  checkoutDeliveryOptions,
+  emptyCheckoutAddress,
+  type CheckoutAddress,
+  type CheckoutDeliveryId,
+  type CheckoutStage,
 } from '@/lib/checkout-preview'
 import { type Market } from '@/lib/catalog'
 import { useStoreReady } from '@/hooks/use-store-ready'
@@ -34,10 +45,14 @@ export function CheckoutClient() {
   const market = ready ? storedMarket : 'BD'
   const locale = ready ? storedLocale : 'en'
   const [stage, setStage] = useState<CheckoutStage>('address')
-  const [address, setAddress] = useState<CheckoutAddress>(() => emptyCheckoutAddress())
+  const [address, setAddress] = useState<CheckoutAddress>(() =>
+    emptyCheckoutAddress(),
+  )
   const [deliveryId, setDeliveryId] = useState<CheckoutDeliveryId>('standard')
   const cart = assessPreviewCart(ready ? items : [], market)
-  const delivery = checkoutDeliveryOptions(market).find((method) => method.id === deliveryId)!
+  const delivery = checkoutDeliveryOptions(market).find(
+    (method) => method.id === deliveryId,
+  )!
   const currentStageIndex = stages.findIndex((entry) => entry.id === stage)
 
   // Market is global. Prevent a prior-country address/method being silently reused
@@ -50,7 +65,9 @@ export function CheckoutClient() {
   }, [ready, market])
 
   // Avoid leaving a populated modal above the checkout route.
-  useEffect(() => { setCartOpen(false) }, [setCartOpen])
+  useEffect(() => {
+    setCartOpen(false)
+  }, [setCartOpen])
 
   function selectMarket(next: Market) {
     if (next !== market) setMarket(next)
@@ -58,9 +75,18 @@ export function CheckoutClient() {
 
   return (
     <div className="container-shell pb-20 pt-8 sm:pt-10">
-      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-muted">
-        <Link className="hover:text-primary" href="/">Home</Link><ChevronRight size={14} />
-        <Link className="hover:text-primary" href="/cart">Cart</Link><ChevronRight size={14} />
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-6 flex items-center gap-1.5 text-xs text-muted"
+      >
+        <Link className="hover:text-primary" href="/">
+          Home
+        </Link>
+        <ChevronRight size={14} />
+        <Link className="hover:text-primary" href="/cart">
+          Cart
+        </Link>
+        <ChevronRight size={14} />
         <span className="font-bold text-ink">Checkout preview</span>
       </nav>
       <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
@@ -68,36 +94,94 @@ export function CheckoutClient() {
           <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-primary">
             <ShieldCheck size={14} /> Frontend-only preview
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Checkout</h1>
-          <p className="mt-2 text-sm text-muted">Preview the delivery and review flow before the secure backend is connected.</p>
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Checkout
+          </h1>
+          <p className="mt-2 text-sm text-muted">
+            Preview the delivery and review flow before the secure backend is
+            connected.
+          </p>
         </div>
-        <Link className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline" href="/cart"><ArrowLeft size={17} /> Back to cart</Link>
+        <Link
+          className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
+          href="/cart"
+        >
+          <ArrowLeft size={17} /> Back to cart
+        </Link>
       </div>
       {!ready ? (
-        <p className="rounded-2xl border border-border bg-canvas p-8 text-sm text-muted" role="status">Loading your local cart…</p>
+        <p
+          className="rounded-2xl border border-border bg-canvas p-8 text-sm text-muted"
+          role="status"
+        >
+          Loading your local cart…
+        </p>
       ) : !cart.readyForPreview ? (
-        <div className="max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-6 sm:p-8" role="alert">
+        <div
+          className="max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-6 sm:p-8"
+          role="alert"
+        >
           <ShoppingBag size={28} className="text-amber-700" />
-          <h2 className="mt-3 text-xl font-extrabold">Review your cart first</h2>
-          <p className="mt-2 text-sm leading-6 text-amber-900">The following sample-cart issues must be resolved before you can preview checkout:</p>
+          <h2 className="mt-3 text-xl font-extrabold">
+            Review your cart first
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-amber-900">
+            The following sample-cart issues must be resolved before you can
+            preview checkout:
+          </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-amber-900">
-            {cart.issues.map((issue) => <li key={issue}>{issue}</li>)}
+            {cart.issues.map((issue) => (
+              <li key={issue}>{issue}</li>
+            ))}
           </ul>
-          <Button asChild className="mt-6"><Link href="/cart">Return to cart <ChevronRight size={16} /></Link></Button>
+          <Button asChild className="mt-6">
+            <Link href="/cart">
+              Return to cart <ChevronRight size={16} />
+            </Link>
+          </Button>
         </div>
       ) : (
         <>
           <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-[#fbfcff] p-4 sm:justify-between sm:px-5">
-            <span className="flex items-center gap-2 text-xs font-bold text-ink"><Globe2 size={17} className="text-primary" /> Shopping region</span>
-            <div role="group" aria-label="Checkout region" className="flex rounded-xl border border-border bg-white p-1">
-              <button type="button" aria-pressed={market === 'BD'} onClick={() => selectMarket('BD')} className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'BD' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}>🇧🇩 Bangladesh · BDT</button>
-              <button type="button" aria-pressed={market === 'INTL'} onClick={() => selectMarket('INTL')} className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'INTL' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}>🌐 International · USD</button>
+            <span className="flex items-center gap-2 text-xs font-bold text-ink">
+              <Globe2 size={17} className="text-primary" /> Shopping region
+            </span>
+            <div
+              role="group"
+              aria-label="Checkout region"
+              className="flex rounded-xl border border-border bg-white p-1"
+            >
+              <button
+                type="button"
+                aria-pressed={market === 'BD'}
+                onClick={() => selectMarket('BD')}
+                className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'BD' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}
+              >
+                🇧🇩 Bangladesh · BDT
+              </button>
+              <button
+                type="button"
+                aria-pressed={market === 'INTL'}
+                onClick={() => selectMarket('INTL')}
+                className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'INTL' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}
+              >
+                🌐 International · USD
+              </button>
             </div>
           </div>
-          <ol aria-label="Checkout progress" className="mb-7 grid grid-cols-3 gap-2">
+          <ol
+            aria-label="Checkout progress"
+            className="mb-7 grid grid-cols-3 gap-2"
+          >
             {stages.map((entry, index) => (
-              <li key={entry.id} aria-current={stage === entry.id ? 'step' : undefined} className={`flex items-center justify-center gap-2 rounded-xl border px-2 py-3 text-xs font-bold sm:text-sm ${stage === entry.id ? 'border-primary bg-blue-50 text-primary' : index < currentStageIndex ? 'border-[#b9dccb] bg-[#f0faf4] text-[#137b5a]' : 'border-border bg-white text-muted'}`}>
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-current text-[11px]">{index < currentStageIndex ? <Check size={14} /> : index + 1}</span>
+              <li
+                key={entry.id}
+                aria-current={stage === entry.id ? 'step' : undefined}
+                className={`flex items-center justify-center gap-2 rounded-xl border px-2 py-3 text-xs font-bold sm:text-sm ${stage === entry.id ? 'border-primary bg-blue-50 text-primary' : index < currentStageIndex ? 'border-[#b9dccb] bg-[#f0faf4] text-[#137b5a]' : 'border-border bg-white text-muted'}`}
+              >
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-current text-[11px]">
+                  {index < currentStageIndex ? <Check size={14} /> : index + 1}
+                </span>
                 {entry.name}
               </li>
             ))}
@@ -106,55 +190,125 @@ export function CheckoutClient() {
             <div>
               {stage === 'address' && (
                 <AddressForm
-                  market={market} address={address} onChange={setAddress}
+                  market={market}
+                  address={address}
+                  onChange={setAddress}
                   onContinue={() => setStage('delivery')}
                 />
               )}
               {stage === 'delivery' && (
                 <DeliveryOptions
-                  market={market} locale={locale} selected={deliveryId}
-                  onSelect={setDeliveryId} onBack={() => setStage('address')}
+                  market={market}
+                  locale={locale}
+                  selected={deliveryId}
+                  onSelect={setDeliveryId}
+                  onBack={() => setStage('address')}
                   onContinue={() => setStage('review')}
                 />
               )}
               {stage === 'review' && (
                 <section className="rounded-2xl border border-border bg-white p-5 sm:p-7">
                   <div className="flex items-start gap-3">
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-primary"><CreditCard size={20} /></div>
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-primary">
+                      <CreditCard size={20} />
+                    </div>
                     <div>
-                      <h2 className="text-xl font-extrabold tracking-tight">Review your order</h2>
-                      <p className="mt-1 text-sm text-muted">No order will be submitted or charged in this preview.</p>
+                      <h2 className="text-xl font-extrabold tracking-tight">
+                        Review your order
+                      </h2>
+                      <p className="mt-1 text-sm text-muted">
+                        No order will be submitted or charged in this preview.
+                      </p>
                     </div>
                   </div>
                   <div className="mt-6 space-y-4">
                     <div className="rounded-xl border border-border p-4">
-                      <div className="flex justify-between gap-2"><h3 className="text-sm font-extrabold">Delivery to</h3><button type="button" onClick={() => setStage('address')} className="flex items-center gap-1 text-xs font-bold text-primary hover:underline"><Pencil size={13} /> Edit</button></div>
-                      <p className="mt-2 text-sm font-semibold">{address.fullName}</p>
-                      <p className="mt-1 text-sm leading-6 text-muted">{address.address1}{address.address2 ? `, ${address.address2}` : ''}<br />{address.city}, {address.region}, {address.postalCode}<br />{market === 'BD' ? 'Bangladesh' : address.country}</p>
-                      <p className="mt-2 text-xs text-muted">{address.email} · {address.phone}</p>
+                      <div className="flex justify-between gap-2">
+                        <h3 className="text-sm font-extrabold">Delivery to</h3>
+                        <button
+                          type="button"
+                          onClick={() => setStage('address')}
+                          className="flex items-center gap-1 text-xs font-bold text-primary hover:underline"
+                        >
+                          <Pencil size={13} /> Edit
+                        </button>
+                      </div>
+                      <p className="mt-2 text-sm font-semibold">
+                        {address.fullName}
+                      </p>
+                      <p className="mt-1 text-sm leading-6 text-muted">
+                        {address.address1}
+                        {address.address2 ? `, ${address.address2}` : ''}
+                        <br />
+                        {address.city}, {address.region}, {address.postalCode}
+                        <br />
+                        {market === 'BD' ? 'Bangladesh' : address.country}
+                      </p>
+                      <p className="mt-2 text-xs text-muted">
+                        {address.email} · {address.phone}
+                      </p>
                     </div>
                     <div className="rounded-xl border border-border p-4">
-                      <div className="flex justify-between gap-2"><h3 className="text-sm font-extrabold">Delivery choice</h3><button type="button" onClick={() => setStage('delivery')} className="flex items-center gap-1 text-xs font-bold text-primary hover:underline"><Pencil size={13} /> Edit</button></div>
-                      <p className="mt-2 text-sm font-semibold">{delivery.name}</p>
-                      <p className="mt-1 text-xs leading-5 text-muted">{delivery.eta} · Example fee only</p>
+                      <div className="flex justify-between gap-2">
+                        <h3 className="text-sm font-extrabold">
+                          Delivery choice
+                        </h3>
+                        <button
+                          type="button"
+                          onClick={() => setStage('delivery')}
+                          className="flex items-center gap-1 text-xs font-bold text-primary hover:underline"
+                        >
+                          <Pencil size={13} /> Edit
+                        </button>
+                      </div>
+                      <p className="mt-2 text-sm font-semibold">
+                        {delivery.name}
+                      </p>
+                      <p className="mt-1 text-xs leading-5 text-muted">
+                        {delivery.eta} · Example fee only
+                      </p>
                     </div>
                   </div>
-                  <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950" role="note">
-                    <p className="font-extrabold">Payment and placing orders are not active.</p>
-                    <p className="mt-1">The future NestJS backend must verify current prices, stock, delivery eligibility, taxes and payment authorization. Do not enter any payment information here.</p>
+                  <div
+                    className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950"
+                    role="note"
+                  >
+                    <p className="font-extrabold">
+                      Payment and placing orders are not active.
+                    </p>
+                    <p className="mt-1">
+                      The future NestJS backend must verify current prices,
+                      stock, delivery eligibility, taxes and payment
+                      authorization. Do not enter any payment information here.
+                    </p>
                   </div>
-                  <Button type="button" className="mt-6 w-full" disabled><LockKeyhole size={17} /> Secure payment coming later</Button>
-                  <Button type="button" variant="outline" className="mt-3 w-full" onClick={() => setStage('delivery')}><ArrowLeft size={17} /> Back to delivery</Button>
+                  <Button type="button" className="mt-6 w-full" disabled>
+                    <LockKeyhole size={17} /> Secure payment coming later
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="mt-3 w-full"
+                    onClick={() => setStage('delivery')}
+                  >
+                    <ArrowLeft size={17} /> Back to delivery
+                  </Button>
                 </section>
               )}
             </div>
             <OrderSummary
-              rows={cart.rows} subtotal={cart.subtotal} fee={delivery.sampleFee}
-              showFee={stage !== 'address'} market={market} locale={locale}
+              rows={cart.rows}
+              subtotal={cart.subtotal}
+              fee={delivery.sampleFee}
+              showFee={stage !== 'address'}
+              market={market}
+              locale={locale}
             />
           </div>
           <p className="mt-7 text-center text-xs leading-6 text-muted">
-            This checkout interface is for design/testing only. No addresses, orders, payment information or delivery bookings are sent to a server.
+            This checkout interface is for design/testing only. No addresses,
+            orders, payment information or delivery bookings are sent to a
+            server.
           </p>
         </>
       )}

@@ -52,17 +52,13 @@ export default function CartPage() {
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
           {t.cartTitle}
         </h1>
-        <p className="mt-2 text-sm text-muted">
-          {t.cartSubtitle}
-        </p>
+        <p className="mt-2 text-sm text-muted">{t.cartSubtitle}</p>
       </div>
       {lines.length === 0 ? (
         <div className="flex min-h-[420px] flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-[#fbfcff] p-6 text-center">
           <ShoppingBag size={44} className="text-primary" />
           <h2 className="mt-5 text-xl font-bold">{t.cartEmpty}</h2>
-          <p className="mt-2 text-sm text-muted">
-            {t.cartEmptyDescription}
-          </p>
+          <p className="mt-2 text-sm text-muted">{t.cartEmptyDescription}</p>
           <Button className="mt-6" asChild>
             <Link href="/shop">
               <ArrowLeft size={17} /> {t.continueShopping}
@@ -100,9 +96,7 @@ export default function CartPage() {
             </div>
             <div className="mt-4 flex justify-between gap-3 text-sm text-muted">
               <span>{t.shippingTaxes}</span>
-              <span className="text-right">
-                {t.futureCheckout}
-              </span>
+              <span className="text-right">{t.futureCheckout}</span>
             </div>
             {incompleteCount > 0 && (
               <p className="mt-4 rounded-xl bg-amber-50 p-3 text-xs leading-5 text-amber-800">
@@ -118,13 +112,19 @@ export default function CartPage() {
             </div>
             {preview.readyForPreview ? (
               <Button asChild className="mt-6 w-full">
-                <Link href="/checkout">{t.previewCheckout} <ArrowRight size={17} /></Link>
+                <Link href="/checkout">
+                  {t.previewCheckout} <ArrowRight size={17} />
+                </Link>
               </Button>
             ) : (
               <>
-                <Button className="mt-6 w-full" disabled>{t.resolveCart}</Button>
+                <Button className="mt-6 w-full" disabled>
+                  {t.resolveCart}
+                </Button>
                 <ul className="mt-3 list-disc space-y-1 pl-4 text-xs leading-5 text-amber-800">
-                  {preview.issues.map((issue) => <li key={issue}>{issue}</li>)}
+                  {preview.issues.map((issue) => (
+                    <li key={issue}>{issue}</li>
+                  ))}
                 </ul>
               </>
             )}

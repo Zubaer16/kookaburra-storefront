@@ -119,9 +119,7 @@ export default function WishlistPage() {
         </div>
       )}
       {items.length > 0 && (
-        <p className="mt-8 text-center text-xs text-muted">
-          {t.wishNote}
-        </p>
+        <p className="mt-8 text-center text-xs text-muted">{t.wishNote}</p>
       )}
     </main>
   )
