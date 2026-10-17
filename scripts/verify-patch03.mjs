@@ -95,7 +95,7 @@ assert.notEqual(
 )
 const store = readFileSync('stores/commerce-store.ts', 'utf8')
 assert(
-  store.includes('name: "kookaburra-storefront-preview-v1"'),
+  /name:\s*['"]kookaburra-storefront-preview-v1['"]/.test(store),
   'Existing persisted cart storage key changed',
 )
 assert(
@@ -105,7 +105,7 @@ assert(
 const shop = readFileSync('components/store/shop-client.tsx', 'utf8')
 assert(shop.includes('window.history.replaceState'), 'Shop URL sync missing')
 assert(
-  shop.includes('selectedCategory === "style"'),
+  /selectedCategory\s*===\s*['"]style['"]/.test(shop),
   'Style & shoes filter missing',
 )
 assert(

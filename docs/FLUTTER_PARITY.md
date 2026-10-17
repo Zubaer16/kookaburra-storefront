@@ -51,3 +51,25 @@ Patch 01 **does not ship a Flutter application**. The token contract and screen 
 - Legacy web storage: if an old line has no variant but the product now requires one, keep it visible, clearly mark it as incomplete and allow removal, without guessing a variant. This migration is browser-specific, not a Flutter requirement.
 - Preview totals are display-only. Neither platform can authorize price or stock; the future NestJS backend validates order items, variants, current price, inventory and permitted country before checkout.
 - Shop filters map to common API parameters `q`, `category`, `tag`, `sort`, `price`, `stock` (sample frontend URL tokens in Patch 03). For style category, backend contract must define whether it is a collection slug or a set of category IDs; current web uses a fixture-only alias.
+
+## Patch 04 — Checkout preview parity (Web → Flutter)
+
+The web `/checkout` UI has **Address → Delivery → Review** steps. Flutter should mirror the **same sequence, field requirements, invalid-cart blocking, country switch resets and sample/real boundary**, using Flutter-native screens and widgets (e.g. `Form`, `TextFormField`, `RadioListTile`, `Stepper` or a custom progress indicator).
+
+### Proposed eventual shared API contract (not implemented)
+
+- `POST /v1/checkout/quote`: authenticated/guest cart and destination => **backend-owned** validated SKU/variant/quantity, country eligibility, authoritative line prices and stock, available delivery methods, tax/duty disclosure, totals and quote expiration.
+- `POST /v1/orders`: server quote identifier and idempotency key => real order after the server revalidates; no trusting frontend-submitted price, shipping amount or total.
+- `POST /v1/payments/session`: order reference and payment method => payment provider session. Only the backend processes webhook/provider confirmations.
+- `GET /v1/orders/{id}`: order detail/tracking for logged-in/authorized customers.
+
+**Do not implement these endpoints as fake successes.** The current frontend uses `lib/checkout-preview.ts` for entirely illustrative shipping fees and local cart totals. Neither web nor Flutter may treat preview prices, client stock or a selected destination as verified.
+
+### Checkout mobile parity acceptance
+
+1. Sample cart containing correct variant may enter checkout. Empty, unknown, obsolete variant and over-stock carts must return to cart review.
+2. Bangladesh shopping market uses a Bangladesh address and BDT preview. International market offers example country selection and USD preview. Changing region resets unfinished address and selected delivery method.
+3. Address fields need accessible labels, keyboard/autofill appropriate to platform, form validation, and edit flows; **Patch 04 web does not save or transmit entered address**, and Flutter preview should also avoid persisting PII.
+4. Delivery choices are demonstration-only. No shipping availability, ETA, fees, customs or taxes are real until quote API integration.
+5. Review shows product/variant quantities, contact and destination, chosen method, indicative subtotal/fees. Payment and order placement remain disabled until secure API integration.
+6. Small-phone widths should stack summary below the form; Flutter uses matching design tokens and native touch controls.

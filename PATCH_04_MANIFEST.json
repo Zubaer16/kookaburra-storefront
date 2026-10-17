@@ -1,0 +1,93 @@
+{
+  "project": "kookaburra-storefront",
+  "patch": "04",
+  "type": "root-overlay",
+  "based_on": "kookaburra-storefront-full-20261017-133315.zip",
+  "new_files": 10,
+  "modified_files": 5,
+  "total_files": 15,
+  "no_dependency_changes": true,
+  "scope": "Checkout UI with sample address/delivery/review, cart guard, Flutter parity and verifier fixes. No live orders/payments.",
+  "files": [
+    {
+      "path": "PROJECT_PROGRESS.md",
+      "status": "new",
+      "sha256": "441109fb305dc08628dffa849e259adc8291c5485ebaeeeb085ba26b6bd263ee"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "sha256": "53d9577415aebb0838066bdc155796456dd9a17f0c01ddd2cbdbbc79d516eb1a"
+    },
+    {
+      "path": "app/cart/page.tsx",
+      "status": "modified",
+      "sha256": "f0463d0c451ba8bf0d2618e9e8983ab99765dfbe2e12a065f26cbf238121aeea"
+    },
+    {
+      "path": "app/checkout/page.tsx",
+      "status": "new",
+      "sha256": "76c872f0a2e9634818e0403e2c8d870476fda3dde5aaf6fec466620b5fe62a1c"
+    },
+    {
+      "path": "components/checkout/address-form.tsx",
+      "status": "new",
+      "sha256": "1a01e4adccf7b4a2abb967293dbe872788cf09838e771c78348cf7c584a59616"
+    },
+    {
+      "path": "components/checkout/checkout-client.tsx",
+      "status": "new",
+      "sha256": "fb2ffa9dea8d67c505733a434033f1d82527f88b246e1688290aad5697f8ac22"
+    },
+    {
+      "path": "components/checkout/delivery-options.tsx",
+      "status": "new",
+      "sha256": "417e4613e6c53c59db2fe0a13bf1e61e1195ffb64a174b1da3bed714bd2ee7d4"
+    },
+    {
+      "path": "components/checkout/order-summary.tsx",
+      "status": "new",
+      "sha256": "3202988d6884d7ad66be438b06a3bbbe5558ba0d055bd424966f654740ecffa3"
+    },
+    {
+      "path": "docs/FLUTTER_PARITY.md",
+      "status": "modified",
+      "sha256": "a01efa77e4810269046c792c10b1c2e21956733b40e82623c7f085aa8fe15086"
+    },
+    {
+      "path": "docs/PATCH_04_NOTES.md",
+      "status": "new",
+      "sha256": "ed6396ef04eafe8da658350f05b79a57b00e3b263b68fd1586cc2bfd0fccc0e7"
+    },
+    {
+      "path": "lib/checkout-preview.ts",
+      "status": "new",
+      "sha256": "a43e16993a84fcd6dddbc600ea68c71790c0dd5ed475a500a93f097490198198"
+    },
+    {
+      "path": "scripts/verify-patch02.mjs",
+      "status": "modified",
+      "sha256": "ff957d685f6b064787cc0b56ae739e60a3bb81341054125587dec76667039e6c"
+    },
+    {
+      "path": "scripts/verify-patch03.mjs",
+      "status": "modified",
+      "sha256": "de4519d15ff7340cfb300dffb92059937e262c78ab406305ba9304c29bf136c4"
+    },
+    {
+      "path": "scripts/verify-patch04.mjs",
+      "status": "new",
+      "sha256": "2ea84ae7d329311f0ef57d85ba48bbc401f190b86667ebe9a93c23fb52de0919"
+    },
+    {
+      "path": "PATCH_04_MANIFEST.json",
+      "status": "new",
+      "sha256": "self-excluded"
+    }
+  ],
+  "verification": {
+    "offline_syntax_and_fixture_tests": "PASSED: 39 source files; Patch 01/02/03/04 verifier checks",
+    "real_next_build": "NOT RUN (dependencies unavailable and container Node v22)",
+    "real_browser_tests": "NOT RUN"
+  }
+}

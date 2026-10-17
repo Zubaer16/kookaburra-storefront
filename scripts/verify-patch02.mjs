@@ -16,9 +16,9 @@ for (const file of required)
   assert(existsSync(file), `Patch 02 missing: ${file}`)
 const catalog = readFileSync('lib/catalog.ts', 'utf8')
 for (const id of ['fashion', 'footwear', 'electronics', 'lifestyle'])
-  assert(catalog.includes(`id: "${id}"`), `Missing category: ${id}`)
+  assert(new RegExp(`id:\\s*['\"]${id}['\"]`).test(catalog), `Missing category: ${id}`)
 for (const id of ['p-shirt', 'p-loafers', 'p-bottle'])
-  assert(catalog.includes(`id: "${id}"`), `Missing product: ${id}`)
+  assert(new RegExp(`id:\\s*['\"]${id}['\"]`).test(catalog), `Missing product: ${id}`)
 const read = (p) => readFileSync(p, 'utf8')
 assert(
   read('components/store/shop-client.tsx').includes('priceLimit'),

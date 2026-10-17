@@ -83,3 +83,7 @@ npm run dev
 ```
 
 No dependency changes or `npm install` required after a working Patch 02.
+
+## Patch 04 — Checkout interface preview
+
+New `/checkout` includes sample address, Bangladesh/international region switch, delivery method selection, review step and indicative total. The cart links to it only for valid product/variant quantities. **There is no real order or payment, and address entries are not persisted or transmitted.** Run `node scripts/verify-patch04.mjs` and `npm run check` after extracting. See `docs/PATCH_04_NOTES.md` and `PROJECT_PROGRESS.md` for details and continuation guidance.

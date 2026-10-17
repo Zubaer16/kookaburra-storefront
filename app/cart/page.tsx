@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, ChevronRight, LockKeyhole, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, ChevronRight, ShoppingBag, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CartLineView } from '@/components/store/cart-line'
 import {
@@ -12,6 +12,7 @@ import {
 } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
+import { assessPreviewCart } from '@/lib/checkout-preview'
 
 export default function CartPage() {
   const ready = useStoreReady()
@@ -34,6 +35,7 @@ export default function CartPage() {
       0,
     )
   const count = lines.reduce((sum, row) => sum + row.line.quantity, 0)
+  const preview = assessPreviewCart(ready ? cart : [], market)
   return (
     <main className="container-shell pb-20 pt-9">
       <nav
@@ -113,13 +115,21 @@ export default function CartPage() {
                 {formatPrice(subtotal, market, locale)}
               </strong>
             </div>
-            <Button className="mt-6 w-full" disabled>
-              <LockKeyhole size={17} /> Checkout not yet available
-            </Button>
+            {preview.readyForPreview ? (
+              <Button asChild className="mt-6 w-full">
+                <Link href="/checkout">Preview checkout <ArrowRight size={17} /></Link>
+              </Button>
+            ) : (
+              <>
+                <Button className="mt-6 w-full" disabled>Resolve cart issues before checkout</Button>
+                <ul className="mt-3 list-disc space-y-1 pl-4 text-xs leading-5 text-amber-800">
+                  {preview.issues.map((issue) => <li key={issue}>{issue}</li>)}
+                </ul>
+              </>
+            )}
             <p className="mt-4 text-xs leading-6 text-muted">
-              Checkout stays disabled until a secure backend verifies product
-              variants, stock, prices and payments. All amounts are
-              illustrative.
+              Checkout preview includes sample address, delivery and order review screens only.
+              No real order or payment can be placed. All amounts are illustrative.
             </p>
             <Button asChild variant="outline" className="mt-5 w-full">
               <Link href="/shop">
