@@ -1,7 +1,5 @@
 'use client'
 
-import { productText } from '@/lib/fixture-localization'
-
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import Link from 'next/link'
 import { ChevronRight, Search, SlidersHorizontal, X } from 'lucide-react'
@@ -62,7 +60,6 @@ export function ShopClient({
   const ready = useStoreReady()
   const t = useUiCopy()
   const savedMarket = useCommerceStore((s) => s.market)
-  const selectedLocale = useCommerceStore((s) => s.locale)
   const market: Market = ready ? savedMarket : 'BD'
   const priceLevels = market === 'BD' ? [2000, 5000, 10000] : [25, 60, 120]
   const priceLimit =
@@ -89,17 +86,13 @@ export function ShopClient({
     const result = products.filter((product) => {
       const categoryName =
         categories.find((c) => c.id === product.category)?.label ?? ''
-      const translated = productText(product, ready ? selectedLocale : 'en')
       const matchesText =
         !needle ||
         [
           product.title,
           product.description,
-          translated.title,
-          translated.description,
           product.category,
           categoryName,
-          categories.find((c) => c.id === product.category)?.bn ?? '',
         ].some((item) => item.toLocaleLowerCase().includes(needle))
       const matchesCategory =
         !selectedCategory ||
@@ -132,7 +125,6 @@ export function ShopClient({
   }, [
     text,
     ready,
-    selectedLocale,
     selectedCategory,
     selectedTag,
     sortBy,
@@ -151,11 +143,7 @@ export function ShopClient({
   }
   const activeCategory = categories.find((c) => c.id === selectedCategory)
   const categoryLabel =
-    selectedCategory === 'style'
-      ? t.styleShoes
-      : ready && selectedLocale === 'bn'
-        ? activeCategory?.bn
-        : activeCategory?.label
+    selectedCategory === 'style' ? t.styleShoes : activeCategory?.label
   const filterCount =
     Number(!!selectedCategory) +
     Number(!!selectedTag) +
@@ -217,7 +205,7 @@ export function ShopClient({
             aria-pressed={selectedCategory === c.id}
             className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-bold transition ${selectedCategory === c.id ? 'border-primary bg-primary text-white' : 'border-border bg-white text-[#596a84] hover:border-primary'}`}
           >
-            {ready && selectedLocale === 'bn' ? c.bn : c.label}
+            {c.label}
           </button>
         ))}
       </div>
@@ -265,7 +253,7 @@ export function ShopClient({
                   onClick={() => setSelectedCategory(c.id)}
                   className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${selectedCategory === c.id ? 'bg-blue-50 font-extrabold text-primary' : 'text-[#61708b] hover:bg-slate-50'}`}
                 >
-                  {ready && selectedLocale === 'bn' ? c.bn : c.label}
+                  {c.label}
                 </button>
               ))}
             </div>
@@ -435,9 +423,7 @@ export function ShopClient({
             </div>
           )}
           <p className="mt-8 text-center text-xs text-muted">
-            {ready && selectedLocale === 'bn'
-              ? `শুধু প্রিভিউ · ${visible.length} টি নমুনা পণ্য · ভবিষ্যতে সার্ভার থেকে সার্চ ও পেজিনেশন আসবে।`
-              : `Preview only · ${visible.length} local products · Backend search and pagination will replace this later.`}
+            {`Preview only · ${visible.length} local products · Backend search and pagination will replace this later.`}
           </p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import type { Locale } from '@/lib/catalog'
 
-const en = {
+/** English text for storefront interface and illustrative customer screens. */
+const englishCopy = {
   accountBadge: 'Future customer dashboard',
   accountTitle: 'Everything in one place.',
   accountDescription:
@@ -94,98 +95,7 @@ const en = {
   promoLink: 'Discover offers',
 } as const
 
-const bn: Record<keyof typeof en, string> = {
-  accountBadge: 'ভবিষ্যতের কাস্টমার ড্যাশবোর্ড',
-  accountTitle: 'সবকিছু এক জায়গায়।',
-  accountDescription:
-    'ওয়েবসাইট ও ভবিষ্যতের Flutter অ্যাপে একই পরিচিত অভিজ্ঞতার নমুনা। এটি শুধু ডিজাইন প্রিভিউ, লগইন করা অ্যাকাউন্ট নয়।',
-  accountLogin: 'লগইন ডিজাইন দেখুন',
-  exampleOrders: 'টি কাল্পনিক নমুনা অর্ডার',
-  savedItems: 'টি পণ্য এই ব্রাউজারে সেভ করা',
-  cartItems: 'টি পণ্য স্থানীয় নমুনা কার্টে',
-  accountExplore: 'অ্যাকাউন্টের সুবিধা দেখুন',
-  quickOrders: 'নমুনা অর্ডার',
-  quickOrdersDesc: 'অর্ডারের ইতিহাস ও বিস্তারিত দেখুন',
-  quickTracking: 'নমুনা ট্র্যাকিং',
-  quickTrackingDesc: 'ডেলিভারির ধাপগুলো দেখুন',
-  quickAddresses: 'ডেলিভারির ঠিকানা',
-  quickAddressesDesc: 'ভবিষ্যতের ঠিকানা বই দেখুন',
-  quickSettings: 'অ্যাকাউন্ট সেটিংস',
-  quickSettingsDesc: 'ভবিষ্যতের পছন্দ ও সেটিংস',
-  sampleOrder: 'একটি নমুনা অর্ডার',
-  viewOrders: 'নমুনা অর্ডারগুলো দেখুন',
-  detailBack: 'নমুনা অর্ডারে ফিরুন',
-  detailEyebrow: 'কাল্পনিক অর্ডারের বিস্তারিত',
-  detailPlaced: 'অর্ডারের তারিখ',
-  exampleItems: 'নমুনা পণ্য',
-  quantity: 'পরিমাণ',
-  exampleTotal: 'নমুনা মোট দাম',
-  receiptDisclaimer:
-    'নমুনার মোট দাম বা শিপিং খরচ যাচাই করা নয়। এটি কোনো রসিদ নয়।',
-  deliveryRegion: 'ডেলিভারি অঞ্চল',
-  addressDisclaimer: 'এই প্রিভিউতে কোনো ব্যক্তিগত ঠিকানা সংরক্ষণ করা হয় না।',
-  demoMilestones: 'নমুনা ধাপ',
-  trackingLink: 'ট্র্যাকিং প্রিভিউ খুলুন',
-  addressesTitle: 'ঠিকানা বই পরে চালু হবে',
-  addressesIntro:
-    'ভবিষ্যতে লগইন করা গ্রাহক বাংলাদেশ ও বিদেশের ডেলিভারি ঠিকানা পরিচালনা করতে পারবেন। নিরাপদ লগইন ও সংরক্ষণ ব্যবস্থা চালুর পর এই সুবিধা যোগ হবে।',
-  addressesMarkets: 'বাংলাদেশ ও আন্তর্জাতিক',
-  addressesMarketsDesc:
-    'দেশভিত্তিক ফিল্ড ও ডেলিভারি যোগ্যতা ভবিষ্যতে ব্যাকএন্ডে যাচাই হবে।',
-  addressesPrivacy: 'গোপনীয়তা আগে',
-  addressesPrivacyDesc: 'এই পেজে কোনো ঠিকানা চাওয়া, সেভ বা পাঠানো হয় না।',
-  addressesPreview: 'চেকআউট ঠিকানার প্রিভিউ দেখুন',
-  viewProduct: 'পণ্য দেখুন',
-  chooseOptions: 'অপশন বেছে নিন',
-  addCart: 'কার্টে যোগ করুন',
-  toastAdded: 'কার্টে যোগ হয়েছে',
-  cardView: 'দেখুন',
-  removeWish: 'পছন্দের তালিকা থেকে সরান',
-  saveWish: 'পছন্দের তালিকায় রাখুন',
-  cartEach: 'প্রতিটি',
-  cartRemove: 'সরান',
-  cartDecrease: 'পরিমাণ কমান:',
-  cartIncrease: 'পরিমাণ বাড়ান:',
-  cartRemoveA11y: 'কার্ট থেকে সরান:',
-  cartOld:
-    'পুরোনো কার্টের এই পণ্যে অপশন বাছাই বাকি। পণ্যের পেজে অপশন বেছে নিয়ে পুরোনো লাইনটি সরান।',
-  drawerTitle: 'আপনার কার্ট',
-  drawerSaved: 'আপাতত এই ব্রাউজারে সেভ থাকে।',
-  drawerEmpty: 'আপনার কার্ট অপেক্ষায় আছে',
-  drawerEmptyDesc: 'পছন্দের পণ্য খুঁজে এখানে যোগ করুন।',
-  drawerExplore: 'পণ্য দেখুন',
-  drawerSubtotal: 'আনুমানিক মোট দাম',
-  drawerOld: 'টি পুরোনো কার্ট লাইনের অপশন বাকি; এগুলোর দাম মোট হিসাবে নেই।',
-  drawerPreview:
-    'দামগুলো নমুনা। ব্যাকএন্ডের আগে শিপিং, ট্যাক্স ও পেমেন্ট চালু নয়।',
-  drawerView: 'কার্ট দেখুন',
-  homeExplore: 'ক্যাটাগরি দেখুন',
-  homeMarket: 'বাংলাদেশ ও আন্তর্জাতিক কেনাকাটার প্রিভিউ',
-  shoesEyebrow: 'নতুন পা ফেলার সঙ্গী',
-  shoesTitle: 'নিজের স্টাইলে হাঁটুন।',
-  shoesLink: 'জুতা দেখুন',
-  fashionEyebrow: 'প্রতিদিনের পোশাক',
-  fashionTitle: 'সহজ পোশাকে নতুন ভাবনা।',
-  fashionLink: 'ফ্যাশন দেখুন',
-  highlight1: 'পছন্দের পণ্য খুঁজুন',
-  highlight1Desc: 'প্রতিদিনের নানা ক্যাটাগরি',
-  highlight2: 'একটি নির্ভরযোগ্য স্টোর',
-  highlight2Desc: 'Kookaburra-এর বাছাই',
-  highlight3: 'দুই বাজারের ডিজাইন',
-  highlight3Desc: 'BDT ও USD নমুনা মূল্য',
-  categoryEyebrow: 'আপনার পছন্দ খুঁজুন',
-  categoryLink: 'সব ক্যাটাগরি',
-  categoryMobile: 'সব ক্যাটাগরি দেখুন',
-  collectionEyebrow: 'পছন্দের আয়োজন',
-  collectionTitle: 'দেখার মতো পণ্য',
-  collectionDesc: 'প্রতিদিনের পছন্দ, নতুন পণ্য ও নমুনা অফার।',
-  promoEyebrow: 'নতুন কিছু',
-  promoTitle: 'প্রতিদিনের জীবনে নতুনত্ব।',
-  promoDesc:
-    'ফ্যাশন, প্রযুক্তি, ঘর ও আরও অনেক ধরনের দরকারি পণ্য এক জায়গায় দেখুন।',
-  promoLink: 'অফার দেখুন',
-}
-
-export function finishCopy(locale: Locale) {
-  return locale === 'bn' ? bn : en
+export function finishCopy(_locale?: Locale) {
+  void _locale
+  return englishCopy
 }

@@ -1,12 +1,6 @@
 'use client'
 import Link from 'next/link'
-import {
-  ArrowRight,
-  Globe2,
-  Languages,
-  LockKeyhole,
-  Settings2,
-} from 'lucide-react'
+import { ArrowRight, Globe2, LockKeyhole, Settings2 } from 'lucide-react'
 import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
 import { useUiCopy } from '@/hooks/use-ui-copy'
@@ -14,9 +8,7 @@ export default function AccountSettingsPage() {
   const ready = useStoreReady()
   const t = useUiCopy()
   const market = useCommerceStore((s) => s.market)
-  const locale = useCommerceStore((s) => s.locale)
   const setMarket = useCommerceStore((s) => s.setMarket)
-  const setLocale = useCommerceStore((s) => s.setLocale)
   return (
     <section className="space-y-5">
       <div>
@@ -28,7 +20,7 @@ export default function AccountSettingsPage() {
         </p>
       </div>
       <div className="rounded-[22px] border border-border bg-white p-5 sm:p-7">
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6">
           <label className="block text-sm font-bold">
             <span className="mb-2 flex items-center gap-2">
               <Globe2 size={18} className="text-primary" /> {t.shoppingRegion}
@@ -41,21 +33,6 @@ export default function AccountSettingsPage() {
             >
               <option value="BD">Bangladesh · BDT</option>
               <option value="INTL">International · USD</option>
-            </select>
-          </label>
-          <label className="block text-sm font-bold">
-            <span className="mb-2 flex items-center gap-2">
-              <Languages size={18} className="text-primary" />{' '}
-              {t.displayLanguage}
-            </span>
-            <select
-              disabled={!ready}
-              value={ready ? locale : 'en'}
-              onChange={(e) => setLocale(e.target.value as 'en' | 'bn')}
-              className="h-12 w-full rounded-xl border border-border bg-white px-3.5 text-sm font-medium"
-            >
-              <option value="en">English</option>
-              <option value="bn">বাংলা</option>
             </select>
           </label>
         </div>

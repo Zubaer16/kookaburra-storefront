@@ -40,7 +40,7 @@ const stages: { id: CheckoutStage; name: string }[] = [
 export function CheckoutClient() {
   const ready = useStoreReady()
   const storedMarket = useCommerceStore((s) => s.market)
-  const storedLocale = useCommerceStore((s) => s.locale)
+  const storedLocale = 'en' as const
   const items = useCommerceStore((s) => s.cart)
   const setMarket = useCommerceStore((s) => s.setMarket)
   const setCartOpen = useCommerceStore((s) => s.setCartOpen)
@@ -83,11 +83,11 @@ export function CheckoutClient() {
         className="mb-6 flex items-center gap-1.5 text-xs text-muted"
       >
         <Link className="hover:text-primary" href="/">
-          {locale === 'bn' ? 'হোম' : 'Home'}
+          Home
         </Link>
         <ChevronRight size={14} />
         <Link className="hover:text-primary" href="/cart">
-          {locale === 'bn' ? 'কার্ট' : 'Cart'}
+          Cart
         </Link>
         <ChevronRight size={14} />
         <span className="font-bold text-ink">{t.previewCheckout}</span>
@@ -114,7 +114,7 @@ export function CheckoutClient() {
           className="rounded-2xl border border-border bg-canvas p-8 text-sm text-muted"
           role="status"
         >
-          {locale === 'bn' ? 'কার্ট লোড হচ্ছে…' : 'Loading your local cart…'}
+          Loading your local cart…
         </p>
       ) : !cart.readyForPreview ? (
         <div

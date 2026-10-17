@@ -67,7 +67,7 @@ export function ProductCard({ product }: { product: Product }) {
       </button>
       <div className="px-3.5 pb-4 pt-3 sm:px-4 sm:pb-5">
         <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[.12em] text-[#8490a7]">
-          {locale === 'bn' ? category?.bn : category?.label}
+          {category?.label}
         </p>
         <Link
           href={`/product/${product.slug}`}

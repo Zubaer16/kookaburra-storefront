@@ -1,31 +1,28 @@
-# Kookaburra Web Frontend — Release / Design-Freeze Checklist
+# Frontend Release Criteria
 
-Status: **PENDING USER TESTING & APPROVAL**. This release gate is distinct from backend readiness.
+The storefront is an **English-only UI implementation** and not yet a transaction-capable production store. Complete the following before a public launch.
 
-## Automated checks (record command output)
+## Code quality
 
-- [ ] Node 24: `node -v`
-- [ ] `npm run check` — structural tests, UX tests, TypeScript, ESLint and production build
-- [ ] `node scripts/verify-patch10.mjs` — preview metadata/accessibility safety guardrails
-- [ ] `npm audit --omit=dev` — assess every nonzero advisory, no `--force`
-- [ ] `git status` reviewed and latest source committed
+- [ ] `npm ci`, `npm run check` and `npm audit --omit=dev` pass on Node.js 24.
+- [ ] No customer-facing Bengali language toggle, translation residue or development-artifact references remain.
+- [ ] No secrets, local `.env` files or personal data are committed.
+- [ ] All external destinations and redirect flows are validated.
 
-## Actual browser QA — mark each pass/fail
+## UX and accessibility
 
-- [ ] At 320px, 375px, 390px, 428px, 768px, 1024px, 1440px no horizontal overflow, clipping or blocked controls.
-- [ ] Keyboard-only: skip link; header menus; mobile filters/Escape/focus return; collection tabs arrow/Home/End; product variants; cart controls; checkout steps; account preview navigation.
-- [ ] Screen reader: exactly one main landmark; proper dialog focus trap; useful image labels; grouped selectors and spoken selected state; polite status updates.
-- [ ] 200% zoom / Bangla long labels / 200% font scaling / reduced-motion OS setting.
-- [ ] All image paths load; category/search/filter URL, wishlist and variant cart persist across refresh.
-- [ ] Bangladesh and international preview totals visually show **indicative** data; no transaction can be executed.
-- [ ] `/sign-in` and `/sign-up` do not accept credentials or claim a live session; sample orders clearly identified as fictional.
-- [ ] `robots.txt` blocks crawling, metadata is noindex, preview-only manifest works; no fabricated live structured product data or canonical host.
-- [ ] No real orders, payments, logins, account data storage or outbound API requests.
-- [ ] Desktop / mobile visual design approved; Flutter design-token and screen-state mapping reviewed.
+- [ ] Home, Shop, Categories, Product, Cart, Wishlist, Checkout and Account work at 320px, 375px, 390px, 428px, tablet and desktop sizes.
+- [ ] Keyboard navigation, focus indicators, dialogs, galleries, filter controls and checkout steps are operable and labelled correctly.
+- [ ] Loading, empty, error, unavailable variant and over-stock states are covered.
+- [ ] Display prices are in the selected market's currency with consistent order totals.
 
-## Do not confuse frontend design completion with launch readiness
+## Operational launch blockers
 
-- API integration, server-side price/stock authority, user authorization, payment gateway, logistics eligibility, production localization/SEO/legal content and Flutter app are not part of this frontend design preview.
-- Do not call this _production-ready_ before backend and deployment work. Do not start backend until user explicitly approves the frontend phase.
+- [ ] Authenticated, authorized customer accounts and orders are backed by secure services.
+- [ ] Product prices, taxes, delivery fees and inventory are validated server-side.
+- [ ] Stripe test-mode sessions, signed webhooks and idempotent order updates are tested end to end; Stripe merchant eligibility is verified.
+- [ ] Legal terms, privacy/returns pages, merchant operations and support processes are ready.
+- [ ] Final SEO/canonical URLs, metadata and crawl/index settings are configured. This preview intentionally uses `noindex`.
+- [ ] Real-browser functional checks, device checks, performance and accessibility audits pass.
 
-QA owner: ********\_\_******** Date: ******\_****** Signoff: ********\_\_********
+Do not enable live payments, production indexing or claims of order completion before the corresponding gates pass.

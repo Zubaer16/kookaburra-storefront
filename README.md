@@ -1,98 +1,73 @@
-# Kookaburra v2 — Storefront · Patch 01
+# Kookaburra Storefront
 
-**Single Vendor · Multi-category · Bangladesh + International · Flutter-aligned**
+A responsive, single-vendor, multi-category e-commerce storefront built with Next.js, TypeScript, Tailwind CSS and customizable shadcn/ui-style components. The interface is **English-only** and supports browsing in Bangladesh (BDT) and an international (USD) market view. The web design provides the reference for a future Flutter app.
 
-This is a new Next.js 15 / React 19 / TypeScript / Tailwind 4 storefront. It is intentionally separate from the old Sanity/Clerk/Stripe starter. The bundled catalog and prices are **sample data**. There is **no live backend, payment, customer authentication or production order processing** in this patch.
+## Requirements
 
-## Extract on Windows
+- Node.js 24 LTS (`.nvmrc`; run `nvm use 24` with NVM for Windows)
+- npm
 
-Download `kookaburra-storefront-patch-01.tar.gz` into `C:\Users\zubaer.ahmed\Downloads`.
-
-Open VS Code **in the root of the empty `kookaburra-storefront` repository**. Paste in a PowerShell terminal:
+## Quick start
 
 ```powershell
-tar -xzf "C:\Users\zubaer.ahmed\Downloads\kookaburra-storefront-patch-01.tar.gz" -C .
-npm install
+npm ci
 npm run dev
 ```
 
-Open <http://localhost:3000>. If port 3000 is in use, follow the URL printed by Next.js.
+Open <http://localhost:3000>.
 
-### Checks
+## Validation
 
 ```powershell
 npm run verify
 npm run typecheck
 npm run lint
 npm run build
+npm audit --omit=dev
 ```
 
-`npm install` creates a `package-lock.json` locally; **commit that lockfile** so later builds use `npm ci`. This project pins Node.js 24.x via `.nvmrc` and `package.json` engines; use `nvm use 24` on Windows. The environment that generated this patch could not reach the npm registry, so an actual dependency install and Next.js build were **not** performed here; please run the commands above.
+Alternatively, `npm run check` runs structural verification, TypeScript, ESLint and the Next.js production build.
 
-## What's included
+## Current features
 
-- Responsive home with promotional hero, product categories, featured products, and collection calls to action.
-- Search and filterable catalog (`/shop`), sorting, sample product details, basic wishlist (`/wishlist`) and cart (`/cart`).
-- Functional add-to-cart, quantities and wishlist, persisted locally in the browser using Zustand. Cart drawer UI via Radix/shadcn-style Sheet.
-- English/Bangla navigation and selected homepage labels, BDT/USD selector with **separately defined illustrative market prices**, no exchange-rate conversion.
-- Self-contained SVG artwork (no external image API), responsive header and mobile navigation, accessible buttons and states.
-- shadcn/ui-compatible `components.json`, reusable Button/Input/Badge/Sheet, design tokens shared with future Flutter implementation.
-- Offline `npm run verify` for project structure. Framework compilation still requires installed dependencies.
+- Responsive homepage, product discovery, category navigation, search, filters, sort, and product pages.
+- Image galleries and configurable sample size/color variants.
+- Browser-persisted wishlist and variant-aware shopping cart.
+- Address, delivery and order-review interface with Bangladesh/international market selection.
+- Customer account, sample orders and shipment-tracking interface designs.
+- Accessible navigation, loading/empty/error states and mobile layouts.
+- English-only copy; BDT and USD are separate sample prices, **not foreign-exchange conversions**.
 
-## Important boundaries
+## Current limitations
 
-1. Cart prices and stock levels are **client-side previews**, not secure or authoritative. **Do not enable checkout** until the independent backend calculates prices, shipping, tax, stock and validates payment.
-2. Country selector toggles example BDT/USD catalog prices only. Shipping country eligibility, taxation, custom duties, payment options, and production localization will be handled by backend contracts.
-3. No live login and no database: wishlist/cart persist only in the same browser. **Do not interpret this as cross-device sync**.
-4. The page metadata sets `robots: noindex,nofollow` intentionally for preview; replace with production SEO metadata only when backend and live content are ready.
-5. This is one **root-level overlay**: no extra wrapping folder, no automatic deletions. `.git` is untouched.
+The product catalog, prices, availability, delivery estimates, orders and tracking are illustrative. Sign-in/sign-up submissions, order placement and payments are intentionally disabled. Nothing here constitutes an authenticated customer account, confirmed inventory, actual delivery quote or a successful transaction.
 
-## Source map
+**Payment plan:** Stripe **test mode** is selected for future integration, not activated in this frontend. A secure backend must create Checkout Sessions, validate prices/stock and verify Stripe webhooks before any payment flow is enabled. See [Payment Integration](docs/PAYMENTS.md).
+
+## Structure
 
 ```text
-app/                    Next.js App Router pages and layout
-components/layout/      Header, footer, logo, providers
-components/store/       Product cards, product details, shop filters, cart drawer
-components/ui/          Customizable shadcn-style React components
-stores/                 Zustand browser-preview commerce state
-lib/                    Sample catalog, prices, i18n helpers
-public/                 Original in-project SVG sample art
-design/                 Stable design tokens for Next.js and Flutter
-docs/                   Architecture and Flutter parity contract
-scripts/                Offline structural verification
+app/               Next.js App Router screens, loading UI and metadata
+components/        Shared UI, storefront, checkout and account components
+lib/               Catalog fixtures, preview logic, API contracts and helpers
+stores/            Browser-only shopping preferences and cart/wishlist state
+public/            Product artwork and site icon
+design/            Web/Flutter design token contract
+docs/              Architecture, payment plan, QA and Flutter parity
+scripts/           Project verification
 ```
 
-Next patch can deepen real production-ready catalog UX, variants, category trees and API client groundwork without changing design foundations.
+## Architecture & rollout
 
-## Patch 03 — Product options and variant-aware cart
+This repository contains the **customer web frontend only**. The planned independent commerce API, database, admin dashboard and Flutter client are separate deliverables. Browser cart totals are never payment authority; the future backend must own customer sessions, quotes, inventory, order creation, tax/shipping and payment state.
 
-The storefront now has a selectable T-shirt / sneaker / loafer size-and-color matrix,
-illustrated product gallery, variant-aware persistent cart, wishlist management and
-shareable shop filters. Product data and totals remain **preview-only fixtures**;
-checkout intentionally cannot process orders. See `docs/PATCH_03_NOTES.md` and
-`docs/FLUTTER_PARITY.md` for implementation notes and mobile parity.
+- [Architecture](docs/ARCHITECTURE.md)
+- [Payment Integration](docs/PAYMENTS.md)
+- [Flutter Design Parity](docs/FLUTTER_PARITY.md)
+- [Frontend QA & Release Criteria](docs/FRONTEND_RELEASE_GATE.md)
 
-After extracting Patch 03 at the repository root, run:
+## Environment
 
-```powershell
-node scripts/verify-patch03.mjs
-npm run check
-npm audit --omit=dev
-npm run dev
-```
+Copy `.env.example` to `.env.local` only when needed. No API or Stripe keys are required for the local UI preview. Never commit `.env.local` or secret payment credentials.
 
-No dependency changes or `npm install` required after a working Patch 02.
-
-## Patch 04 — Checkout interface preview
-
-New `/checkout` includes sample address, Bangladesh/international region switch, delivery method selection, review step and indicative total. The cart links to it only for valid product/variant quantities. **There is no real order or payment, and address entries are not persisted or transmitted.** Run `node scripts/verify-patch04.mjs` and `npm run check` after extracting. See `docs/PATCH_04_NOTES.md` and `PROJECT_PROGRESS.md` for details and continuation guidance.
-
-## Patch 05 — Customer account & tracking preview
-
-A responsive `/account` area now links to _fictional_ order history, demo order details, sample shipment tracking, read-only address planning and local display preferences. Sign-in/sign-up designs exist at `/sign-in` and `/sign-up`, but **all credential inputs and submission are disabled**. No real customer exists and no orders, emails, address details or passwords are stored or transmitted by these pages.
-
-Use `node scripts/verify-patch05.mjs` then `npm run check` after the Patch 05 root overlay. See `docs/PATCH_05_NOTES.md`, `PROJECT_PROGRESS.md` and `docs/FLUTTER_PARITY.md` for intended future backend and Flutter parity. No dependency changes.
-
-## Patch 10 — Frontend QA candidate
-
-Patch 10 improves accessible landmarks, touch targets, preview SEO safety and browser metadata. Run `node scripts/verify-patch10.mjs` and `npm run check`; follow `docs/FRONTEND_RELEASE_GATE.md`. **Not production ready**; no backend/payment/auth implementation.
+The storefront is not approved for production transactions until its independent backend, payment processing, authorization and operational checks have been implemented and tested.

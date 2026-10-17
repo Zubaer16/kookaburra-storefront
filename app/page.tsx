@@ -23,10 +23,10 @@ import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
 
 export default function HomePage() {
-  const savedLocale = useCommerceStore((s) => s.locale)
+  const savedLocale = 'en' as const
   const ready = useStoreReady()
   const locale = ready ? savedLocale : 'en'
-  const t = dictionary(locale)
+  const t = dictionary()
   const f = finishCopy(locale)
   return (
     <>

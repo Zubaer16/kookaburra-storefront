@@ -2,7 +2,7 @@
 
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import type { Locale, Market } from '@/lib/catalog'
+import type { Market } from '@/lib/catalog'
 import { cartLineKey, productById, productVariant } from '@/lib/catalog'
 
 export type CartLine = {
@@ -12,13 +12,11 @@ export type CartLine = {
 }
 type CommerceState = {
   market: Market
-  locale: Locale
   cart: CartLine[]
   wishlist: string[]
   cartOpen: boolean
   mobileMenuOpen: boolean
   setMarket: (market: Market) => void
-  setLocale: (locale: Locale) => void
   addToCart: (productId: string, quantity?: number, variantId?: string) => void
   setQuantity: (productId: string, quantity: number, variantId?: string) => void
   removeFromCart: (productId: string, variantId?: string) => void
@@ -43,13 +41,11 @@ export const useCommerceStore = create<CommerceState>()(
   persist(
     (set) => ({
       market: 'BD',
-      locale: 'en',
       cart: [],
       wishlist: [],
       cartOpen: false,
       mobileMenuOpen: false,
       setMarket: (market) => set({ market }),
-      setLocale: (locale) => set({ locale }),
       addToCart: (productId, quantity = 1, variantId) =>
         set((state) => {
           const limit = maxStock(productId, variantId)
@@ -109,15 +105,23 @@ export const useCommerceStore = create<CommerceState>()(
       setMobileMenuOpen: (mobileMenuOpen) => set({ mobileMenuOpen }),
     }),
     {
-      // Same storage key as Patch 01/02: existing carts/wishlists survive.
+      // Preserve the existing local cart/wishlist storage across upgrades.
       name: 'kookaburra-storefront-preview-v1',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         market: state.market,
-        locale: state.locale,
         cart: state.cart,
         wishlist: state.wishlist,
       }),
+      merge: (persisted, current) => {
+        const saved = (persisted ?? {}) as Partial<CommerceState>
+        return {
+          ...current,
+          market: (saved.market === 'INTL' ? 'INTL' : 'BD') as Market,
+          cart: Array.isArray(saved.cart) ? saved.cart : [],
+          wishlist: Array.isArray(saved.wishlist) ? saved.wishlist : [],
+        }
+      },
       skipHydration: true,
     },
   ),

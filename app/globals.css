@@ -21,8 +21,7 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-canvas: var(--canvas);
-  --font-sans:
-    var(--font-inter), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 * {
@@ -37,7 +36,6 @@ body {
   color: var(--ink);
   font-family:
     Inter,
-    'Noto Sans Bengali',
     ui-sans-serif,
     system-ui,
     -apple-system,
@@ -108,7 +106,7 @@ button {
   }
 }
 
-/* Patch 02: touch-friendly collections and category navigation */
+/* Shared interaction styles */
 a,
 button,
 input,
@@ -126,7 +124,7 @@ input:focus-visible {
   scrollbar-width: thin;
 }
 
-/* Patch 09: keyboard navigation and comfortable small-screen controls. */
+/* Keyboard navigation and small-screen controls. */
 .skip-to-content {
   position: fixed;
   z-index: 200;
@@ -153,7 +151,7 @@ textarea:focus-visible,
   }
 }
 
-/* Patch 10 — final preview accessibility refinements. */
+/* Accessible motion and focus management. */
 @media (prefers-reduced-motion: reduce) {
   .card-lift:hover {
     transform: none;

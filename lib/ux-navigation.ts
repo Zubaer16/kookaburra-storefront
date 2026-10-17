@@ -5,7 +5,7 @@ export type HorizontalNavigationKey =
   | 'Home'
   | 'End'
 
-/** Returns null when the key is not handled. RTL locale does not mean RTL layout here. */
+/** Returns null when the key is not handled. Navigation keeps the active item keyboard-accessible. */
 export function nextHorizontalIndex(
   index: number,
   key: string,

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: '%s | Kookaburra',
   },
   description:
-    'Discover thoughtfully picked everyday essentials, tech, fashion, home goods and more. Kookaburra v2 storefront preview.',
+    'Discover thoughtfully picked everyday essentials, tech, fashion, home goods and more. Kookaburra storefront preview.',
   applicationName: 'Kookaburra',
   openGraph: {
     title: 'Kookaburra | Storefront Preview',
@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <a href="#main-content" className="skip-to-content">
-          Skip to content / মূল বিষয়বস্তুতে যান
+          Skip to content
         </a>
         <Providers>
           <Header />

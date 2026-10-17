@@ -114,7 +114,7 @@ export function ProductDetails({ product }: { product: Product }) {
           href={`/shop?category=${product.category}`}
           className="hover:text-primary"
         >
-          {locale === 'bn' ? category?.bn : category?.label}
+          {category?.label}
         </Link>
         <ChevronRight size={14} />
         <span className="max-w-48 truncate font-semibold text-ink">
@@ -125,7 +125,7 @@ export function ProductDetails({ product }: { product: Product }) {
         <ProductGallery product={product} />
         <div className="self-start">
           <p className="mb-3 text-xs font-extrabold uppercase tracking-[.18em] text-primary">
-            {locale === 'bn' ? category?.bn : category?.label}
+            {category?.label}
           </p>
           <h1 className="text-[30px] font-extrabold leading-[1.2] tracking-[-.045em] sm:text-[39px]">
             {display.title}
@@ -226,9 +226,7 @@ export function ProductDetails({ product }: { product: Product }) {
             </span>
             <span className="mx-2">·</span>
             <span>{t.productCategory}:</span>
-            <span className="font-bold text-ink">
-              {locale === 'bn' ? category?.bn : category?.label}
-            </span>
+            <span className="font-bold text-ink">{category?.label}</span>
           </div>
         </div>
       </div>

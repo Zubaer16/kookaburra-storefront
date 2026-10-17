@@ -20,7 +20,7 @@ export default function CartPage() {
   const t = useUiCopy()
   const cart = useCommerceStore((s) => s.cart)
   const savedMarket = useCommerceStore((s) => s.market)
-  const savedLocale = useCommerceStore((s) => s.locale)
+  const savedLocale = 'en' as const
   const market = ready ? savedMarket : 'BD'
   const locale = ready ? savedLocale : 'en'
   const lines = (ready ? cart : [])

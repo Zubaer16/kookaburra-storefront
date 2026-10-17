@@ -12,8 +12,6 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import type { CategoryId } from '@/lib/catalog'
-import { useCommerceStore } from '@/stores/commerce-store'
-import { useStoreReady } from '@/hooks/use-store-ready'
 import { categoryDescription } from '@/lib/fixture-localization'
 
 const icons: Record<CategoryId, LucideIcon> = {
@@ -33,15 +31,12 @@ export function CategoryTile({
   category: {
     id: CategoryId
     label: string
-    bn: string
     description: string
     tint: string
   }
   variant?: 'compact' | 'feature'
 }) {
-  const ready = useStoreReady()
-  const savedLocale = useCommerceStore((state) => state.locale)
-  const name = ready && savedLocale === 'bn' ? category.bn : category.label
+  const name = category.label
   const Icon = icons[category.id]
   return (
     <Link
@@ -60,11 +55,7 @@ export function CategoryTile({
         </span>
         {variant === 'feature' && (
           <span className="mt-1 block text-xs text-muted">
-            {categoryDescription(
-              category.id,
-              category.description,
-              ready ? savedLocale : 'en',
-            )}
+            {categoryDescription(category.id, category.description, 'en')}
           </span>
         )}
       </span>

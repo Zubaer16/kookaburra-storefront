@@ -80,20 +80,17 @@ function Counter({ count }: { count: number }) {
 export function Header() {
   const pathname = usePathname()
   const ready = useStoreReady()
-  const storedLocale = useCommerceStore((s) => s.locale)
   const storedMarket = useCommerceStore((s) => s.market)
   const cart = useCommerceStore((s) => s.cart)
   const wishlist = useCommerceStore((s) => s.wishlist)
   const setMarket = useCommerceStore((s) => s.setMarket)
-  const setLocale = useCommerceStore((s) => s.setLocale)
   const setCartOpen = useCommerceStore((s) => s.setCartOpen)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [categoriesOpen, setCategoriesOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const categoryTriggerRef = useRef<HTMLButtonElement>(null)
-  const locale = ready ? storedLocale : 'en'
   const market = ready ? storedMarket : 'BD'
-  const t = dictionary(locale)
+  const t = dictionary()
   const cartCount = ready
     ? cart.reduce((sum, item) => sum + item.quantity, 0)
     : 0
@@ -134,16 +131,14 @@ export function Header() {
             {t.global}
           </span>
           <span className="hidden font-bold sm:block">
-            {locale === 'bn'
-              ? 'এক স্টোরে অনেক পছন্দ'
-              : 'One store · Many discoveries'}{' '}
+            {'One store · Many discoveries'}{' '}
             <span className="ml-2 text-primary">✦</span>
           </span>
         </div>
       </div>
       <div className="container-shell flex h-[72px] items-center gap-4 lg:gap-7">
         <button
-          aria-label={locale === 'bn' ? 'মেনু খুলুন' : 'Open navigation'}
+          aria-label={'Open navigation'}
           type="button"
           className="flex size-10 items-center justify-center rounded-xl border border-border lg:hidden"
           onClick={() => setMobileOpen(true)}
@@ -170,18 +165,6 @@ export function Header() {
             >
               <option value="BD">🇧🇩 BDT</option>
               <option value="INTL">🌍 USD</option>
-            </select>
-            <label htmlFor="language" className="sr-only">
-              Language
-            </label>
-            <select
-              id="language"
-              className="cursor-pointer bg-transparent text-xs font-bold outline-none"
-              value={locale}
-              onChange={(event) => setLocale(event.target.value as 'en' | 'bn')}
-            >
-              <option value="en">EN</option>
-              <option value="bn">BN</option>
             </select>
           </div>
           <Link
@@ -265,8 +248,7 @@ export function Header() {
                     onClick={() => setCategoriesOpen(false)}
                     className="inline-flex items-center gap-1 text-xs font-bold text-primary"
                   >
-                    {locale === 'bn' ? 'সব দেখুন' : 'View all'}{' '}
-                    <ArrowRight size={14} />
+                    {'View all'} <ArrowRight size={14} />
                   </Link>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -278,7 +260,7 @@ export function Header() {
                       className="rounded-xl px-3 py-3 hover:bg-[#f3f6ff]"
                     >
                       <span className="block text-sm font-extrabold">
-                        {locale === 'bn' ? category.bn : category.label}
+                        {category.label}
                       </span>
                       <span className="mt-1 block text-xs text-muted">
                         {category.description}
@@ -307,13 +289,13 @@ export function Header() {
             href="/shop?category=footwear"
             className="text-[13px] font-semibold text-[#4c5872] hover:text-primary"
           >
-            {locale === 'bn' ? 'জুতা' : 'Shoes'}
+            {'Shoes'}
           </Link>
           <Link
             href="/shop?category=fashion"
             className="text-[13px] font-semibold text-[#4c5872] hover:text-primary"
           >
-            {locale === 'bn' ? 'ফ্যাশন' : 'Fashion'}
+            {'Fashion'}
           </Link>
           <span className="ml-auto text-[12px] font-semibold text-[#52708f]">
             ✦ {t.freeShipping}
@@ -324,7 +306,7 @@ export function Header() {
         <SheetContent side="left" className="overflow-y-auto p-5">
           <SheetTitle className="sr-only">Mobile navigation</SheetTitle>
           <SheetDescription className="sr-only">
-            Browse product collections and select language and market.
+            Browse product collections and select a shopping market.
           </SheetDescription>
           <div className="mb-8 flex items-center justify-between pr-7">
             <Logo />
@@ -355,8 +337,7 @@ export function Header() {
             className="mt-3 flex items-center justify-between rounded-xl bg-blue-50 px-3 py-3 text-sm font-extrabold text-primary"
           >
             <span className="flex items-center gap-2">
-              <UserRound size={17} />{' '}
-              {locale === 'bn' ? 'অ্যাকাউন্ট প্রিভিউ' : 'Account preview'}
+              <UserRound size={17} /> {'Account preview'}
             </span>
             <ArrowRight size={16} />
           </Link>
@@ -372,7 +353,7 @@ export function Header() {
                 onClick={() => setMobileOpen(false)}
                 className="block rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-blue-50"
               >
-                {locale === 'bn' ? category.bn : category.label}
+                {category.label}
               </Link>
             ))}
           </div>
@@ -384,19 +365,10 @@ export function Header() {
               onChange={(event) =>
                 setMarket(event.target.value as 'BD' | 'INTL')
               }
-              className="w-1/2 rounded-lg border border-border p-2 text-sm"
+              className="w-full rounded-lg border border-border p-2 text-sm"
             >
               <option value="BD">🇧🇩 BDT</option>
               <option value="INTL">🌍 USD</option>
-            </select>
-            <select
-              aria-label="Language"
-              value={locale}
-              onChange={(event) => setLocale(event.target.value as 'en' | 'bn')}
-              className="w-1/2 rounded-lg border border-border p-2 text-sm"
-            >
-              <option value="en">English</option>
-              <option value="bn">বাংলা</option>
             </select>
           </div>
         </SheetContent>

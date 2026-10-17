@@ -24,7 +24,7 @@ export function CartDrawer() {
   const ready = useStoreReady()
   const cart = useCommerceStore((s) => s.cart)
   const savedMarket = useCommerceStore((s) => s.market)
-  const savedLocale = useCommerceStore((s) => s.locale)
+  const savedLocale = 'en' as const
   const open = useCommerceStore((s) => s.cartOpen)
   const setOpen = useCommerceStore((s) => s.setCartOpen)
   const market = ready ? savedMarket : 'BD'

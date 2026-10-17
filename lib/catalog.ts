@@ -7,7 +7,7 @@ export type CategoryId =
   | 'lifestyle'
   | 'accessories'
 export type Market = 'BD' | 'INTL'
-export type Locale = 'en' | 'bn'
+export type Locale = 'en'
 
 export type ProductOption = { size?: string; color?: string }
 export type ProductVariant = {
@@ -38,62 +38,54 @@ export type Product = {
 export const categories: {
   id: CategoryId
   label: string
-  bn: string
   description: string
   tint: string
 }[] = [
   {
     id: 'electronics',
     label: 'Electronics',
-    bn: 'ইলেকট্রনিক্স',
     description: 'Tech for every day',
     tint: '#EAF0FF',
   },
   {
     id: 'fashion',
     label: 'Fashion',
-    bn: 'ফ্যাশন',
     description: 'Made for your style',
     tint: '#FFF0E9',
   },
   {
     id: 'footwear',
     label: 'Shoes & Footwear',
-    bn: 'জুতা ও ফুটওয়্যার',
     description: 'Every step in style',
     tint: '#F0EEFC',
   },
   {
     id: 'home',
     label: 'Home & Living',
-    bn: 'ঘর ও জীবন',
     description: 'Refresh your space',
     tint: '#EDF8F0',
   },
   {
     id: 'beauty',
     label: 'Beauty',
-    bn: 'বিউটি',
     description: 'Little daily luxuries',
     tint: '#F9EEFB',
   },
   {
     id: 'lifestyle',
     label: 'Lifestyle',
-    bn: 'লাইফস্টাইল',
     description: 'Everyday essentials',
     tint: '#FFF5D9',
   },
   {
     id: 'accessories',
     label: 'Accessories',
-    bn: 'অ্যাক্সেসরিজ',
     description: 'The perfect details',
     tint: '#EAF8FA',
   },
 ]
 
-// Patch 01 preview catalog: all amounts are illustrative per-market prices, NOT currency conversions.
+// Storefront sample catalog: all amounts are illustrative per-market prices, NOT currency conversions.
 // Never use these client-side values as the authority for future production checkout.
 export const products: Product[] = [
   {
@@ -470,10 +462,11 @@ export function categoryById(id: CategoryId) {
 export function formatPrice(
   amount: number,
   market: Market,
-  locale: Locale = 'en',
+  _locale: Locale = 'en',
 ) {
+  void _locale
   const currency = market === 'BD' ? 'BDT' : 'USD'
-  return new Intl.NumberFormat(locale === 'bn' ? 'bn-BD' : 'en-US', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,
     maximumFractionDigits: 0,

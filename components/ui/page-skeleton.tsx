@@ -17,7 +17,7 @@ export function PageSkeleton({
 }: {
   variant: 'shop' | 'product' | 'account' | 'checkout'
 }) {
-  const label = 'Loading content / কনটেন্ট লোড হচ্ছে'
+  const label = 'Loading content'
   return (
     <section
       className="container-shell pb-20 pt-9 sm:pt-12"

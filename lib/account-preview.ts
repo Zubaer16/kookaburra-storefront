@@ -1,5 +1,5 @@
 /**
- * Patch 05 public, fictitious demo fixtures. No actual customer or order data.
+ * public, fictitious demo fixtures. No actual customer or order data.
  * Never use this file as an authentication mechanism or as an order API.
  */
 export type PreviewCurrency = 'BDT' | 'USD'

@@ -14,37 +14,26 @@ import {
 import { Logo } from '@/components/layout/logo'
 import { dictionary } from '@/lib/i18n'
 import { categories } from '@/lib/catalog'
-import { useCommerceStore } from '@/stores/commerce-store'
-import { useStoreReady } from '@/hooks/use-store-ready'
 import { useUiCopy } from '@/hooks/use-ui-copy'
 
 export function Footer() {
-  const ready = useStoreReady()
-  const locale = useCommerceStore((s) => s.locale)
-  const t = dictionary(ready ? locale : 'en')
+  const t = dictionary()
   const u = useUiCopy()
-  const bn = ready && locale === 'bn'
   const benefits = [
     {
       icon: Truck,
       title: t.freeShipping,
-      detail: bn
-        ? 'দেশ ও অর্ডার অনুযায়ী প্রযোজ্য'
-        : 'Availability varies by country & order',
+      detail: 'Availability varies by country & order',
     },
     {
       icon: PackageCheck,
       title: t.easyReturns,
-      detail: bn
-        ? 'রিটার্ন ও সহায়তার নির্দেশনা'
-        : 'Clear order support policies',
+      detail: 'Clear order support policies',
     },
     {
       icon: ShieldCheck,
       title: t.secureCheckout,
-      detail: bn
-        ? 'বাস্তব পেমেন্ট সংযোগ এখনো হয়নি'
-        : 'Production payment integration pending',
+      detail: 'Production payment integration pending',
     },
   ]
   return (
@@ -126,7 +115,7 @@ export function Footer() {
                   className="hover:text-white"
                   href={`/shop?category=${category.id}`}
                 >
-                  {bn ? category.bn : category.label}
+                  {category.label}
                 </Link>
               ))}
             </div>
@@ -139,8 +128,7 @@ export function Footer() {
               {t.subscribeText}
             </p>
             <div className="mt-4 flex items-center gap-2 rounded-xl border border-white/15 px-4 py-3 text-sm text-white/70">
-              <Mail size={17} />{' '}
-              {bn ? 'নিউজলেটার শীঘ্রই আসছে' : 'Newsletter coming soon'}{' '}
+              <Mail size={17} /> Newsletter coming soon{' '}
               <ArrowUpRight size={16} className="ml-auto" />
             </div>
             <p className="mt-5 flex items-center gap-2 text-xs text-[#b8c3d9]">

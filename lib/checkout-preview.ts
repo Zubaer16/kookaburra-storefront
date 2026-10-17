@@ -1,4 +1,4 @@
-/** Patch 04: browser-only checkout UI fixtures. NOT server pricing or shipping quotes. */
+/** browser-only checkout UI fixtures. NOT server pricing or shipping quotes. */
 import {
   cartLineKey,
   productById,

@@ -1,27 +1,24 @@
-# Kookaburra v2 · Patch 01 Architecture
+# Storefront Architecture
 
-## Goals
+## Scope
 
-- A **single company** owns every listed product. No seller registrations, vendor payouts, or marketplace commissions.
-- One multi-category storefront with Bangladesh + international market support.
-- Build the mobile-web UX first; re-create approved patterns as **native Flutter widgets**, not wrapped Next.js pages.
-- Future dedicated NestJS backend, PostgreSQL/Prisma, REST/OpenAPI, staff admin app and separately maintained Flutter app.
+Kookaburra is a **single-vendor, multi-category** store. Only the company lists products; there are no seller accounts, commissions or vendor settlements. The website serves English-language shoppers, with BDT sample pricing for Bangladesh and USD sample pricing for the international market. A single set of web design tokens will inform the future native Flutter client.
 
-## Current application
+## Frontend
 
-Next.js App Router renders pages; client-side Zustand provides only temporary shopping UX. The catalog is local read-only fixture data in `lib/catalog.ts`. URL paths `/shop?q=...`, `/shop?category=...`, `/shop?tag=sale` work with local filtering. Prices have explicit sample BDT/USD values; no inferred FX or fake shipment quote.
+- **Framework:** Next.js App Router, React, TypeScript, Tailwind CSS.
+- **UI:** shadcn/ui-compatible components, Radix primitives, Lucide icons.
+- **Browser state:** Zustand persists a local cart, wishlist and selected shopping market. Persistent state is not an authenticated account.
+- **Catalog:** `lib/catalog.ts` contains non-authoritative example products, stock and regional prices.
+- **Localization:** The application is English-only. No language selector or Bengali translation state is required.
+- **Network boundary:** `lib/api/client.ts` and `lib/api/contracts.ts` are future-facing interfaces. The app does not currently submit orders or credentials.
 
-`design/design-tokens.json` is authoritative for shared style across Web and Flutter. `app/globals.css` maps brand tokens to Tailwind CSS v4; UI building blocks live under `components/ui`. `components.json` supports future official shadcn/ui CLI components. Radix Dialog backs the Sheet component.
+## Separate services planned later
 
-## Next production phases
+An independent NestJS API, PostgreSQL database, admin interface and Flutter application. Backend service contracts will govern catalog data, authentication, variants, inventory, country eligibility, checkout quotes, shipping, tax, returns and order status. The web and Flutter apps will use a shared versioned REST/OpenAPI specification.
 
-1. Product discovery: dynamic server-side catalog API; pagination; categories/brands and variant-aware product cards; server/cache boundaries.
-2. Backend contract: OpenAPI with `/api/v1`, validated DTOs, retryable requests and typed client; this Next.js app must not embed backend business rules.
-3. Identity: secure backend-managed sessions for web; mobile auth refresh strategy; customer profiles, addresses, wishlist sync and account.
-4. Cart/checkout: server-side authoritative prices, regional pricing, inventory reservation, signed payment webhooks and idempotency. Never trust price/identity from browser storage.
-5. Market configuration: country eligibility, currency rules, language translations, shipping zones and destination-specific taxation.
-6. SEO, legal content, performance budgets, accessibility audits and automated browser tests ahead of launch.
+## Trust and security
 
-## Security guardrails already chosen
+Local cart prices, delivery fees and stock cannot be trusted for checkout. The backend must recalculate authoritative pricing, reserve/validate inventory, apply tax/shipping policies, enforce account authorization and verify signed payment events. Avoid sending private customer data to third parties without purpose and appropriate safeguards.
 
-Checkout in Patch 01 is disabled. There's no payment form and no secret keys. No production auth tokens, orders or private customer data are stored in Zustand. Metadata is noindex for preview. Do not treat the sample product ids, prices or stock numbers as inventory truth.
+See `docs/PAYMENTS.md` for the selected Stripe test-mode integration plan and `docs/FRONTEND_RELEASE_GATE.md` for readiness checks.
