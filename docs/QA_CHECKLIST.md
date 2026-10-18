@@ -15,7 +15,7 @@
 
 ## Checkout and account previews
 
-- Check invalid/empty cart restrictions, address fields, market switching, delivery selection and order review.
+- Check invalid/empty cart restrictions, address fields, destination selection, delivery selection and order review.
 - Confirm that no checkout/payment action submits an actual order or payment.
 - Confirm sign-in and sign-up do not submit credentials.
 - Review sample orders, tracking timeline, account settings and English labels.

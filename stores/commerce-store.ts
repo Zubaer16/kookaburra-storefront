@@ -2,7 +2,6 @@
 
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import type { Market } from '@/lib/catalog'
 import { cartLineKey, productById, productVariant } from '@/lib/catalog'
 
 export type CartLine = {
@@ -11,12 +10,10 @@ export type CartLine = {
   quantity: number
 }
 type CommerceState = {
-  market: Market
   cart: CartLine[]
   wishlist: string[]
   cartOpen: boolean
   mobileMenuOpen: boolean
-  setMarket: (market: Market) => void
   addToCart: (productId: string, quantity?: number, variantId?: string) => void
   setQuantity: (productId: string, quantity: number, variantId?: string) => void
   removeFromCart: (productId: string, variantId?: string) => void
@@ -40,12 +37,10 @@ function maxStock(productId: string, variantId?: string) {
 export const useCommerceStore = create<CommerceState>()(
   persist(
     (set) => ({
-      market: 'INTL',
       cart: [],
       wishlist: [],
       cartOpen: false,
       mobileMenuOpen: false,
-      setMarket: (market) => set({ market }),
       addToCart: (productId, quantity = 1, variantId) =>
         set((state) => {
           const limit = maxStock(productId, variantId)
@@ -109,7 +104,6 @@ export const useCommerceStore = create<CommerceState>()(
       name: 'kookaburra-storefront-preview-v1',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
-        market: state.market,
         cart: state.cart,
         wishlist: state.wishlist,
       }),
@@ -117,7 +111,6 @@ export const useCommerceStore = create<CommerceState>()(
         const saved = (persisted ?? {}) as Partial<CommerceState>
         return {
           ...current,
-          market: (saved.market === 'BD' ? 'BD' : 'INTL') as Market,
           cart: Array.isArray(saved.cart) ? saved.cart : [],
           wishlist: Array.isArray(saved.wishlist) ? saved.wishlist : [],
         }

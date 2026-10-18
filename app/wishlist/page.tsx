@@ -15,16 +15,15 @@ export default function WishlistPage() {
   const t = useUiCopy()
   const wishlist = useCommerceStore((s) => s.wishlist)
   const clear = useCommerceStore((s) => s.clearWishlist)
-  const market = useCommerceStore((s) => s.market)
   const [sort, setSort] = useState('saved')
   const [confirmClear, setConfirmClear] = useState(false)
   const items = (ready ? wishlist : [])
     .map((id) => productById(id))
     .filter((item): item is Product => !!item)
   if (sort === 'price-low')
-    items.sort((a, b) => productPrice(a, market) - productPrice(b, market))
+    items.sort((a, b) => productPrice(a) - productPrice(b))
   if (sort === 'price-high')
-    items.sort((a, b) => productPrice(b, market) - productPrice(a, market))
+    items.sort((a, b) => productPrice(b) - productPrice(a))
   return (
     <div className="container-shell pb-20 pt-9">
       <nav

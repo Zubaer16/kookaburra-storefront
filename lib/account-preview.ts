@@ -18,7 +18,6 @@ export type PreviewOrder = {
   id: string
   placedOn: string
   status: PreviewOrderStatus
-  market: 'BD' | 'INTL'
   currency: PreviewCurrency
   total: number
   shippingLabel: string
@@ -34,13 +33,12 @@ export type PreviewOrder = {
 
 export const demoOrders: readonly PreviewOrder[] = [
   {
-    id: 'DEMO-BD-1042',
+    id: 'DEMO-GLB-1042',
     placedOn: '2026-10-08',
     status: 'shipped',
-    market: 'BD',
     currency: 'USD',
     total: 72,
-    shippingLabel: 'Bangladesh · Standard delivery',
+    shippingLabel: 'International · Example standard shipping',
     itemCount: 2,
     items: [
       {
@@ -87,7 +85,6 @@ export const demoOrders: readonly PreviewOrder[] = [
     id: 'DEMO-INT-0831',
     placedOn: '2026-09-24',
     status: 'delivered',
-    market: 'INTL',
     currency: 'USD',
     total: 89,
     shippingLabel: 'International · Example standard shipping',
@@ -128,13 +125,12 @@ export const demoOrders: readonly PreviewOrder[] = [
     ],
   },
   {
-    id: 'DEMO-BD-0973',
+    id: 'DEMO-GLB-0973',
     placedOn: '2026-10-12',
     status: 'processing',
-    market: 'BD',
     currency: 'USD',
     total: 22,
-    shippingLabel: 'Bangladesh · Standard delivery',
+    shippingLabel: 'International · Example standard shipping',
     itemCount: 1,
     items: [
       {

@@ -101,7 +101,6 @@ export const uiCopy = {
   shoppingPreferences: 'Shopping preferences',
   preferencesIntro:
     'All prices are displayed in USD. Choose the delivery destination at checkout.',
-  shoppingRegion: 'Shopping region',
   settingsDisclaimer:
     'Displayed USD prices are sample data. Available destinations, shipping rates and eligibility will be server-managed.',
   securityProfile: 'Security & profile',

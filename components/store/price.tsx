@@ -2,8 +2,6 @@
 
 import type { Product } from '@/lib/catalog'
 import { formatPrice, productPrice, comparePrice } from '@/lib/catalog'
-import { useCommerceStore } from '@/stores/commerce-store'
-import { useStoreReady } from '@/hooks/use-store-ready'
 
 export function ProductPrice({
   product,
@@ -12,12 +10,7 @@ export function ProductPrice({
   product: Product
   size?: 'base' | 'lg'
 }) {
-  const ready = useStoreReady()
-  const savedMarket = useCommerceStore((state) => state.market)
-  const savedLocale = 'en' as const
-  const market = ready ? savedMarket : 'INTL'
-  const locale = ready ? savedLocale : 'en'
-  const sale = comparePrice(product, market)
+  const sale = comparePrice(product)
   return (
     <div className="flex flex-wrap items-center gap-2.5">
       <strong
@@ -27,11 +20,11 @@ export function ProductPrice({
             : 'text-base font-extrabold text-ink'
         }
       >
-        {formatPrice(productPrice(product, market), market, locale)}
+        {formatPrice(productPrice(product))}
       </strong>
       {sale && (
         <span className="text-xs text-muted line-through">
-          {formatPrice(sale, market, locale)}
+          {formatPrice(sale)}
         </span>
       )}
     </div>

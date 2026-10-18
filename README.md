@@ -1,6 +1,6 @@
 # Kookaburra Storefront
 
-A responsive, single-vendor, multi-category e-commerce storefront built with Next.js, TypeScript, Tailwind CSS and customizable shadcn/ui-style components. The interface is **English-only** and supports browsing in Bangladesh (USD) and an international (USD) market view. The web design provides the reference for a future Flutter app.
+A responsive, single-vendor, multi-category e-commerce storefront built with Next.js, TypeScript, Tailwind CSS and customizable shadcn/ui-style components. The interface is **English-only** with USD pricing and a unified international shopping experience. The web design provides the reference for a future Flutter app.
 
 ## Requirements
 
@@ -39,7 +39,7 @@ Playwright can run the storefront user journeys automatically in a visible Chrom
 - Responsive homepage, product discovery, category navigation, search, filters, sort, and product pages.
 - Image galleries and configurable sample size/color variants.
 - Browser-persisted wishlist and variant-aware shopping cart.
-- Address, delivery and order-review interface with Bangladesh/international market selection.
+- Address, delivery and order-review interface with international destination selection.
 - Customer account, sample orders and shipment-tracking interface designs.
 - Accessible navigation, loading/empty/error states and mobile layouts.
 - English-only copy; all displayed prices and sample delivery fees are denominated in USD.
@@ -56,7 +56,7 @@ The product catalog, prices, availability, delivery estimates, orders and tracki
 app/               Next.js App Router screens, loading UI and metadata
 components/        Shared UI, storefront, checkout and account components
 lib/               Catalog fixtures, preview logic, API contracts and helpers
-stores/            Browser-only shopping preferences and cart/wishlist state
+stores/            Browser-only cart/wishlist state
 public/            Product artwork and site icon
 design/            Web/Flutter design token contract
 docs/              Architecture, payment plan, QA and Flutter parity

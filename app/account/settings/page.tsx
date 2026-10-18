@@ -22,7 +22,7 @@ export default function AccountSettingsPage() {
             </h3>
             <p className="mt-2 text-sm text-muted">
               All storefront prices and checkout examples are shown in USD ($),
-              regardless of delivery destination.
+              for all destinations.
             </p>
             <p className="mt-2 text-xs text-muted">
               Select a delivery destination during checkout. Real availability

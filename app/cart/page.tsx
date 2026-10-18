@@ -19,9 +19,7 @@ export default function CartPage() {
   const ready = useStoreReady()
   const t = useUiCopy()
   const cart = useCommerceStore((s) => s.cart)
-  const savedMarket = useCommerceStore((s) => s.market)
   const savedLocale = 'en' as const
-  const market = ready ? savedMarket : 'INTL'
   const locale = ready ? savedLocale : 'en'
   const lines = (ready ? cart : [])
     .map((line) => ({ line, product: productById(line.productId) }))
@@ -33,11 +31,11 @@ export default function CartPage() {
     .filter(complete)
     .reduce(
       (sum, row) =>
-        sum + productPrice(row.product!, market) * row.line.quantity,
+        sum + productPrice(row.product!) * row.line.quantity,
       0,
     )
   const count = lines.reduce((sum, row) => sum + row.line.quantity, 0)
-  const preview = assessPreviewCart(ready ? cart : [], market)
+  const preview = assessPreviewCart(ready ? cart : [])
   return (
     <div className="container-shell pb-20 pt-9">
       <nav
@@ -79,7 +77,6 @@ export default function CartPage() {
                       key={`${line.productId}/${line.variantId ?? 'base'}`}
                       line={line}
                       product={product}
-                      market={market}
                       locale={locale}
                     />
                   ),
@@ -91,7 +88,7 @@ export default function CartPage() {
             <div className="mt-6 flex justify-between text-sm text-muted">
               <span>{t.subtotal}</span>
               <span className="font-bold text-ink">
-                {formatPrice(subtotal, market, locale)}
+                {formatPrice(subtotal)}
               </span>
             </div>
             <div className="mt-4 flex justify-between gap-3 text-sm text-muted">
@@ -107,7 +104,7 @@ export default function CartPage() {
             <div className="flex justify-between text-sm">
               <span className="font-bold">{t.estimatedSubtotal}</span>
               <strong className="text-xl">
-                {formatPrice(subtotal, market, locale)}
+                {formatPrice(subtotal)}
               </strong>
             </div>
             {preview.readyForPreview ? (

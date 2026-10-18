@@ -23,11 +23,9 @@ import { finishCopy } from '@/lib/finish-copy'
 export function CartDrawer() {
   const ready = useStoreReady()
   const cart = useCommerceStore((s) => s.cart)
-  const savedMarket = useCommerceStore((s) => s.market)
   const savedLocale = 'en' as const
   const open = useCommerceStore((s) => s.cartOpen)
   const setOpen = useCommerceStore((s) => s.setCartOpen)
-  const market = ready ? savedMarket : 'INTL'
   const locale = ready ? savedLocale : 'en'
   const t = finishCopy(locale)
   const lines = (ready ? cart : [])
@@ -39,8 +37,7 @@ export function CartDrawer() {
   const subtotal = lines
     .filter(isComplete)
     .reduce(
-      (sum, row) =>
-        sum + productPrice(row.product!, market) * row.line.quantity,
+      (sum, row) => sum + productPrice(row.product!) * row.line.quantity,
       0,
     )
   const count = lines.reduce((sum, row) => sum + row.line.quantity, 0)
@@ -83,7 +80,6 @@ export function CartDrawer() {
                       key={`${line.productId}/${line.variantId ?? 'base'}`}
                       line={line}
                       product={product}
-                      market={market}
                       locale={locale}
                       compact
                       onNavigate={() => setOpen(false)}
@@ -97,9 +93,7 @@ export function CartDrawer() {
           <div className="border-t border-border bg-[#fbfcff] px-6 py-5">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted">{t.drawerSubtotal}</span>
-              <strong className="text-xl">
-                {formatPrice(subtotal, market, locale)}
-              </strong>
+              <strong className="text-xl">{formatPrice(subtotal)}</strong>
             </div>
             {incompleteCount > 0 && (
               <p className="mt-2 text-xs font-semibold text-amber-700">

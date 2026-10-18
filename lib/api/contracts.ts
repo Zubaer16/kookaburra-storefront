@@ -1,6 +1,5 @@
 /** Proposed API contract draft (v1). Not connected to a running server. */
 export type LocaleCode = 'en'
-export type MarketCode = 'BD' | 'INTL'
 export type CurrencyCode = 'USD'
 export type ApiMoney = { amountMinor: number; currency: CurrencyCode }
 export type ApiPage<T> = {
@@ -99,7 +98,6 @@ export type ApiOrder = {
 
 /** Preview frontend never constructs a payment amount for settlement. Server quote wins. */
 export type QuoteRequest = {
-  market: MarketCode
   destination: ApiAddress
   items: ApiCartItem[]
 }

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, ShieldAlert } from 'lucide-react'
-import { formatPrice, type Locale, type Market } from '@/lib/catalog'
+import { formatPrice, type Locale } from '@/lib/catalog'
 import type { CheckoutPreviewLine } from '@/lib/checkout-preview'
 import { getPreviewCopy } from '@/lib/preview-copy'
 import { productText, localizeOption } from '@/lib/fixture-localization'
@@ -13,14 +13,12 @@ export function OrderSummary({
   subtotal,
   fee,
   locale,
-  market,
   showFee,
 }: {
   rows: CheckoutPreviewLine[]
   subtotal: number
   fee: number
   locale: Locale
-  market: Market
   showFee: boolean
 }) {
   const t = getPreviewCopy(locale)
@@ -67,7 +65,7 @@ export function OrderSummary({
               </p>
             </div>
             <strong className="shrink-0 text-xs">
-              {formatPrice(lineTotal, market, locale)}
+              {formatPrice(lineTotal)}
             </strong>
           </li>
         ))}
@@ -75,12 +73,12 @@ export function OrderSummary({
       <dl className="space-y-3 text-sm">
         <div className="flex items-center justify-between gap-2">
           <dt className="text-muted">{t.products}</dt>
-          <dd className="font-bold">{formatPrice(subtotal, market, locale)}</dd>
+          <dd className="font-bold">{formatPrice(subtotal)}</dd>
         </div>
         <div className="flex items-center justify-between gap-2">
           <dt className="text-muted">{t.sampleDelivery}</dt>
           <dd className="font-bold">
-            {showFee ? formatPrice(fee, market, locale) : t.chooseMethod}
+            {showFee ? formatPrice(fee) : t.chooseMethod}
           </dd>
         </div>
         <div className="flex items-center justify-between gap-2">
@@ -91,7 +89,7 @@ export function OrderSummary({
       <div className="mt-5 flex justify-between border-t border-border pt-5">
         <span className="font-extrabold">{t.illustrativeTotal}</span>
         <strong className="text-xl text-primary">
-          {formatPrice(subtotal + (showFee ? fee : 0), market, locale)}
+          {formatPrice(subtotal + (showFee ? fee : 0))}
         </strong>
       </div>
       <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-muted">

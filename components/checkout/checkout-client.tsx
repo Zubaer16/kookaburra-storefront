@@ -7,7 +7,6 @@ import {
   Check,
   ChevronRight,
   CreditCard,
-  Globe2,
   LockKeyhole,
   Pencil,
   ShieldCheck,
@@ -25,7 +24,6 @@ import {
   type CheckoutDeliveryId,
   type CheckoutStage,
 } from '@/lib/checkout-preview'
-import { type Market } from '@/lib/catalog'
 import { getPreviewCopy } from '@/lib/preview-copy'
 import { getDeliveryLabel } from '@/lib/preview-delivery-label'
 import { useStoreReady } from '@/hooks/use-store-ready'
@@ -39,42 +37,33 @@ const stages: { id: CheckoutStage; name: string }[] = [
 
 export function CheckoutClient() {
   const ready = useStoreReady()
-  const storedMarket = useCommerceStore((s) => s.market)
-  const storedLocale = 'en' as const
   const items = useCommerceStore((s) => s.cart)
-  const setMarket = useCommerceStore((s) => s.setMarket)
   const setCartOpen = useCommerceStore((s) => s.setCartOpen)
-  const market = ready ? storedMarket : 'INTL'
-  const locale = ready ? storedLocale : 'en'
+  const locale = 'en' as const
   const t = getPreviewCopy(locale)
   const [stage, setStage] = useState<CheckoutStage>('address')
   const [address, setAddress] = useState<CheckoutAddress>(() =>
-    emptyCheckoutAddress(market),
+    emptyCheckoutAddress(),
   )
   const [deliveryId, setDeliveryId] = useState<CheckoutDeliveryId>('standard')
-  const cart = assessPreviewCart(ready ? items : [], market)
-  const delivery = checkoutDeliveryOptions(market).find(
+  const cart = assessPreviewCart(ready ? items : [])
+  const delivery = checkoutDeliveryOptions().find(
     (method) => method.id === deliveryId,
   )!
   const currentStageIndex = stages.findIndex((entry) => entry.id === stage)
 
-  // Market is global. Prevent a prior-country address/method being silently reused
-  // when the shopper switches between Bangladesh and International preview modes.
+  // Reset the address when the checkout initializes, not on country selection.
   useEffect(() => {
     if (!ready) return
-    setAddress(emptyCheckoutAddress(market))
+    setAddress(emptyCheckoutAddress())
     setDeliveryId('standard')
     setStage('address')
-  }, [ready, market])
+  }, [ready])
 
   // Avoid leaving a populated modal above the checkout route.
   useEffect(() => {
     setCartOpen(false)
   }, [setCartOpen])
-
-  function selectMarket(next: Market) {
-    if (next !== market) setMarket(next)
-  }
 
   return (
     <div className="container-shell pb-20 pt-8 sm:pt-10">
@@ -139,33 +128,6 @@ export function CheckoutClient() {
         </div>
       ) : (
         <>
-          <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-[#fbfcff] p-4 sm:justify-between sm:px-5">
-            <span className="flex items-center gap-2 text-xs font-bold text-ink">
-              <Globe2 size={17} className="text-primary" /> {t.region}
-            </span>
-            <div
-              role="group"
-              aria-label={t.region}
-              className="flex rounded-xl border border-border bg-white p-1"
-            >
-              <button
-                type="button"
-                aria-pressed={market === 'BD'}
-                onClick={() => selectMarket('BD')}
-                className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'BD' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}
-              >
-                🇧🇩 {t.bd}
-              </button>
-              <button
-                type="button"
-                aria-pressed={market === 'INTL'}
-                onClick={() => selectMarket('INTL')}
-                className={`rounded-lg px-3.5 py-2 text-xs font-bold transition ${market === 'INTL' ? 'bg-primary text-white' : 'text-muted hover:text-ink'}`}
-              >
-                🌐 {t.intl}
-              </button>
-            </div>
-          </div>
           <ol aria-label={t.progress} className="mb-7 grid grid-cols-3 gap-2">
             {stages.map((entry, index) => (
               <li
@@ -184,7 +146,6 @@ export function CheckoutClient() {
             <div>
               {stage === 'address' && (
                 <AddressForm
-                  market={market}
                   address={address}
                   onChange={setAddress}
                   onContinue={() => setStage('delivery')}
@@ -192,7 +153,6 @@ export function CheckoutClient() {
               )}
               {stage === 'delivery' && (
                 <DeliveryOptions
-                  market={market}
                   locale={locale}
                   selected={deliveryId}
                   onSelect={setDeliveryId}
@@ -238,7 +198,7 @@ export function CheckoutClient() {
                         <br />
                         {address.city}, {address.region}, {address.postalCode}
                         <br />
-                        {market === 'BD' ? 'Bangladesh' : address.country}
+                        {address.country}
                       </p>
                       <p className="mt-2 text-xs text-muted">
                         {address.email} · {address.phone}
@@ -258,7 +218,7 @@ export function CheckoutClient() {
                         </button>
                       </div>
                       <p className="mt-2 text-sm font-semibold">
-                        {getDeliveryLabel(delivery.id, market, t)}
+                        {getDeliveryLabel(delivery.id, t)}
                       </p>
                       <p className="mt-1 text-xs leading-5 text-muted">
                         {t.methodEta} · {t.sampleFee}
@@ -291,7 +251,6 @@ export function CheckoutClient() {
               subtotal={cart.subtotal}
               fee={delivery.sampleFee}
               showFee={stage !== 'address'}
-              market={market}
               locale={locale}
             />
           </div>

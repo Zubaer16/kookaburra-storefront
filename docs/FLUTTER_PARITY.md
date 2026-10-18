@@ -2,16 +2,16 @@
 
 The mobile app will be a **native Flutter application** using the web storefront's approved information architecture, colors, typography, components and business flows as its design reference. Flutter will not embed Next.js pages or consume client-only Zustand state.
 
-| Web screen          | Flutter counterpart          | Shared behavior                                              |
-| ------------------- | ---------------------------- | ------------------------------------------------------------ |
-| Home                | Home tab                     | Hero, category entry points, featured collections            |
-| Categories and Shop | Discover, categories, search | Filters, sorting, no-results and saved queries               |
-| Product details     | Product detail route         | Gallery, explicit size/color choices, stock feedback         |
-| Cart and Wishlist   | Cart and saved items         | Distinct cart lines per product/variant, safe local previews |
-| Checkout            | Address, Delivery, Review    | Same steps, validations and country-aware messaging          |
-| Account             | Account tab                  | Signed-out/loading/authorized states                         |
-| Orders and Tracking | Order detail and timeline    | Accessible event ordering and reliable backend status        |
-| Market selection    | Market preference            | USD pricing for both domestic and international delivery; English-only UI        |
+| Web screen          | Flutter counterpart          | Shared behavior                                                |
+| ------------------- | ---------------------------- | -------------------------------------------------------------- |
+| Home                | Home tab                     | Hero, category entry points, featured collections              |
+| Categories and Shop | Discover, categories, search | Filters, sorting, no-results and saved queries                 |
+| Product details     | Product detail route         | Gallery, explicit size/color choices, stock feedback           |
+| Cart and Wishlist   | Cart and saved items         | Distinct cart lines per product/variant, safe local previews   |
+| Checkout            | Address, Delivery, Review    | Same steps, validations and country-aware messaging            |
+| Account             | Account tab                  | Signed-out/loading/authorized states                           |
+| Orders and Tracking | Order detail and timeline    | Accessible event ordering and reliable backend status          |
+| Delivery country    | Country dropdown             | USD pricing, destination-specific address and delivery preview |
 
 ## Shared design system
 

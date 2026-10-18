@@ -48,7 +48,7 @@ Remove-Item Env:E2E_BASE_URL
 - USD-only pricing and absence of currency selection
 - Product gallery, size/color selection, and variant-specific cart lines
 - Cart add/update/persist/remove and wishlist sorting/clear confirmation
-- Checkout empty-cart guard, sample address/delivery/review for Bangladesh and abroad
+- Checkout empty-cart guard, sample address/delivery/review with country selection and a single international delivery flow
 - Explicitly disabled payment and authentication safety checks
 - Account, sample orders and tracking
 - Mobile navigation and Escape-to-close filtering, plus a 404 smoke check

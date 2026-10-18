@@ -35,8 +35,8 @@ const englishCopy = {
   trackingLink: 'Open tracking preview',
   addressesTitle: 'Your addresses, coming later',
   addressesIntro:
-    'An address book will help signed-in customers manage local and international delivery addresses. It will be introduced only after secure authentication and storage are implemented.',
-  addressesMarkets: 'Bangladesh & international',
+    'An address book will help signed-in customers manage international delivery addresses. It will be introduced only after secure authentication and storage are implemented.',
+  addressesMarkets: 'Worldwide destinations',
   addressesMarketsDesc:
     'Country-specific fields and eligibility will be checked by the future backend.',
   addressesPrivacy: 'Privacy first',
@@ -68,7 +68,7 @@ const englishCopy = {
     'Demo prices only. Shipping, tax and payment are not available until backend integration.',
   drawerView: 'View cart',
   homeExplore: 'Explore categories',
-  homeMarket: 'Bangladesh & international shopping preview',
+  homeMarket: 'Shop globally with one curated store',
   shoesEyebrow: 'Fresh steps',
   shoesTitle: 'Step into your style.',
   shoesLink: 'Shop shoes',
@@ -79,7 +79,7 @@ const englishCopy = {
   highlight1Desc: 'Explore everyday categories',
   highlight2: 'One trusted store',
   highlight2Desc: 'Curated by Kookaburra',
-  highlight3: 'Built for two markets',
+  highlight3: 'Made for global discovery',
   highlight3Desc: 'USD prices across destinations',
   categoryEyebrow: 'FIND YOUR THING',
   categoryLink: 'All categories',

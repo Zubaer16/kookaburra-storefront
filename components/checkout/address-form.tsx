@@ -6,11 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import type { CheckoutAddress } from '@/lib/checkout-preview'
 import { previewCountries } from '@/lib/checkout-preview'
-import type { Market } from '@/lib/catalog'
 import { usePreviewCopy } from '@/hooks/use-preview-copy'
 
 type Props = {
-  market: Market
   address: CheckoutAddress
   onChange: (address: CheckoutAddress) => void
   onContinue: () => void
@@ -18,7 +16,7 @@ type Props = {
 
 const fieldLabel = 'mb-1.5 block text-xs font-bold text-ink'
 
-export function AddressForm({ market, address, onChange, onContinue }: Props) {
+export function AddressForm({ address, onChange, onContinue }: Props) {
   const t = usePreviewCopy()
   function update(field: keyof CheckoutAddress, value: string) {
     onChange({ ...address, [field]: value })
@@ -104,42 +102,29 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.phone}
             onChange={(e) => update('phone', e.target.value)}
-            placeholder={
-              market === 'BD'
-                ? '01XXXXXXXXX (example)'
-                : '+1 555 000 0000 (example)'
-            }
+            placeholder="+1 555 000 0000 (example)"
           />
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-country">
             {t.country} *
           </label>
-          {market === 'BD' ? (
-            <Input
-              id="checkout-country"
-              value="Bangladesh"
-              readOnly
-              aria-readonly="true"
-            />
-          ) : (
-            <select
-              id="checkout-country"
-              required
-              value={address.country === 'Bangladesh' ? '' : address.country}
-              onChange={(e) => update('country', e.target.value)}
-              className="h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm outline-none focus-visible:ring-4 focus-visible:ring-primary/10"
-            >
-              <option value="" disabled>
-                {t.countryPick}
+          <select
+            id="checkout-country"
+            required
+            value={address.country}
+            onChange={(e) => update('country', e.target.value)}
+            className="h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm outline-none focus-visible:ring-4 focus-visible:ring-primary/10"
+          >
+            <option value="" disabled>
+              {t.countryPick}
+            </option>
+            {previewCountries.map((country) => (
+              <option key={country} value={country}>
+                {country}
               </option>
-              {previewCountries.map((country) => (
-                <option key={country} value={country}>
-                  {country}
-                </option>
-              ))}
-            </select>
-          )}
+            ))}
+          </select>
         </div>
         <div className="sm:col-span-2">
           <label className={fieldLabel} htmlFor="checkout-line1">
@@ -170,7 +155,7 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-city">
-            {market === 'BD' ? t.cityBD : t.city} *
+            {t.city} *
           </label>
           <Input
             id="checkout-city"
@@ -179,12 +164,12 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.city}
             onChange={(e) => update('city', e.target.value)}
-            placeholder={market === 'BD' ? 'Dhaka' : t.demoCity}
+            placeholder={t.demoCity}
           />
         </div>
         <div>
           <label className={fieldLabel} htmlFor="checkout-region">
-            {market === 'BD' ? t.division : t.state} *
+            {t.state} *
           </label>
           <Input
             id="checkout-region"
@@ -193,7 +178,7 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.region}
             onChange={(e) => update('region', e.target.value)}
-            placeholder={market === 'BD' ? 'Dhaka Division' : t.demoRegion}
+            placeholder={t.demoRegion}
           />
         </div>
         <div className="sm:col-span-2">
@@ -207,7 +192,7 @@ export function AddressForm({ market, address, onChange, onContinue }: Props) {
             required
             value={address.postalCode}
             onChange={(e) => update('postalCode', e.target.value)}
-            placeholder={market === 'BD' ? '1200' : t.demoPostal}
+            placeholder={t.demoPostal}
           />
         </div>
       </div>

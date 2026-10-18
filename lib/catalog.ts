@@ -6,7 +6,6 @@ export type CategoryId =
   | 'beauty'
   | 'lifestyle'
   | 'accessories'
-export type Market = 'BD' | 'INTL'
 export type Locale = 'en'
 
 export type ProductOption = { size?: string; color?: string }
@@ -460,13 +459,7 @@ export function categoryById(id: CategoryId) {
   return categories.find((category) => category.id === id)
 }
 /** All product and shipping prices are displayed in USD, independent of destination. */
-export function formatPrice(
-  amount: number,
-  _region: Market,
-  _locale: Locale = 'en',
-) {
-  void _region
-  void _locale
+export function formatPrice(amount: number) {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -474,12 +467,10 @@ export function formatPrice(
     maximumFractionDigits: 2,
   }).format(amount)
 }
-export function productPrice(product: Product, _region: Market) {
-  void _region
+export function productPrice(product: Product) {
   return product.price
 }
-export function comparePrice(product: Product, _region: Market) {
-  void _region
+export function comparePrice(product: Product) {
   return product.compareAt
 }
 

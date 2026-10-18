@@ -4,7 +4,6 @@ import {
   productById,
   productPrice,
   productVariant,
-  type Market,
   type Product,
   type ProductVariant,
 } from '@/lib/catalog'
@@ -37,44 +36,28 @@ export type CheckoutPreviewLine = {
   lineTotal: number
 }
 
-export function checkoutDeliveryOptions(market: Market): CheckoutDelivery[] {
-  // Intentionally hardcoded *sample* numbers, not actual delivery prices or promises.
-  return market === 'BD'
-    ? [
-        {
-          id: 'standard',
-          name: 'Standard delivery',
-          details: 'Example: home delivery',
-          eta: 'Timing to be confirmed',
-          sampleFee: 2,
-        },
-        {
-          id: 'express',
-          name: 'Priority delivery',
-          details: 'Example: priority handling',
-          eta: 'Availability to be confirmed',
-          sampleFee: 4,
-        },
-      ]
-    : [
-        {
-          id: 'standard',
-          name: 'International standard',
-          details: 'Example: cross-border shipping',
-          eta: 'Timing to be confirmed',
-          sampleFee: 18,
-        },
-        {
-          id: 'express',
-          name: 'International priority',
-          details: 'Example: expedited option',
-          eta: 'Availability to be confirmed',
-          sampleFee: 35,
-        },
-      ]
+export function checkoutDeliveryOptions(): CheckoutDelivery[] {
+  // Illustrative options only; country eligibility, shipping rates and timing
+  // must be calculated and confirmed by a future backend.
+  return [
+    {
+      id: 'standard',
+      name: 'International standard',
+      details: 'Example cross-border shipping',
+      eta: 'Timing to be confirmed',
+      sampleFee: 18,
+    },
+    {
+      id: 'express',
+      name: 'International priority',
+      details: 'Example expedited shipping',
+      eta: 'Availability to be confirmed',
+      sampleFee: 35,
+    },
+  ]
 }
 
-export function assessPreviewCart(cart: CartLine[], market: Market) {
+export function assessPreviewCart(cart: CartLine[]) {
   const issues: string[] = []
   const rows: CheckoutPreviewLine[] = []
   const combinedQuantities = new Map<string, number>()
@@ -107,7 +90,7 @@ export function assessPreviewCart(cart: CartLine[], market: Market) {
       item,
       product,
       variant,
-      lineTotal: productPrice(product, market) * item.quantity,
+      lineTotal: productPrice(product) * item.quantity,
     })
   }
   for (const [key, count] of combinedQuantities) {
@@ -144,7 +127,7 @@ export const previewCountries = [
   'Other country',
 ] as const
 
-export function emptyCheckoutAddress(market: Market = 'INTL'): CheckoutAddress {
+export function emptyCheckoutAddress(): CheckoutAddress {
   return {
     fullName: '',
     email: '',
@@ -154,6 +137,6 @@ export function emptyCheckoutAddress(market: Market = 'INTL'): CheckoutAddress {
     city: '',
     region: '',
     postalCode: '',
-    country: market === 'BD' ? 'Bangladesh' : '',
+    country: '',
   }
 }

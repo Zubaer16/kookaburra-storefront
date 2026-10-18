@@ -132,7 +132,7 @@ export function Footer() {
               <ArrowUpRight size={16} className="ml-auto" />
             </div>
             <p className="mt-5 flex items-center gap-2 text-xs text-[#b8c3d9]">
-              <MapPin size={14} /> Bangladesh · Worldwide-ready design
+              <MapPin size={14} /> Global shopping experience
             </p>
           </div>
         </div>

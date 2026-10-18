@@ -4,9 +4,7 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import Link from 'next/link'
 import { ChevronRight, Search, SlidersHorizontal, X } from 'lucide-react'
 import { ProductCard } from '@/components/store/product-card'
-import { categories, products, productPrice, type Market } from '@/lib/catalog'
-import { useCommerceStore } from '@/stores/commerce-store'
-import { useStoreReady } from '@/hooks/use-store-ready'
+import { categories, products, productPrice } from '@/lib/catalog'
 import { useUiCopy } from '@/hooks/use-ui-copy'
 import { buildShopQuery } from '@/lib/shop-query'
 
@@ -57,10 +55,7 @@ export function ShopClient({
     setShowFilters(false)
     filterToggleRef.current?.focus()
   }
-  const ready = useStoreReady()
   const t = useUiCopy()
-  const savedMarket = useCommerceStore((s) => s.market)
-  const market: Market = ready ? savedMarket : 'INTL'
   const priceLevels = [25, 60, 120]
   const priceLimit =
     priceTier === 'all' ? undefined : priceLevels[Number(priceTier)]
@@ -105,7 +100,7 @@ export function ShopClient({
           ? !!product.compareAt
           : product.tag === selectedTag)
       const matchesPrice =
-        priceLimit === undefined || productPrice(product, market) <= priceLimit
+        priceLimit === undefined || productPrice(product) <= priceLimit
       const matchesStock = !stockOnly || product.stock > 0
       return (
         matchesText &&
@@ -116,20 +111,18 @@ export function ShopClient({
       )
     })
     if (sortBy === 'price-asc')
-      result.sort((a, b) => productPrice(a, market) - productPrice(b, market))
+      result.sort((a, b) => productPrice(a) - productPrice(b))
     if (sortBy === 'price-desc')
-      result.sort((a, b) => productPrice(b, market) - productPrice(a, market))
+      result.sort((a, b) => productPrice(b) - productPrice(a))
     if (sortBy === 'newest')
       result.sort((a, b) => Number(b.tag === 'new') - Number(a.tag === 'new'))
     return result
   }, [
     text,
-    ready,
     selectedCategory,
     selectedTag,
     sortBy,
-    market,
-    priceLimit,
+      priceLimit,
     stockOnly,
   ])
 
@@ -302,7 +295,7 @@ export function ShopClient({
           >
             <option value="all">{t.anyPrice}</option>
             {priceLevels.map((level, i) => (
-              <option key={`${market}-${level}`} value={i}>
+              <option key={`price-${level}`} value={i}>
                 {t.under} {currencyLabel}
                 {level.toLocaleString('en-US')}
               </option>

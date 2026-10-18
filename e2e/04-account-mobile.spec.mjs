@@ -13,18 +13,18 @@ test('account → orders filter → detail → tracking', async ({ page }) => {
   await fill(
     page,
     page.locator('input[type="search"]'),
-    'DEMO-BD-1042',
+    'DEMO-GLB-1042',
     'Find sample order',
   )
   await expect(
-    page.locator('a[href="/account/orders/DEMO-BD-1042"]').first(),
+    page.locator('a[href="/account/orders/DEMO-GLB-1042"]').first(),
   ).toBeVisible()
   await click(
     page,
-    page.locator('a[href="/account/orders/DEMO-BD-1042"]').first(),
+    page.locator('a[href="/account/orders/DEMO-GLB-1042"]').first(),
     'Open sample order detail',
   )
-  await expect(page.getByText('DEMO-BD-1042').first()).toBeVisible()
+  await expect(page.getByText('DEMO-GLB-1042').first()).toBeVisible()
   await go(page, '/track')
   await select(
     page,

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { addHeadphones, click, fill, go, select } from './helpers.mjs'
 
-async function completeAddress(page, intl = false) {
+async function completeAddress(page, country = 'United States') {
   await fill(
     page,
     page.locator('#checkout-name'),
@@ -17,16 +17,15 @@ async function completeAddress(page, intl = false) {
   await fill(
     page,
     page.locator('#checkout-phone'),
-    intl ? '+15550001111' : '01700000000',
+    '+15550001111',
     'Enter sample phone',
   )
-  if (intl)
-    await select(
-      page,
-      page.locator('#checkout-country'),
-      'United States',
-      'Choose sample destination',
-    )
+  await select(
+    page,
+    page.locator('#checkout-country'),
+    country,
+    'Choose destination',
+  )
   await fill(
     page,
     page.locator('#checkout-line1'),
@@ -36,19 +35,19 @@ async function completeAddress(page, intl = false) {
   await fill(
     page,
     page.locator('#checkout-city'),
-    intl ? 'Austin' : 'Dhaka',
+    'Austin',
     'Enter sample city',
   )
   await fill(
     page,
     page.locator('#checkout-region'),
-    intl ? 'Texas' : 'Dhaka',
+    'Texas',
     'Enter sample region',
   )
   await fill(
     page,
     page.locator('#checkout-postcode'),
-    intl ? '78701' : '1200',
+    '78701',
     'Enter postal code',
   )
   await click(
@@ -67,7 +66,7 @@ test('empty cart prevents checkout preview', async ({ page }) => {
   ).toBeVisible()
 })
 
-test('Bangladesh full checkout preview → no real payment', async ({ page }) => {
+test('international checkout preview → no real payment', async ({ page }) => {
   await addHeadphones(page)
   await go(page, '/cart')
   await click(
@@ -75,12 +74,10 @@ test('Bangladesh full checkout preview → no real payment', async ({ page }) =>
     page.locator('a[href="/checkout"]').first(),
     'Open checkout preview',
   )
-  await click(
-    page,
-    page.getByRole('button', { name: /bangladesh delivery/i }),
-    'Choose Bangladesh delivery destination',
-  )
-  await expect(page.locator('#checkout-country')).toHaveValue('Bangladesh')
+  await expect(
+    page.getByRole('button', { name: /bangladesh|international delivery/i }),
+  ).toHaveCount(0)
+  await expect(page.locator('#checkout-country')).toBeVisible()
   await completeAddress(page)
   await click(
     page,
@@ -90,7 +87,7 @@ test('Bangladesh full checkout preview → no real payment', async ({ page }) =>
   await click(
     page,
     page.getByRole('button', { name: /review your order/i }),
-    'Proceed to order review',
+    'Proceed to review',
   )
   await expect(
     page.getByRole('heading', { name: /review your order/i }),
@@ -99,39 +96,36 @@ test('Bangladesh full checkout preview → no real payment', async ({ page }) =>
   await expect(
     page.getByRole('button', { name: /secure payment coming later/i }),
   ).toBeDisabled()
-  await expect(
-    page.getByText(/payment.*disabled|no.*charge|no real/i).first(),
-  ).toBeVisible()
 })
 
-test('International checkout resets previous address when market changes', async ({
+test('destination country selection works without resetting the address', async ({
   page,
 }) => {
   await addHeadphones(page)
   await go(page, '/checkout')
-  await click(
+  await fill(
     page,
-    page.getByRole('button', { name: /international/i }),
-    'Change checkout region to international',
+    page.locator('#checkout-name'),
+    'Example Shopper',
+    'Enter sample name',
   )
-  await expect(page.locator('#checkout-country')).toHaveJSProperty(
-    'tagName',
-    'SELECT',
+  await select(
+    page,
+    page.locator('#checkout-country'),
+    'Canada',
+    'Choose Canada',
   )
-  await completeAddress(page, true)
+  await expect(page.locator('#checkout-name')).toHaveValue('Example Shopper')
+  await expect(page.locator('#checkout-country')).toHaveValue('Canada')
+  await expect(page.locator('main')).not.toContainText('Bangladesh')
+  await completeAddress(page, 'Canada')
   await click(
     page,
     page.getByRole('button', { name: /review your order/i }),
-    'Review international order preview',
+    'Review order preview',
   )
+  await expect(page.getByText('Canada').first()).toBeVisible()
   await expect(
     page.getByRole('button', { name: /secure payment coming later/i }),
   ).toBeDisabled()
-  await click(
-    page,
-    page.getByRole('button', { name: /bangladesh/i }),
-    'Change checkout back to Bangladesh',
-  )
-  await expect(page.locator('#checkout-name')).toHaveValue('')
-  await expect(page.locator('#checkout-country')).toHaveValue('Bangladesh')
 })

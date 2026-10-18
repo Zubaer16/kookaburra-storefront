@@ -6,26 +6,24 @@ import {
   checkoutDeliveryOptions,
   type CheckoutDeliveryId,
 } from '@/lib/checkout-preview'
-import { formatPrice, type Locale, type Market } from '@/lib/catalog'
+import { formatPrice, type Locale } from '@/lib/catalog'
 import { getPreviewCopy } from '@/lib/preview-copy'
 import { getDeliveryLabel } from '@/lib/preview-delivery-label'
 
 export function DeliveryOptions({
-  market,
   locale,
   selected,
   onSelect,
   onBack,
   onContinue,
 }: {
-  market: Market
   locale: Locale
   selected: CheckoutDeliveryId
   onSelect: (id: CheckoutDeliveryId) => void
   onBack: () => void
   onContinue: () => void
 }) {
-  const methods = checkoutDeliveryOptions(market)
+  const methods = checkoutDeliveryOptions()
   const t = getPreviewCopy(locale)
   return (
     <section className="rounded-2xl border border-border bg-white p-5 sm:p-7">
@@ -56,20 +54,16 @@ export function DeliveryOptions({
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <strong className="text-sm">
-                  {getDeliveryLabel(method.id, market, t)}
+                  {getDeliveryLabel(method.id, t)}
                 </strong>
                 <strong className="text-sm text-primary">
-                  {formatPrice(method.sampleFee, market, locale)}
+                  {formatPrice(method.sampleFee)}
                 </strong>
               </div>
               <p className="mt-1 text-xs text-muted">
-                {market === 'BD'
-                  ? method.id === 'standard'
-                    ? t.methodDetailsBD
-                    : t.methodDetailsPriority
-                  : method.id === 'standard'
-                    ? t.methodDetailsIntl
-                    : t.methodDetailsIntlPriority}
+                {method.id === 'standard'
+                  ? t.methodDetailsIntl
+                  : t.methodDetailsIntlPriority}
               </p>
               <p className="mt-2 flex items-center gap-1.5 text-xs text-muted">
                 <Clock3 size={14} />{' '}

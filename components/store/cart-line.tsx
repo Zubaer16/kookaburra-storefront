@@ -9,7 +9,6 @@ import {
   productVariant,
   productPrice,
   type Locale,
-  type Market,
   type Product,
 } from '@/lib/catalog'
 import { useCommerceStore } from '@/stores/commerce-store'
@@ -20,14 +19,12 @@ import { productText, localizeOption } from '@/lib/fixture-localization'
 export function CartLineView({
   line,
   product,
-  market,
   locale,
   onNavigate,
   compact = false,
 }: {
   line: CartLine
   product: Product
-  market: Market
   locale: Locale
   onNavigate?: () => void
   compact?: boolean
@@ -86,7 +83,7 @@ export function CartLineView({
           </p>
         )}
         <p className="mt-2 text-sm font-extrabold text-primary">
-          {formatPrice(productPrice(product, market), market, locale)}{' '}
+          {formatPrice(productPrice(product))}{' '}
           <span className="text-xs font-normal text-muted">{t.cartEach}</span>
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
