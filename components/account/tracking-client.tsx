@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Search, ShieldAlert, Truck } from 'lucide-react'
 import { OrderTimeline, TrackingSummary } from '@/components/account/order-ui'
@@ -9,6 +9,10 @@ import { usePreviewCopy } from '@/hooks/use-preview-copy'
 
 export function TrackingClient({ initialSample }: { initialSample?: string }) {
   const t = usePreviewCopy()
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => {
+    setHydrated(true)
+  }, [])
   const [selected, setSelected] = useState(
     initialSample && previewOrderById(initialSample)
       ? initialSample
@@ -59,6 +63,8 @@ export function TrackingClient({ initialSample }: { initialSample?: string }) {
               />
               <select
                 id="tracking-sample"
+                data-hydrated={hydrated ? 'true' : 'false'}
+                disabled={!hydrated}
                 value={selected}
                 onChange={(e) => setSelected(e.target.value)}
                 className="h-12 w-full appearance-none rounded-xl border border-border bg-[#f9fbff] pl-10 pr-4 text-sm font-bold outline-none focus-visible:ring-2 focus-visible:ring-primary"

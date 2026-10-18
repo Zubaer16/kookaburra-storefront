@@ -26,15 +26,21 @@ test('account → orders filter → detail → tracking', async ({ page }) => {
   )
   await expect(page.getByText('DEMO-GLB-1042').first()).toBeVisible()
   await go(page, '/track')
+  const trackingSelect = page.locator('#tracking-sample')
+  // The native <select> is disabled until React hydration is finished.
+  // Otherwise the browser can change its DOM value without updating React state.
+  await expect(trackingSelect).toBeEnabled()
   await select(
     page,
-    page.locator('#tracking-sample'),
+    trackingSelect,
     'DEMO-INT-0831',
     'Select international sample tracking',
   )
-  await expect(
-    page.locator('a[href="/account/orders/DEMO-INT-0831"]').first(),
-  ).toBeVisible()
+  await expect(trackingSelect).toHaveValue('DEMO-INT-0831')
+  const selectedOrderLink = page.locator('a[href="/account/orders/DEMO-INT-0831"]').first()
+  await expect(selectedOrderLink).toBeVisible()
+  await click(page, selectedOrderLink, 'Open selected tracking order details')
+  await expect(page).toHaveURL(/\/account\/orders\/DEMO-INT-0831$/)
 })
 
 test('sign-in and sign-up prevent real credential submission', async ({
