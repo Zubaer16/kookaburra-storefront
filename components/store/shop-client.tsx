@@ -60,11 +60,11 @@ export function ShopClient({
   const ready = useStoreReady()
   const t = useUiCopy()
   const savedMarket = useCommerceStore((s) => s.market)
-  const market: Market = ready ? savedMarket : 'BD'
-  const priceLevels = market === 'BD' ? [2000, 5000, 10000] : [25, 60, 120]
+  const market: Market = ready ? savedMarket : 'INTL'
+  const priceLevels = [25, 60, 120]
   const priceLimit =
     priceTier === 'all' ? undefined : priceLevels[Number(priceTier)]
-  const currencyLabel = market === 'BD' ? '৳' : '$'
+  const currencyLabel = '$'
 
   // Replace the current URL without remounting Shop or stealing focus from
   // its search input. Native history changes are supported in Next App Router.

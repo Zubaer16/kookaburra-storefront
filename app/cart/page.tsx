@@ -21,7 +21,7 @@ export default function CartPage() {
   const cart = useCommerceStore((s) => s.cart)
   const savedMarket = useCommerceStore((s) => s.market)
   const savedLocale = 'en' as const
-  const market = ready ? savedMarket : 'BD'
+  const market = ready ? savedMarket : 'INTL'
   const locale = ready ? savedLocale : 'en'
   const lines = (ready ? cart : [])
     .map((line) => ({ line, product: productById(line.productId) }))

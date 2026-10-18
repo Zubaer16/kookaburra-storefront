@@ -31,7 +31,7 @@ const words = {
   freeShipping: 'Shipping offers on eligible orders',
   easyReturns: 'Easy returns guidance',
   secureCheckout: 'Secure checkout planned',
-  global: 'Shopping in Bangladesh & beyond',
+  global: 'Explore our global selection in USD',
   quickLinks: 'Explore',
   subscribeTitle: 'A little more inspiration.',
   subscribeText: 'Newsletter sign-up will be available soon.',

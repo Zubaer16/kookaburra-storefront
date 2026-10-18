@@ -10,3 +10,8 @@ dist/
 *.tsbuildinfo
 .vercel/
 coverage/
+
+# Local browser test evidence and reports
+playwright-report/
+test-results/
+playwright/.cache/

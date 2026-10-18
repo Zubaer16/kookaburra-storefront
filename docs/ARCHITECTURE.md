@@ -2,13 +2,13 @@
 
 ## Scope
 
-Kookaburra is a **single-vendor, multi-category** store. Only the company lists products; there are no seller accounts, commissions or vendor settlements. The website serves English-language shoppers, with BDT sample pricing for Bangladesh and USD sample pricing for the international market. A single set of web design tokens will inform the future native Flutter client.
+Kookaburra is a **single-vendor, multi-category** store. Only the company lists products; there are no seller accounts, commissions or vendor settlements. The website serves English-language shoppers, with USD sample pricing for Bangladesh and USD sample pricing for the international market. A single set of web design tokens will inform the future native Flutter client.
 
 ## Frontend
 
 - **Framework:** Next.js App Router, React, TypeScript, Tailwind CSS.
 - **UI:** shadcn/ui-compatible components, Radix primitives, Lucide icons.
-- **Browser state:** Zustand persists a local cart, wishlist and selected shopping market. Persistent state is not an authenticated account.
+- **Browser state:** Zustand persists a local cart, wishlist and delivery region. Persistent state is not an authenticated account.
 - **Catalog:** `lib/catalog.ts` contains non-authoritative example products, stock and regional prices.
 - **Localization:** The application is English-only. No language selector or Bengali translation state is required.
 - **Network boundary:** `lib/api/client.ts` and `lib/api/contracts.ts` are future-facing interfaces. The app does not currently submit orders or credentials.

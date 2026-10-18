@@ -25,8 +25,8 @@ export type Product = {
   category: CategoryId
   description: string
   image: string
-  price: { BDT: number; USD: number }
-  compareAt?: { BDT: number; USD: number }
+  price: number
+  compareAt?: number
   badge?: string
   tag?: 'new' | 'popular' | 'sale'
   accent: string
@@ -85,7 +85,7 @@ export const categories: {
   },
 ]
 
-// Storefront sample catalog: all amounts are illustrative per-market prices, NOT currency conversions.
+// Storefront sample catalog: USD-only illustrative prices (not server-authoritative).
 // Never use these client-side values as the authority for future production checkout.
 export const products: Product[] = [
   {
@@ -96,8 +96,8 @@ export const products: Product[] = [
     description:
       'Rich sound, soft-cushioned comfort and a streamlined design that goes everywhere with you.',
     image: '/products/headphones.svg',
-    price: { BDT: 5490, USD: 59 },
-    compareAt: { BDT: 7290, USD: 79 },
+    price: 59,
+    compareAt: 79,
     badge: 'Bestseller',
     tag: 'popular',
     accent: '#EDF0FA',
@@ -111,7 +111,7 @@ export const products: Product[] = [
     description:
       'A roomy, lightweight everyday companion with a clean silhouette and practical design.',
     image: '/products/tote.svg',
-    price: { BDT: 1890, USD: 22 },
+    price: 22,
     accent: '#F8F0E9',
     badge: 'New',
     tag: 'new',
@@ -139,8 +139,8 @@ export const products: Product[] = [
     description:
       'Understated design with a bold dial, designed to look good from work to weekends.',
     image: '/products/watch.svg',
-    price: { BDT: 3290, USD: 39 },
-    compareAt: { BDT: 4200, USD: 48 },
+    price: 39,
+    compareAt: 48,
     tag: 'sale',
     accent: '#EEF3F8',
     stock: 18,
@@ -153,7 +153,7 @@ export const products: Product[] = [
     description:
       'A refreshing self-care essential in a minimal glass-inspired bottle.',
     image: '/products/serum.svg',
-    price: { BDT: 1250, USD: 16 },
+    price: 16,
     badge: 'New',
     tag: 'new',
     accent: '#F7EEF4',
@@ -167,8 +167,8 @@ export const products: Product[] = [
     description:
       'Compact and versatile portable sound with a refined fabric-inspired finish.',
     image: '/products/speaker.svg',
-    price: { BDT: 2990, USD: 35 },
-    compareAt: { BDT: 3590, USD: 41 },
+    price: 35,
+    compareAt: 41,
     tag: 'sale',
     accent: '#E8F1F6',
     stock: 13,
@@ -181,7 +181,7 @@ export const products: Product[] = [
     description:
       'An inviting sculptural chair to bring warmth and a modern edge to your favorite corner.',
     image: '/products/chair.svg',
-    price: { BDT: 10900, USD: 129 },
+    price: 129,
     accent: '#F1EEE8',
     stock: 7,
   },
@@ -193,8 +193,8 @@ export const products: Product[] = [
     description:
       'A lightweight, go-anywhere silhouette designed for effortless daily style.',
     image: '/products/sneaker.svg',
-    price: { BDT: 3790, USD: 46 },
-    compareAt: { BDT: 4590, USD: 55 },
+    price: 46,
+    compareAt: 55,
     tag: 'sale',
     accent: '#F3F0E9',
     stock: 32,
@@ -279,8 +279,8 @@ export const products: Product[] = [
     description:
       'An easy-fit everyday essential with a soft cotton feel and a timeless silhouette.',
     image: '/products/tshirt.svg',
-    price: { BDT: 1290, USD: 18 },
-    compareAt: { BDT: 1590, USD: 22 },
+    price: 18,
+    compareAt: 22,
     badge: 'New color',
     tag: 'new',
     accent: '#F6E9DF',
@@ -354,7 +354,7 @@ export const products: Product[] = [
     description:
       'A smart-casual footwear staple designed for daily comfort and versatile styling.',
     image: '/products/loafers.svg',
-    price: { BDT: 4590, USD: 54 },
+    price: 54,
     badge: 'Just landed',
     tag: 'new',
     accent: '#EFF0F4',
@@ -428,8 +428,8 @@ export const products: Product[] = [
     description:
       'A reusable, insulated bottle with a durable shape for commutes, workouts and days out.',
     image: '/products/bottle.svg',
-    price: { BDT: 1490, USD: 19 },
-    compareAt: { BDT: 1850, USD: 24 },
+    price: 19,
+    compareAt: 24,
     tag: 'sale',
     accent: '#EAF6F4',
     stock: 34,
@@ -442,7 +442,7 @@ export const products: Product[] = [
     description:
       'Warm lighting and a timeless curved silhouette for calm, considered spaces.',
     image: '/products/lamp.svg',
-    price: { BDT: 2390, USD: 29 },
+    price: 29,
     badge: 'Trending',
     tag: 'popular',
     accent: '#F9F1E5',
@@ -459,24 +459,28 @@ export function productById(id: string) {
 export function categoryById(id: CategoryId) {
   return categories.find((category) => category.id === id)
 }
+/** All product and shipping prices are displayed in USD, independent of destination. */
 export function formatPrice(
   amount: number,
-  market: Market,
+  _region: Market,
   _locale: Locale = 'en',
 ) {
+  void _region
   void _locale
-  const currency = market === 'BD' ? 'BDT' : 'USD'
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency,
-    maximumFractionDigits: 0,
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(amount)
 }
-export function productPrice(product: Product, market: Market) {
-  return product.price[market === 'BD' ? 'BDT' : 'USD']
+export function productPrice(product: Product, _region: Market) {
+  void _region
+  return product.price
 }
-export function comparePrice(product: Product, market: Market) {
-  return product.compareAt?.[market === 'BD' ? 'BDT' : 'USD']
+export function comparePrice(product: Product, _region: Market) {
+  void _region
+  return product.compareAt
 }
 
 // This is local UI fixture data. Production stock, variants and prices must come

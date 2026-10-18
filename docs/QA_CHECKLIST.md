@@ -11,7 +11,7 @@
 - Search and filter by product, category, price and stock; verify URL query preservation.
 - Select each required size/color combination and validate unavailable variants.
 - Add different variants to cart and confirm they remain distinct.
-- Reload and verify local cart, wishlist and BDT/USD preference remain intact.
+- Reload and verify local cart, wishlist and USD-only price display remain intact.
 
 ## Checkout and account previews
 

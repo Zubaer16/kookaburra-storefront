@@ -2,7 +2,7 @@
  * public, fictitious demo fixtures. No actual customer or order data.
  * Never use this file as an authentication mechanism or as an order API.
  */
-export type PreviewCurrency = 'BDT' | 'USD'
+export type PreviewCurrency = 'USD'
 export type PreviewOrderStatus =
   | 'processing'
   | 'shipped'
@@ -38,8 +38,8 @@ export const demoOrders: readonly PreviewOrder[] = [
     placedOn: '2026-10-08',
     status: 'shipped',
     market: 'BD',
-    currency: 'BDT',
-    total: 4320,
+    currency: 'USD',
+    total: 72,
     shippingLabel: 'Bangladesh · Standard delivery',
     itemCount: 2,
     items: [
@@ -47,13 +47,13 @@ export const demoOrders: readonly PreviewOrder[] = [
         title: 'Daybreak Cotton Tee',
         option: 'Navy · M',
         quantity: 1,
-        unitPrice: 1490,
+        unitPrice: 18,
       },
       {
         title: 'Harbor Classic Loafers',
         option: 'Brown · 41',
         quantity: 1,
-        unitPrice: 2830,
+        unitPrice: 54,
       },
     ],
     events: [
@@ -132,8 +132,8 @@ export const demoOrders: readonly PreviewOrder[] = [
     placedOn: '2026-10-12',
     status: 'processing',
     market: 'BD',
-    currency: 'BDT',
-    total: 2290,
+    currency: 'USD',
+    total: 22,
     shippingLabel: 'Bangladesh · Standard delivery',
     itemCount: 1,
     items: [
@@ -141,7 +141,7 @@ export const demoOrders: readonly PreviewOrder[] = [
         title: 'Everyday Canvas Tote Bag',
         option: 'Natural',
         quantity: 1,
-        unitPrice: 2290,
+        unitPrice: 22,
       },
     ],
     events: [
@@ -181,7 +181,8 @@ export function previewMoney(value: number, currency: PreviewCurrency): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,
-    maximumFractionDigits: currency === 'BDT' ? 0 : 2,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(value)
 }
 

@@ -46,14 +46,14 @@ export function checkoutDeliveryOptions(market: Market): CheckoutDelivery[] {
           name: 'Standard delivery',
           details: 'Example: home delivery',
           eta: 'Timing to be confirmed',
-          sampleFee: 100,
+          sampleFee: 2,
         },
         {
           id: 'express',
           name: 'Priority delivery',
           details: 'Example: priority handling',
           eta: 'Availability to be confirmed',
-          sampleFee: 180,
+          sampleFee: 4,
         },
       ]
     : [
@@ -144,7 +144,7 @@ export const previewCountries = [
   'Other country',
 ] as const
 
-export function emptyCheckoutAddress(): CheckoutAddress {
+export function emptyCheckoutAddress(market: Market = 'INTL'): CheckoutAddress {
   return {
     fullName: '',
     email: '',
@@ -154,6 +154,6 @@ export function emptyCheckoutAddress(): CheckoutAddress {
     city: '',
     region: '',
     postalCode: '',
-    country: 'Bangladesh',
+    country: market === 'BD' ? 'Bangladesh' : '',
   }
 }

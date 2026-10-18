@@ -11,7 +11,7 @@ The mobile app will be a **native Flutter application** using the web storefront
 | Checkout            | Address, Delivery, Review    | Same steps, validations and country-aware messaging          |
 | Account             | Account tab                  | Signed-out/loading/authorized states                         |
 | Orders and Tracking | Order detail and timeline    | Accessible event ordering and reliable backend status        |
-| Market selection    | Market preference            | Bangladesh/BDT and International/USD; English-only UI        |
+| Market selection    | Market preference            | USD pricing for both domestic and international delivery; English-only UI        |
 
 ## Shared design system
 

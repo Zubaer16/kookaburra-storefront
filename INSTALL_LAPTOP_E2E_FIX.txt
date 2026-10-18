@@ -1,0 +1,11 @@
+Kookaburra Playwright Laptop Display Fix
+
+Modified files: playwright.config.mjs; e2e/04-account-mobile.spec.mjs; docs/E2E_TESTING.md
+
+Extract from the repository root:
+  tar -xzf "C:\Users\zubaer.ahmed\Downloads\kookaburra-playwright-laptop-display-fix.tar.gz" -C .
+
+Then run:
+  npm run test:e2e:visual
+
+No npm install is needed if Playwright is installed. For smaller physical laptop screens, Windows Display > Scale settings also affect the space available.

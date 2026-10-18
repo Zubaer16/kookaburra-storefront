@@ -40,7 +40,7 @@ function maxStock(productId: string, variantId?: string) {
 export const useCommerceStore = create<CommerceState>()(
   persist(
     (set) => ({
-      market: 'BD',
+      market: 'INTL',
       cart: [],
       wishlist: [],
       cartOpen: false,
@@ -117,7 +117,7 @@ export const useCommerceStore = create<CommerceState>()(
         const saved = (persisted ?? {}) as Partial<CommerceState>
         return {
           ...current,
-          market: (saved.market === 'INTL' ? 'INTL' : 'BD') as Market,
+          market: (saved.market === 'BD' ? 'BD' : 'INTL') as Market,
           cart: Array.isArray(saved.cart) ? saved.cart : [],
           wishlist: Array.isArray(saved.wishlist) ? saved.wishlist : [],
         }

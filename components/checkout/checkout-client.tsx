@@ -44,12 +44,12 @@ export function CheckoutClient() {
   const items = useCommerceStore((s) => s.cart)
   const setMarket = useCommerceStore((s) => s.setMarket)
   const setCartOpen = useCommerceStore((s) => s.setCartOpen)
-  const market = ready ? storedMarket : 'BD'
+  const market = ready ? storedMarket : 'INTL'
   const locale = ready ? storedLocale : 'en'
   const t = getPreviewCopy(locale)
   const [stage, setStage] = useState<CheckoutStage>('address')
   const [address, setAddress] = useState<CheckoutAddress>(() =>
-    emptyCheckoutAddress(),
+    emptyCheckoutAddress(market),
   )
   const [deliveryId, setDeliveryId] = useState<CheckoutDeliveryId>('standard')
   const cart = assessPreviewCart(ready ? items : [], market)
@@ -62,7 +62,7 @@ export function CheckoutClient() {
   // when the shopper switches between Bangladesh and International preview modes.
   useEffect(() => {
     if (!ready) return
-    setAddress(emptyCheckoutAddress())
+    setAddress(emptyCheckoutAddress(market))
     setDeliveryId('standard')
     setStage('address')
   }, [ready, market])

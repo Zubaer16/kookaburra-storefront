@@ -80,7 +80,7 @@ const englishCopy = {
   highlight2: 'One trusted store',
   highlight2Desc: 'Curated by Kookaburra',
   highlight3: 'Built for two markets',
-  highlight3Desc: 'BDT & USD preview pricing',
+  highlight3Desc: 'USD prices across destinations',
   categoryEyebrow: 'FIND YOUR THING',
   categoryLink: 'All categories',
   categoryMobile: 'Browse all categories',

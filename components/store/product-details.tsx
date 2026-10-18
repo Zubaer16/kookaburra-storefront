@@ -180,6 +180,7 @@ export function ProductDetails({ product }: { product: Product }) {
             </div>
             <Button
               className="h-12 flex-1 sm:flex-none sm:px-9"
+              data-testid="product-add-to-cart"
               disabled={!canAdd}
               onClick={addSelected}
             >
@@ -190,6 +191,7 @@ export function ProductDetails({ product }: { product: Product }) {
             <Button
               variant="outline"
               size="icon"
+              data-testid="product-wishlist-toggle"
               aria-label={saved ? t.removeWish : t.saveWish}
               aria-pressed={saved}
               className="size-12"

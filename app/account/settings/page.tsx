@@ -1,14 +1,9 @@
 'use client'
 import Link from 'next/link'
 import { ArrowRight, Globe2, LockKeyhole, Settings2 } from 'lucide-react'
-import { useCommerceStore } from '@/stores/commerce-store'
-import { useStoreReady } from '@/hooks/use-store-ready'
 import { useUiCopy } from '@/hooks/use-ui-copy'
 export default function AccountSettingsPage() {
-  const ready = useStoreReady()
   const t = useUiCopy()
-  const market = useCommerceStore((s) => s.market)
-  const setMarket = useCommerceStore((s) => s.setMarket)
   return (
     <section className="space-y-5">
       <div>
@@ -21,23 +16,23 @@ export default function AccountSettingsPage() {
       </div>
       <div className="rounded-[22px] border border-border bg-white p-5 sm:p-7">
         <div className="grid gap-6">
-          <label className="block text-sm font-bold">
-            <span className="mb-2 flex items-center gap-2">
-              <Globe2 size={18} className="text-primary" /> {t.shoppingRegion}
-            </span>
-            <select
-              disabled={!ready}
-              value={ready ? market : 'BD'}
-              onChange={(e) => setMarket(e.target.value as 'BD' | 'INTL')}
-              className="h-12 w-full rounded-xl border border-border bg-white px-3.5 text-sm font-medium"
-            >
-              <option value="BD">Bangladesh · BDT</option>
-              <option value="INTL">International · USD</option>
-            </select>
-          </label>
+          <div className="rounded-xl border border-border bg-blue-50 p-4">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-ink">
+              <Globe2 size={18} className="text-primary" /> Currency
+            </h3>
+            <p className="mt-2 text-sm text-muted">
+              All storefront prices and checkout examples are shown in USD ($),
+              regardless of delivery destination.
+            </p>
+            <p className="mt-2 text-xs text-muted">
+              Select a delivery destination during checkout. Real availability
+              and shipping rates are not yet enabled.
+            </p>
+          </div>
         </div>
         <p className="mt-5 text-xs leading-6 text-muted">
-          {t.settingsDisclaimer}
+          Product prices, taxes, and shipping remain illustrative until a
+          verified backend is connected.
         </p>
       </div>
       <div className="rounded-[22px] border border-border bg-[#fbfcff] p-6">
@@ -53,7 +48,8 @@ export default function AccountSettingsPage() {
         </Link>
       </div>
       <p className="flex items-center gap-2 text-xs text-muted">
-        <Settings2 size={15} /> {t.localPrefs}
+        <Settings2 size={15} /> Cart and wishlist are saved locally on this
+        device.
       </p>
     </section>
   )

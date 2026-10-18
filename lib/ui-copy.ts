@@ -100,15 +100,15 @@ export const uiCopy = {
   currentPage: 'current',
   shoppingPreferences: 'Shopping preferences',
   preferencesIntro:
-    'Choose the shopping market for this browser. This is not saved to a customer account.',
+    'All prices are displayed in USD. Choose the delivery destination at checkout.',
   shoppingRegion: 'Shopping region',
   settingsDisclaimer:
-    'Displayed prices are sample data. Available markets, checkout currency and eligibility will be server-managed.',
+    'Displayed USD prices are sample data. Available destinations, shipping rates and eligibility will be server-managed.',
   securityProfile: 'Security & profile',
   securityIntro:
     'Profile, password management and sessions will be available after authentication is implemented.',
   seeSignin: 'See sign-in UI',
-  localPrefs: 'Only the selected shopping market is stored in this browser.',
+  localPrefs: 'Cart and wishlist are stored locally in this browser.',
   loadingLocalCart: 'Loading your local cart…',
   errorTitle: "Something didn't load",
   errorDescription:

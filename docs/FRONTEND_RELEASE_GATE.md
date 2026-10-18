@@ -14,7 +14,7 @@ The storefront is an **English-only UI implementation** and not yet a transactio
 - [ ] Home, Shop, Categories, Product, Cart, Wishlist, Checkout and Account work at 320px, 375px, 390px, 428px, tablet and desktop sizes.
 - [ ] Keyboard navigation, focus indicators, dialogs, galleries, filter controls and checkout steps are operable and labelled correctly.
 - [ ] Loading, empty, error, unavailable variant and over-stock states are covered.
-- [ ] Display prices are in the selected market's currency with consistent order totals.
+- [ ] All display prices, delivery fees and order totals use USD consistently.
 
 ## Operational launch blockers
 

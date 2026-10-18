@@ -1,6 +1,6 @@
 # Kookaburra Storefront
 
-A responsive, single-vendor, multi-category e-commerce storefront built with Next.js, TypeScript, Tailwind CSS and customizable shadcn/ui-style components. The interface is **English-only** and supports browsing in Bangladesh (BDT) and an international (USD) market view. The web design provides the reference for a future Flutter app.
+A responsive, single-vendor, multi-category e-commerce storefront built with Next.js, TypeScript, Tailwind CSS and customizable shadcn/ui-style components. The interface is **English-only** and supports browsing in Bangladesh (USD) and an international (USD) market view. The web design provides the reference for a future Flutter app.
 
 ## Requirements
 
@@ -28,6 +28,12 @@ npm audit --omit=dev
 
 Alternatively, `npm run check` runs structural verification, TypeScript, ESLint and the Next.js production build.
 
+## Automated browser tests
+
+Playwright can run the storefront user journeys automatically in a visible Chromium window. It waits **900 ms after each UI event** and generates HTML reports and failure evidence. One-time installation: `npm install` then `npx playwright install chromium`. Run `npm run test:e2e:visual` for headed tests, `npm run test:e2e` for headless tests, or `npm run test:e2e:report` for the report. See [E2E Testing Guide](docs/E2E_TESTING.md) for Windows commands and coverage.
+
+**Note:** These tests verify frontend preview behavior; authentication, actual orders and Stripe transactions remain intentionally disabled.
+
 ## Current features
 
 - Responsive homepage, product discovery, category navigation, search, filters, sort, and product pages.
@@ -36,7 +42,7 @@ Alternatively, `npm run check` runs structural verification, TypeScript, ESLint 
 - Address, delivery and order-review interface with Bangladesh/international market selection.
 - Customer account, sample orders and shipment-tracking interface designs.
 - Accessible navigation, loading/empty/error states and mobile layouts.
-- English-only copy; BDT and USD are separate sample prices, **not foreign-exchange conversions**.
+- English-only copy; all displayed prices and sample delivery fees are denominated in USD.
 
 ## Current limitations
 

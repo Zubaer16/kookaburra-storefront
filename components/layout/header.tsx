@@ -80,16 +80,13 @@ function Counter({ count }: { count: number }) {
 export function Header() {
   const pathname = usePathname()
   const ready = useStoreReady()
-  const storedMarket = useCommerceStore((s) => s.market)
   const cart = useCommerceStore((s) => s.cart)
   const wishlist = useCommerceStore((s) => s.wishlist)
-  const setMarket = useCommerceStore((s) => s.setMarket)
   const setCartOpen = useCommerceStore((s) => s.setCartOpen)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [categoriesOpen, setCategoriesOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const categoryTriggerRef = useRef<HTMLButtonElement>(null)
-  const market = ready ? storedMarket : 'BD'
   const t = dictionary()
   const cartCount = ready
     ? cart.reduce((sum, item) => sum + item.quantity, 0)
@@ -150,23 +147,12 @@ export function Header() {
           <SearchBox />
         </div>
         <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-4">
-          <div className="hidden items-center gap-1.5 border-r border-border pr-4 md:flex">
-            <Globe2 size={16} className="text-muted" />
-            <label htmlFor="market" className="sr-only">
-              Shopping market
-            </label>
-            <select
-              id="market"
-              className="max-w-[115px] cursor-pointer bg-transparent text-xs font-bold outline-none"
-              value={market}
-              onChange={(event) =>
-                setMarket(event.target.value as 'BD' | 'INTL')
-              }
-            >
-              <option value="BD">🇧🇩 BDT</option>
-              <option value="INTL">🌍 USD</option>
-            </select>
-          </div>
+          <span
+            className="hidden rounded-lg bg-blue-50 px-3 py-2 text-xs font-bold text-primary md:inline-flex"
+            aria-label="Prices shown in US dollars"
+          >
+            USD $
+          </span>
           <Link
             href="/account"
             aria-label={t.account}
@@ -306,7 +292,7 @@ export function Header() {
         <SheetContent side="left" className="overflow-y-auto p-5">
           <SheetTitle className="sr-only">Mobile navigation</SheetTitle>
           <SheetDescription className="sr-only">
-            Browse product collections and select a shopping market.
+            Browse product collections. All prices are in USD.
           </SheetDescription>
           <div className="mb-8 flex items-center justify-between pr-7">
             <Logo />
@@ -358,19 +344,9 @@ export function Header() {
             ))}
           </div>
           <div className="my-6 h-px bg-border" />
-          <div className="flex gap-2">
-            <select
-              aria-label="Shopping market"
-              value={market}
-              onChange={(event) =>
-                setMarket(event.target.value as 'BD' | 'INTL')
-              }
-              className="w-full rounded-lg border border-border p-2 text-sm"
-            >
-              <option value="BD">🇧🇩 BDT</option>
-              <option value="INTL">🌍 USD</option>
-            </select>
-          </div>
+          <p className="rounded-xl border border-border bg-blue-50 px-3 py-2 text-sm font-semibold text-primary">
+            All prices in USD ($)
+          </p>
         </SheetContent>
       </Sheet>
     </header>

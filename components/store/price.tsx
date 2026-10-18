@@ -15,7 +15,7 @@ export function ProductPrice({
   const ready = useStoreReady()
   const savedMarket = useCommerceStore((state) => state.market)
   const savedLocale = 'en' as const
-  const market = ready ? savedMarket : 'BD'
+  const market = ready ? savedMarket : 'INTL'
   const locale = ready ? savedLocale : 'en'
   const sale = comparePrice(product, market)
   return (
