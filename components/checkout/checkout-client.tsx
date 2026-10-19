@@ -24,6 +24,7 @@ import {
   type CheckoutDeliveryId,
   type CheckoutStage,
 } from '@/lib/checkout-preview'
+import { buildCheckoutAlignmentDraft } from '@/lib/api/checkout-alignment'
 import { getPreviewCopy } from '@/lib/preview-copy'
 import { getDeliveryLabel } from '@/lib/preview-delivery-label'
 import { useStoreReady } from '@/hooks/use-store-ready'
@@ -51,6 +52,10 @@ export function CheckoutClient() {
     (method) => method.id === deliveryId,
   )!
   const currentStageIndex = stages.findIndex((entry) => entry.id === stage)
+  const alignment =
+    stage === 'review' && cart.readyForPreview
+      ? buildCheckoutAlignmentDraft(items, address, deliveryId)
+      : null
 
   // Reset the address when the checkout initializes, not on country selection.
   useEffect(() => {
@@ -224,6 +229,42 @@ export function CheckoutClient() {
                         {t.methodEta} · {t.sampleFee}
                       </p>
                     </div>
+                  </div>
+                  <div
+                    className="mt-5 rounded-xl border border-border p-4"
+                    data-testid="checkout-variant-review"
+                  >
+                    <h3 className="text-sm font-extrabold">
+                      Item options for fulfillment preview
+                    </h3>
+                    <ul className="mt-3 space-y-2 text-xs text-muted">
+                      {cart.rows.map(({ item, product, variant }) => (
+                        <li
+                          key={`${item.productId}/${item.variantId ?? 'base'}`}
+                        >
+                          <span className="font-semibold text-ink">
+                            {product.title}
+                          </span>
+                          {' · '}
+                          {item.quantity} item(s)
+                          {variant
+                            ? ` · SKU ${variant.sku}`
+                            : ' · Standard item'}
+                          {variant &&
+                            Object.entries(variant.options).map(
+                              ([key, value]) => ` · ${key}: ${value}`,
+                            )}
+                        </li>
+                      ))}
+                    </ul>
+                    <p
+                      className="mt-3 text-xs leading-5 text-muted"
+                      data-testid="checkout-quote-boundary"
+                    >
+                      {alignment?.ready
+                        ? 'Preview selections are ready for a future server quote. Taxes, delivery eligibility and final prices are not confirmed.'
+                        : 'A specific destination is required for a future server quote. This page remains a non-payment preview.'}
+                    </p>
                   </div>
                   <div
                     className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950"

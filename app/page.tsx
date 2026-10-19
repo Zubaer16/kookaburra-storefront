@@ -19,7 +19,6 @@ import { CollectionTabs } from '@/components/store/collection-tabs'
 import { categories } from '@/lib/catalog'
 import { dictionary } from '@/lib/i18n'
 import { finishCopy } from '@/lib/finish-copy'
-import { useCommerceStore } from '@/stores/commerce-store'
 import { useStoreReady } from '@/hooks/use-store-ready'
 
 export default function HomePage() {

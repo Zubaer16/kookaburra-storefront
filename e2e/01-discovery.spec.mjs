@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { action, click, fill, go, press, select } from './helpers.mjs'
+import { click, fill, go, press, select } from './helpers.mjs'
 
 test('homepage → collections → shop', async ({ page }) => {
   await go(page, '/')

@@ -129,3 +129,57 @@ test('destination country selection works without resetting the address', async 
     page.getByRole('button', { name: /secure payment coming later/i }),
   ).toBeDisabled()
 })
+
+test('color-only variant keeps SKU and selection in checkout fulfillment preview', async ({
+  page,
+}) => {
+  await go(page, '/product/everyday-canvas-tote')
+  await click(
+    page,
+    page
+      .getByRole('group', { name: /color/i })
+      .getByRole('button', { name: 'Natural' }),
+    'Choose Natural tote color',
+  )
+  await click(
+    page,
+    page.getByTestId('product-add-to-cart'),
+    'Add Natural tote to cart',
+  )
+  await go(page, '/checkout')
+  await completeAddress(page)
+  await click(
+    page,
+    page.getByRole('button', { name: /review your order/i }),
+    'Review selected tote variant',
+  )
+  const selection = page.getByTestId('checkout-variant-review')
+  await expect(selection).toContainText('Everyday Canvas Tote Bag')
+  await expect(selection).toContainText('P-BAG-ONESIZE-NATURAL')
+  await expect(selection).toContainText('color: Natural')
+  await expect(page.getByTestId('checkout-quote-boundary')).toContainText(
+    'future server quote',
+  )
+  await expect(
+    page.getByRole('button', { name: /secure payment coming later/i }),
+  ).toBeDisabled()
+})
+
+test('other destination is never mapped to an invented ISO code or real quote', async ({
+  page,
+}) => {
+  await addHeadphones(page)
+  await go(page, '/checkout')
+  await completeAddress(page, 'Other country')
+  await click(
+    page,
+    page.getByRole('button', { name: /review your order/i }),
+    'Review unspecified destination',
+  )
+  await expect(page.getByTestId('checkout-quote-boundary')).toContainText(
+    'specific destination',
+  )
+  await expect(
+    page.getByRole('button', { name: /secure payment coming later/i }),
+  ).toBeDisabled()
+})

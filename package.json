@@ -16,7 +16,8 @@
     "test:e2e:list": "playwright test --list",
     "test:e2e:report": "playwright show-report",
     "verify:e2e": "node scripts/verify-e2e.mjs",
-    "verify:usd-e2e": "node scripts/verify-usd-e2e.mjs"
+    "verify:usd-e2e": "node scripts/verify-usd-e2e.mjs",
+    "verify:compatibility": "node scripts/verify-compatibility.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",

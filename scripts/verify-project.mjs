@@ -18,14 +18,17 @@ const routes = [
   'app/track/page.tsx',
 ]
 for (const route of routes) source(route)
-for (const module of [
+for (const sourceFile of [
   'components/layout/header.tsx',
   'components/layout/footer.tsx',
   'components/checkout/checkout-client.tsx',
   'stores/commerce-store.ts',
 ]) {
-  const code = source(module)
-  assert(!/[\u0980-\u09ff]/.test(code), `Unexpected Bengali UI text: ${module}`)
+  const code = source(sourceFile)
+  assert(
+    !/[\u0980-\u09ff]/.test(code),
+    `Unexpected Bengali UI text: ${sourceFile}`,
+  )
 }
 // Scan public UI/source for Bengali letters.
 function inspect(dir) {

@@ -22,3 +22,7 @@ An independent NestJS API, PostgreSQL database, admin interface and Flutter appl
 Local cart prices, delivery fees and stock cannot be trusted for checkout. The backend must recalculate authoritative pricing, reserve/validate inventory, apply tax/shipping policies, enforce account authorization and verify signed payment events. Avoid sending private customer data to third parties without purpose and appropriate safeguards.
 
 See `docs/PAYMENTS.md` for the selected Stripe test-mode integration plan and `docs/FRONTEND_RELEASE_GATE.md` for readiness checks.
+
+## Admin / Customer contract boundary
+
+Storefront fixture catalog and Admin fixtures remain separate. `lib/api/storefront-adapters.ts` maps the existing sample catalog into the shared draft DTO without mutating IDs, stock or USD prices. `lib/api/checkout-alignment.ts` builds only non-submitted quote requests and illustrative line snapshots; it never asserts payment totals. `lib/api/content-alignment.ts` establishes future homepage merchandising schemas, not live publication. See `docs/CROSS_FRONTEND_CONTRACT.md` for explicit mapping and server-owned settlement requirements.

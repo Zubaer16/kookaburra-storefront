@@ -22,7 +22,7 @@ export function ProductOptions({
 }: Props) {
   const t = usePreviewCopy()
   const locale = useDisplayLocale()
-  const variants = product.variants ?? []
+  const variants = useMemo(() => product.variants ?? [], [product.variants])
   const colors = useMemo(
     () => [
       ...new Set(

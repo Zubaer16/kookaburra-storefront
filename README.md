@@ -63,6 +63,10 @@ docs/              Architecture, payment plan, QA and Flutter parity
 scripts/           Project verification
 ```
 
+## Admin and Storefront data compatibility
+
+The Storefront includes read-only projections for the shared Admin/API draft: products, categories, variants, cart lines, country codes and future quote requests. The checkout review displays selected SKU/options but does not submit a quote or take payment. Run `npm run verify:compatibility` for the contract checks; see [Cross-Frontend Data Contract](docs/CROSS_FRONTEND_CONTRACT.md) for mapping decisions and backend handoff.
+
 ## Architecture & rollout
 
 This repository contains the **customer web frontend only**. The planned independent commerce API, database, admin dashboard and Flutter client are separate deliverables. Browser cart totals are never payment authority; the future backend must own customer sessions, quotes, inventory, order creation, tax/shipping and payment state.
